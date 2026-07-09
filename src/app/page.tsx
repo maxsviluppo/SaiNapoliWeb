@@ -35,12 +35,11 @@ export default function Home() {
 
   // States for video playlist and crossfade
   const videoPlaylist = [
-    "https://www.dropbox.com/scl/fi/jixdig20hxxq1ac3a8t4b/fai_un_video_con_uno_zoom_vdal.mp4?rlkey=t4s3ywf1wsuqqlt9xvtmdtxi1&st=zh26fuem&raw=1",
-    "https://www.dropbox.com/scl/fi/9le40s8pqk05i6e4ciw12/ora_fai_un_video_di_un_autocla.mp4?rlkey=vr3zykccqtwbjas6gjmm1egre&st=304ah2sm&raw=1"
+    "https://www.dropbox.com/scl/fi/f0szt9y9b1fcdf0ilckcb/crea_un_video_che_rappresenta.mp4?rlkey=b4ywtw7zeyxbt8wovva9jqg87&st=ub5znw3f&raw=1", // Piscina
+    "https://www.dropbox.com/scl/fi/5vnnmfpyfx0qg10yjcc8k/crea_minivideo_senza_musica_pe-1.mp4?rlkey=ihxy41mb0wx8a2krhegxk3yhi&st=be8ufw3i&raw=1", // Minivideo
+    "https://www.dropbox.com/scl/fi/9le40s8pqk05i6e4ciw12/ora_fai_un_video_di_un_autocla.mp4?rlkey=vr3zykccqtwbjas6gjmm1egre&st=304ah2sm&raw=1" // Autoclave
   ];
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
-  const [nextVideoIdx, setNextVideoIdx] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     // Animate clients count from 0 to 1000
@@ -75,7 +74,7 @@ export default function Home() {
 
     // Auto switch video every 15 seconds to ensure clean overlay transition without buffering flash
     const videoTimer = setInterval(() => {
-      setActiveVideoIdx((prev) => (prev === 0 ? 1 : 0));
+      setActiveVideoIdx((prev) => (prev + 1) % 3);
     }, 15000);
 
     const handleScroll = () => {
@@ -354,7 +353,7 @@ export default function Home() {
         className="relative pt-32 pb-32 lg:pt-48 lg:pb-40 overflow-hidden bg-slate-950 text-white"
       >
         
-        {/* Background Video 1 (Primo Video Zoom) */}
+        {/* Background Video 1 (Piscina) */}
         <video 
           autoPlay 
           loop
@@ -368,7 +367,7 @@ export default function Home() {
           <source src={videoPlaylist[0]} type="video/mp4" />
         </video>
 
-        {/* Background Video 2 (Secondo Video Autoclave) */}
+        {/* Background Video 2 (Minivideo) */}
         <video 
           autoPlay
           loop
@@ -380,6 +379,20 @@ export default function Home() {
           }`}
         >
           <source src={videoPlaylist[1]} type="video/mp4" />
+        </video>
+
+        {/* Background Video 3 (Autoclave) */}
+        <video 
+          autoPlay
+          loop
+          muted 
+          playsInline
+          preload="auto"
+          className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-[1500ms] ease-in-out ${
+            activeVideoIdx === 2 ? 'opacity-85' : 'opacity-0 pointer-events-none'
+          }`}
+        >
+          <source src={videoPlaylist[2]} type="video/mp4" />
         </video>
         
         {/* Dark overlay gradient softened to make the video clearer/brighter */}
