@@ -585,6 +585,114 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        {/* PRESTAZIONI AGGIUNTIVE: 2 COLONNE + BOX RETTANGOLARE SOTTO */}
+        <div className="mt-12 space-y-8">
+          
+          {/* Due box in rigo a 2 colonne */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Box 1: SCIA Alimentare */}
+            <div className="bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row group hover:shadow-2xl transition-all duration-300">
+              <div className="md:w-2/5 relative min-h-[200px] bg-[url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2070')] bg-cover bg-center group-hover:scale-105 transition-transform duration-500" />
+              <div className="p-6 md:w-3/5 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black text-sai-green uppercase tracking-wider block">Procedure Amministrative</span>
+                  <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-sai-blue transition-colors uppercase">SCIA Alimentare</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Se vuoi avviare un esercizio alimentare o attività di somministrazione di alimenti e bevande, o occupare suolo pubblico, la SCIA (Segnalazione Certificata di Inizio Attività) è il procedimento autorizzatorio ideale. Con la SCIA, puoi avviare rapidamente la tua attività senza dover attendere lunghi tempi di autorizzazione. Offriamo supporto completo nella preparazione e presentazione della SCIA, assicurandoci che tutti i requisiti normativi siano rispettati. Scegli la comodità e la velocità della SCIA per dare vita al tuo esercizio e iniziare a servire i tuoi clienti senza intoppi.
+                  </p>
+                </div>
+                <div className="pt-2">
+                  <a 
+                    href="#contatti"
+                    onClick={() => {
+                      const contactSection = document.getElementById('contatti');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                        const selectEl = document.querySelector('select');
+                        if (selectEl) { selectEl.value = 'haccp'; }
+                      }
+                    }}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-sai-blue hover:text-sai-blue-light transition-colors group"
+                  >
+                    Richiedi SCIA
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Box 2: Pratiche Edilizie */}
+            <div className="bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row group hover:shadow-2xl transition-all duration-300">
+              <div className="md:w-2/5 relative min-h-[200px] bg-[url('https://images.unsplash.com/photo-1503387837-b154d5074bd2?q=80&w=2070')] bg-cover bg-center group-hover:scale-105 transition-transform duration-500" />
+              <div className="p-6 md:w-3/5 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black text-sai-green uppercase tracking-wider block">Edilizia & Ambiente</span>
+                  <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-sai-blue transition-colors uppercase">Pratiche Edilizie, Urbanistiche e Catastali</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Realizzazione di pratiche edilizie, urbanistiche e catastali, offrendo servizi di progettazione tecnica e gestione delle autorizzazioni uniche ambientali (AUA). Affidandoti a noi, avrai il supporto di professionisti qualificati e competenti, garantendo una gestione efficiente e tempestiva di tutte le procedure necessarie. La nostra esperienza ci consente di semplificare il processo e assicurare il rispetto delle normative ambientali e urbanistiche, permettendoti di concentrarti sul tuo progetto con tranquillità e sicurezza.
+                  </p>
+                </div>
+                <div className="pt-2">
+                  <a 
+                    href="#contatti"
+                    onClick={() => {
+                      const contactSection = document.getElementById('contatti');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                        const selectEl = document.querySelector('select');
+                        if (selectEl) { selectEl.value = 'sicurezza'; }
+                      }
+                    }}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-sai-blue hover:text-sai-blue-light transition-colors group"
+                  >
+                    Richiedi Supporto Tecnico
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Box rettangolare sotto */}
+          <div className="bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row group hover:shadow-2xl transition-all duration-300">
+            <div className="md:w-1/4 relative min-h-[180px] bg-[url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069')] bg-cover bg-center group-hover:scale-105 transition-transform duration-500" />
+            <div className="p-6 md:w-3/4 flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <span className="text-[10px] font-black text-red-500 uppercase tracking-wider block">Verifiche Obbligatorie DPR 462/01</span>
+                <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-sai-blue transition-colors uppercase">Verifica di Messa a Terra Impianti Elettrici</h3>
+                <div className="text-xs text-slate-500 space-y-2 leading-relaxed">
+                  <p>
+                    <strong>DPR 462/2001:</strong> in qualsiasi luogo di lavoro c’è l’obbligo di richiedere la verifica periodica dell’impianto di messa a terra e dei dispositivi di protezione contro le scariche atmosferiche.
+                  </p>
+                  <p>
+                    Nei luoghi con pericolo di esplosione (D.M. 22/11/58) va richiesta la verifica periodica dell’intero impianto elettrico.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-2">
+                <a 
+                  href="#contatti"
+                  onClick={() => {
+                    const contactSection = document.getElementById('contatti');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth' });
+                      const selectEl = document.querySelector('select');
+                      if (selectEl) { selectEl.value = 'sicurezza'; }
+                    }
+                  }}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-sai-blue hover:text-sai-blue-light transition-colors group"
+                >
+                  Verifica Impianto
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       {/* CHI SIAMO / VALORI */}
