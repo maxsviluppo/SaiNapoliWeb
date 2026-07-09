@@ -457,8 +457,8 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Bordino verde a tema di 6px sul bordo inferiore curvato ad arco dell'header */}
-        <div className="absolute bottom-0 left-0 w-full h-[6px] bg-sai-green z-25" />
+        {/* Bordino verde a tema di 6px sul bordo inferiore dell'header */}
+        <div className="absolute bottom-0 left-0 w-full h-[6px] bg-sai-green z-10" />
       </header>
 
       {/* QUICK FACTS STATS */}
