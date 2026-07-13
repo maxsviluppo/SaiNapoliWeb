@@ -281,65 +281,6 @@ export default function PrivacyPage() {
 
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-slate-950 text-slate-400 py-16 px-6 border-t border-slate-900 mt-auto">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
-          
-          {/* Company Info */}
-          <div className="md:col-span-5 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="text-xl font-black text-white">S.A.I. s.r.l.</span>
-              <span className="text-[10px] tracking-wider uppercase bg-sai-green/20 text-sai-green-light px-2.5 py-1 rounded font-bold">Igienico Ambientale</span>
-            </div>
-            <p className="text-xs leading-relaxed text-slate-400 max-w-sm">
-              Da oltre 20 anni supportiamo le attività commerciali, le strutture ricettive e sanitarie ad adempiere alle normative in materia di sicurezza sul lavoro, igiene alimentare, controllo acque e prevenzione legionellosi.
-            </p>
-          </div>
-
-          {/* Contact Details */}
-          <div className="md:col-span-4 space-y-4 text-xs">
-            <span className="font-extrabold text-white uppercase tracking-wider block">S.A.I. S.r.l.</span>
-            <div className="space-y-2.5">
-              <div className="flex items-start gap-2.5">
-                <MapPin size={16} className="text-sai-green-light shrink-0" />
-                <span>Via Luigi La Vista, 5 — 80122 Napoli</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone size={16} className="text-sai-green-light shrink-0" />
-                <span>Tel. 081 06 08 910 | +39 393 88 79 849</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail size={16} className="text-sai-green-light shrink-0" />
-                <a href="mailto:saluteambienteigiene@gmail.com" className="hover:text-white transition-colors">saluteambienteigiene@gmail.com</a>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="md:col-span-3 space-y-4 text-xs">
-            <span className="font-extrabold text-white uppercase tracking-wider block">Navigazione</span>
-            <div className="flex flex-col gap-2">
-              <a href="/" className="hover:text-white transition-colors">Home</a>
-              <a href="/chisiamo" className="hover:text-white transition-colors">Chi Siamo</a>
-              <a href="/sicurezza-sul-lavoro" className="hover:text-white transition-colors">Sicurezza sul Lavoro</a>
-              <a href="/legionella" className="hover:text-white transition-colors">Prevenzione Legionella</a>
-              <a href="/haccp" className="hover:text-white transition-colors">Igiene HACCP</a>
-              <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-slate-900 text-center text-[10px] text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} S.A.I. Salute Ambiente Igiene s.r.l. - Tutti i diritti riservati.</p>
-          <div className="flex gap-4">
-            <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="/cookie" className="hover:text-white transition-colors">Cookie Policy</a>
-          </div>
-        </div>
-      </footer>
-
     </div>
   );
 }

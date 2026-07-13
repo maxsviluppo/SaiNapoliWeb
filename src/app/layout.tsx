@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 import CookieBanner from "@/components/CookieBanner";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -37,6 +38,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 selection:bg-sai-green selection:text-white">
         {children}
+        <Footer />
         <CookieBanner />
       </body>
     </html>
