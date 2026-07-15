@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Shield, Settings, Globe, FileText, Check, Save, Eye, Cpu, Database, 
+  Shield, Settings, Globe, FileText, Check, Save, Eye, EyeOff, Cpu, Database, 
   MapPin, Phone, Mail, Clock, MessageSquare, AlertCircle, AlertTriangle, 
-  ArrowUpRight, BarChart3, Lock, LogOut, RefreshCw, Key
+  ArrowUpRight, BarChart3, Lock, LogOut, RefreshCw, Key, User
 } from 'lucide-react';
 
 type Tab = 'dati' | 'seo' | 'pagine' | 'ai' | 'traffico';
@@ -18,8 +18,10 @@ interface PageSeoConfig {
 }
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   
   const [activeTab, setActiveTab] = useState<Tab>('dati');
@@ -82,14 +84,14 @@ export default function AdminDashboard() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Default password as requested
-    const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'saiadmin2026';
-    if (password === correctPassword) {
+    const correctUser = 'Sainapoli';
+    const correctPassword = 'Sainapoli!2026';
+    if (username === correctUser && password === correctPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem('sai_admin_logged', 'true');
       setLoginError('');
     } else {
-      setLoginError('Password non corretta. Riprova.');
+      setLoginError('Credenziali non corrette. Riprova.');
     }
   };
 
@@ -284,17 +286,39 @@ export default function AdminDashboard() {
 
           <form onSubmit={handleLogin} className="w-full space-y-5">
             <div>
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Password di Accesso</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Nome Utente</label>
               <div className="relative">
                 <input 
-                  type="password" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Inserisci la password..." 
+                  type="text" 
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Inserisci l'utente..." 
                   className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pl-12 text-sm text-slate-900 focus:outline-none focus:border-sai-blue transition-colors font-medium"
                   required
                 />
+                <User className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Password di Accesso</label>
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Inserisci la password..." 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pl-12 pr-12 text-sm text-slate-900 focus:outline-none focus:border-sai-blue transition-colors font-medium"
+                  required
+                />
                 <Lock className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-none cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
               {loginError && (
                 <div className="flex items-center gap-2 mt-2 text-red-600">
