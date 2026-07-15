@@ -1,8 +1,23 @@
 import fs from 'fs';
 import path from 'path';
 
-// Local file path
-const getFilePath = () => path.join(process.cwd(), 'src', 'data', 'locales', 'it.json');
+const getFilePath = () => {
+  const possiblePaths = [
+    path.join(process.cwd(), 'src', 'data', 'locales', 'it.json'),
+    path.join(process.cwd(), 'sainapoliweb-main', 'src', 'data', 'locales', 'it.json')
+  ];
+
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
+  }
+
+  const baseDir = process.cwd().endsWith('sainapoliweb-main') 
+    ? process.cwd() 
+    : path.join(process.cwd(), 'sainapoliweb-main');
+  return path.join(baseDir, 'src', 'data', 'locales', 'it.json');
+};
 
 export async function getLocales() {
   try {
