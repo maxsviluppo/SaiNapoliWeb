@@ -168,7 +168,12 @@ export default function AdminDashboard() {
       if (res.ok) {
         setLocales(updatedLocales);
         setSaveStatus('success');
-        setSaveMessage('Dati salvati con successo su file locale!');
+        const resData = await res.json().catch(() => ({}));
+        if (resData.warning) {
+          setSaveMessage(`✓ Dati salvati! Nota: ${resData.warning}`);
+        } else {
+          setSaveMessage('Dati salvati con successo su file locale!');
+        }
       } else {
         const errData = await res.json().catch(() => ({}));
         setSaveStatus('error');
@@ -182,7 +187,7 @@ export default function AdminDashboard() {
       setIsSaving(false);
       setTimeout(() => {
         setSaveStatus('idle');
-      }, 4000);
+      }, 5000);
     }
   };
 
@@ -211,7 +216,12 @@ export default function AdminDashboard() {
         setLocales(updated);
         setEditingPageId(null);
         setSaveStatus('success');
-        setSaveMessage(`SEO pagina aggiornato con successo!`);
+        const resData = await res.json().catch(() => ({}));
+        if (resData.warning) {
+          setSaveMessage(`✓ SEO pagina aggiornato! Nota: ${resData.warning}`);
+        } else {
+          setSaveMessage(`SEO pagina aggiornato con successo!`);
+        }
       } else {
         const errData = await res.json().catch(() => ({}));
         alert(`Errore nel salvataggio: ${errData.error || 'Errore del server.'}`);
