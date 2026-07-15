@@ -1,10 +1,35 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink, Shield } from 'lucide-react';
 
 export default function Footer() {
+  const [azienda, setAzienda] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/save-locales')
+      .then(res => res.json())
+      .then(resData => {
+        if (resData.success && resData.data?.azienda) {
+          setAzienda(resData.data.azienda);
+        }
+      })
+      .catch(err => console.error('Error loading footer company data:', err));
+  }, []);
+
+  const name = azienda?.name || "S.A.I. s.r.l.";
+  const address = azienda?.address || "Via Luigi La Vista, 5 - Napoli (Italy)";
+  const phone = azienda?.phone || "081 06 08 910";
+  const phoneMobile = azienda?.phone_mobile || "+39 393 88 79 849";
+  const email = azienda?.email || "saluteambienteigiene@gmail.com";
+  const pec = azienda?.pec || "sai.srl@pecaruba.it";
+  const hours = azienda?.hours || "LUN/VEN — 09:00 / 18:00";
+  
+  const facebook = azienda?.social_facebook || "https://www.facebook.com/people/Salute-Ambiente-Igiene/100094422848740/?sk=about";
+  const instagram = azienda?.social_instagram || "https://www.instagram.com/saluteambienteigiene/?igshid=OGQ5ZDc2ODk2ZA%3D%3D";
+  const linkedin = azienda?.social_linkedin || "https://www.linkedin.com/company/salute-ambiente-igiene/?viewAsMember=true";
+
   return (
     <footer className="bg-slate-900 text-white border-t border-white/5 py-12 mt-auto w-full">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -22,7 +47,7 @@ export default function Footer() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-extrabold tracking-tight text-white leading-none">S.A.I. s.r.l.</span>
+              <span className="text-lg font-extrabold tracking-tight text-white leading-none">{name}</span>
               <span className="text-[10px] font-bold text-sai-green-light tracking-wider uppercase">Salute Ambiente Igiene</span>
             </div>
           </div>
@@ -30,39 +55,45 @@ export default function Footer() {
             Consulenza ed assistenza tecnica alle imprese per l'igiene, la sicurezza sul lavoro e la tutela dell'ambiente.
           </p>
           <div className="flex gap-3 pt-2">
-            <a 
-              href="https://www.facebook.com/people/Salute-Ambiente-Igiene/100094422848740/?sk=about" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-sai-blue hover:border-sai-blue transition-all"
-              title="Facebook S.A.I. s.r.l."
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-              </svg>
-            </a>
-            <a 
-              href="https://www.instagram.com/saluteambienteigiene/?igshid=OGQ5ZDc2ODk2ZA%3D%3D" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-pink-600 hover:border-pink-600 transition-all"
-              title="Instagram S.A.I. s.r.l."
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-            <a 
-              href="https://www.linkedin.com/company/salute-ambiente-igiene/?viewAsMember=true" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-sky-700 hover:border-sky-700 transition-all"
-              title="LinkedIn S.A.I. s.r.l."
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
+            {facebook && facebook !== '#' && (
+              <a 
+                href={facebook}
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-sai-blue hover:border-sai-blue transition-all"
+                title="Facebook S.A.I. s.r.l."
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                </svg>
+              </a>
+            )}
+            {instagram && instagram !== '#' && (
+              <a 
+                href={instagram}
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-pink-600 hover:border-pink-600 transition-all"
+                title="Instagram S.A.I. s.r.l."
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+            )}
+            {linkedin && linkedin !== '#' && (
+              <a 
+                href={linkedin}
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-sky-700 hover:border-sky-700 transition-all"
+                title="LinkedIn S.A.I. s.r.l."
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            )}
           </div>
         </div>
 
@@ -88,36 +119,38 @@ export default function Footer() {
             <p className="flex flex-col gap-2">
               <span className="flex items-center gap-2">
                 <Phone size={14} className="text-sai-green shrink-0" />
-                <span><strong>Fisso:</strong> <a href="tel:0810608910" className="hover:text-white transition-colors">081 06 08 910</a></span>
+                <span><strong>Fisso:</strong> <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{phone}</a></span>
               </span>
               <span className="flex items-center gap-2">
                 <Phone size={14} className="text-sai-green shrink-0" />
-                <span><strong>Cell:</strong> <a href="tel:+393938879849" className="hover:text-white transition-colors">+39 393 88 79 849</a></span>
+                <span><strong>Cell:</strong> <a href={`tel:${phoneMobile.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{phoneMobile}</a></span>
               </span>
-              <span className="text-[10px] text-slate-500 ml-6 block leading-none">Orari: Lun-Ven 09:00 - 18:00</span>
+              <span className="text-[10px] text-slate-500 ml-6 block leading-none">Orari: {hours}</span>
             </p>
             <p className="flex flex-col gap-2 pt-1">
               <span className="flex items-center gap-2">
                 <Mail size={14} className="text-sai-green shrink-0" />
-                <span><strong>Email:</strong> <a href="mailto:saluteambienteigiene@gmail.com" className="hover:text-white transition-colors">saluteambienteigiene@gmail.com</a></span>
+                <span><strong>Email:</strong> <a href={`mailto:${email}`} className="hover:text-white transition-colors">{email}</a></span>
               </span>
-              <span className="flex items-center gap-2">
-                <Mail size={14} className="text-sai-green shrink-0" />
-                <span><strong>PEC:</strong> <a href="mailto:sai.srl@pecaruba.it" className="hover:text-white transition-colors">sai.srl@pecaruba.it</a></span>
-              </span>
+              {pec && (
+                <span className="flex items-center gap-2">
+                  <Mail size={14} className="text-sai-green shrink-0" />
+                  <span><strong>PEC:</strong> <a href={`mailto:${pec}`} className="hover:text-white transition-colors">{pec}</a></span>
+                </span>
+              )}
             </p>
             <p className="flex flex-col gap-2 pt-1">
               <span className="flex items-start gap-2">
                 <MapPin size={14} className="text-sai-green shrink-0 mt-0.5" />
                 <span>
-                  <strong>Sede:</strong> Via Luigi La Vista, 5 - Napoli (Italy)<br/>
+                  <strong>Sede:</strong> {address}<br/>
                   <span className="text-[10px] text-slate-500">Si riceve su appuntamento</span>
                 </span>
               </span>
             </p>
             <div className="pt-1">
               <a 
-                href="https://wa.me/393938879849" 
+                href={`https://wa.me/${phoneMobile.replace(/[^0-9]/g, '')}`} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors text-[10px]"
@@ -134,11 +167,15 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 border-t border-white/5 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-[10px] text-slate-500">
-          © {new Date().getFullYear()} S.A.I. s.r.l. Tutti i diritti riservati.
+          © {new Date().getFullYear()} {name}. Tutti i diritti riservati.
         </p>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           <a href="/privacy" className="text-[10px] text-slate-500 hover:text-white transition-colors">Privacy Policy</a>
           <a href="/privacy" className="text-[10px] text-slate-500 hover:text-white transition-colors">Cookie Policy</a>
+          <a href="/admin" className="text-[10px] text-slate-500 hover:text-white transition-colors flex items-center gap-1" title="Area Amministrativa">
+            <Shield size={10} className="text-sai-green shrink-0" />
+            <span>Area Riservata</span>
+          </a>
           <a href="https://www.codecafe.it" target="_blank" rel="noopener noreferrer" className="text-[10px] text-purple-400 hover:underline flex items-center gap-1 font-bold">
             Realizzato da CODECAFE <ExternalLink size={8} />
           </a>

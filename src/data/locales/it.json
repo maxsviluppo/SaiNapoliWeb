@@ -1,0 +1,84 @@
+{
+  "azienda": {
+    "name": "S.A.I. s.r.l. - Salute Ambiente Igiene",
+    "favicon": "/logo.png",
+    "address": "Via Luigi La Vista, 5 - 80122 Napoli (NA) ITALY",
+    "address_legal": "Via Cesare Sersale 14/16 — 80139 Napoli (NA) ITALY",
+    "email": "saluteambienteigiene@gmail.com",
+    "contact_email": "saluteambienteigiene@gmail.com",
+    "pec": "sai.srl@pecaruba.it",
+    "phone": "081 06 08 910",
+    "phone_mobile": "+39 393 88 79 849",
+    "hours": "LUN/VEN — 09:00 / 18:00",
+    "social_facebook": "#",
+    "social_instagram": "#",
+    "social_linkedin": "#"
+  },
+  "seo": {
+    "global": {
+      "title": "S.A.I. - Salute, Ambiente, Igiene | Sicurezza sul Lavoro e HACCP Napoli",
+      "description": "Da oltre 20 anni leader a Napoli nella consulenza per la Sicurezza sul Lavoro (D.Lgs. 81/08), Sicurezza Alimentare (HACCP), Analisi Legionella, Gas Radon e Formazione Professionale Certificata.",
+      "keywords": "Sicurezza sul lavoro Napoli, HACCP Napoli, Consulenza sicurezza aziendale, Legionella Napoli, Radon Campania, Corsi di formazione sicurezza, haccp napoli, sicurezza sul lavoro campania"
+    },
+    "integrations": {
+      "google_analytics": "",
+      "google_search_console": "",
+      "ads_txt": "# File Ads.txt per la monetizzazione e tracciamento pubblicitario"
+    },
+    "home": {
+      "title": "S.A.I. s.r.l. | Consulenza Sicurezza sul Lavoro e HACCP Napoli",
+      "description": "Consulenza professionale a Napoli e Campania per sicurezza sul lavoro, igiene alimentar, radon e corsi di formazione certificati D.Lgs. 81/08.",
+      "keywords": "haccp napoli, sicurezza sul lavoro napoli, corsi sicurezza campania, consulenza d.lgs 81/08, autocontrollo alimentare"
+    },
+    "analisi-acque": {
+      "title": "Analisi Acque e Piscine Napoli | Consulenza Chimica e Microbiologica S.A.I.",
+      "description": "Analisi chimiche e batteriologiche per acque potabili, reflue e piscine a Napoli e provincia. Certificazioni ufficiali e piani di autocontrollo.",
+      "keywords": "analisi acque napoli, controllo microbiologico acqua, analisi piscine campania, parametri chimici acqua"
+    },
+    "chisiamo": {
+      "title": "Chi Siamo | S.A.I. s.r.l. Consulenza Sicurezza e Ambiente Napoli",
+      "description": "Conosci la storia di S.A.I. s.r.l., da oltre 20 anni partner delle imprese a Napoli per l'adeguamento normativo, la sicurezza e l'igiene nei luoghi di lavoro.",
+      "keywords": "consulenza aziendale napoli, team esperti sicurezza, storia s.a.i. srl, ambiente e igiene napoli"
+    },
+    "formazione": {
+      "title": "Corsi di Formazione Sicurezza sul Lavoro e HACCP Napoli | S.A.I.",
+      "description": "Formazione professionale e corsi certificati per RSPP, RLS, Antincendio, Primo Soccorso e addetti HACCP a Napoli. Corsi in aula e online.",
+      "keywords": "corsi sicurezza napoli, formazione haccp campania, corso antincendio napoli, attestato primo soccorso"
+    },
+    "gasradon": {
+      "title": "Misurazione e Bonifica Gas Radon Campania | S.A.I. s.r.l.",
+      "description": "Servizio qualificato di misurazione concentrazione Gas Radon a Napoli e Campania. Adeguamento legge regionale e relazioni tecniche di conformità.",
+      "keywords": "gas radon campania, misurazione radon napoli, bonifica radon locali commerciali, obbligo legge radon"
+    },
+    "gdpr": {
+      "title": "Adeguamento Privacy e GDPR Napoli | Consulenza Sicurezza Dati S.A.I.",
+      "description": "Servizio completo di consulenza per l'adeguamento al Regolamento UE 2016/679 (GDPR) a Napoli. Redazione registro trattamenti e nomina DPO.",
+      "keywords": "gdpr napoli, adeguamento privacy campania, consulenza dpo, regolamento europeo privacy"
+    },
+    "haccp": {
+      "title": "Consulenza e Corsi HACCP Napoli | Manuale Autocontrollo Alimentare",
+      "description": "Leader a Napoli nella consulenza HACCP. Redazione manuale autocontrollo, corsi OSA e analisi tamponi superficiali per bar, ristoranti e hotel.",
+      "keywords": "haccp napoli, corso haccp napoli, manuale autocontrollo alimentare, tamponi superficiali campania, consulenza osa"
+    },
+    "legionella": {
+      "title": "Valutazione Rischio Legionella Napoli | Prevenzione e Bonifica Acque",
+      "description": "Piano di valutazione del rischio Legionella per hotel, cliniche, palestre e condomini a Napoli. Analisi microbiologiche e protocolli di disinfezione.",
+      "keywords": "legionella napoli, valutazione rischio legionellosi, analisi acqua legionella, sanificazione impianti idrici"
+    },
+    "privacy": {
+      "title": "Privacy Policy | S.A.I. s.r.l. Salute Ambiente Igiene",
+      "description": "Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 679/2016 per gli utenti del sito web di S.A.I. s.r.l.",
+      "keywords": "privacy policy, trattamento dati personali, sai srl privacy"
+    },
+    "sicurezza-sul-lavoro": {
+      "title": "Sicurezza sul Lavoro Napoli D.Lgs. 81/08 | Redazione DVR S.A.I.",
+      "description": "Consulenza completa per la sicurezza sul lavoro a Napoli. Redazione DVR, valutazione rischi, sorveglianza sanitaria e corsi di formazione aziendali.",
+      "keywords": "sicurezza sul lavoro napoli, dvr napoli, d.lgs 81/08 campania, medicina del lavoro napoli, rspp esterno"
+    },
+    "studiodontoiatrici": {
+      "title": "Consulenza Sicurezza e HACCP Studi Odontoiatrici Napoli | S.A.I.",
+      "description": "Servizi specifici per studi dentistici e odontoiatrici a Napoli: verifica impianti a pressione (autoclavi), protocolli legionella e sicurezza 81/08.",
+      "keywords": "sicurezza studi dentistici, autoclavi odontoiatri napoli, legionella studi medici, dvr studi dentistici"
+    }
+  }
+}
