@@ -170,13 +170,14 @@ export default function AdminDashboard() {
         setSaveStatus('success');
         setSaveMessage('Dati salvati con successo su file locale!');
       } else {
+        const errData = await res.json().catch(() => ({}));
         setSaveStatus('error');
-        setSaveMessage('Errore nel salvataggio dei dati.');
+        setSaveMessage(`Errore nel salvataggio: ${errData.error || 'Errore interno.'}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setSaveStatus('error');
-      setSaveMessage('Si è verificato un errore di rete.');
+      setSaveMessage(`Errore di rete: ${err.message || err}`);
     } finally {
       setIsSaving(false);
       setTimeout(() => {
@@ -212,7 +213,8 @@ export default function AdminDashboard() {
         setSaveStatus('success');
         setSaveMessage(`SEO pagina aggiornato con successo!`);
       } else {
-        alert('Errore nel salvataggio del SEO della pagina.');
+        const errData = await res.json().catch(() => ({}));
+        alert(`Errore nel salvataggio: ${errData.error || 'Errore del server.'}`);
       }
     } catch (err) {
       console.error(err);
