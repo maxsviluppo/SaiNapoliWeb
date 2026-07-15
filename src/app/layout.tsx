@@ -28,7 +28,10 @@ export async function generateMetadata(): Promise<Metadata> {
     if (locales.seo?.global?.keywords) keywords = locales.seo.global.keywords;
     if (locales.azienda?.favicon) favicon = locales.azienda.favicon;
     if (locales.seo?.integrations?.google_search_console) {
-      googleSearchConsole = locales.seo.integrations.google_search_console;
+      googleSearchConsole = locales.seo.integrations.google_search_console.trim();
+      if (googleSearchConsole.includes("=")) {
+        googleSearchConsole = googleSearchConsole.split("=")[1].trim();
+      }
     }
   } catch (err) {
     console.error("Error generating dynamic metadata:", err);
