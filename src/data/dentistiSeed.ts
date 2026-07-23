@@ -8,6 +8,8 @@ export interface Payment {
   invoiceNumber?: string;
   invoiceDate?: string;
   invoiceAmount?: number;
+  refertoData?: string;
+  consegnaReferti?: string;
 }
 
 export interface Referto {

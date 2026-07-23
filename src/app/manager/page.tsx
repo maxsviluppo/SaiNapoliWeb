@@ -2370,30 +2370,32 @@ export default function ManagerDashboard() {
                 <div className="lg:col-span-7 space-y-6">
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Scadenzario Pagamenti & Fatture</h4>
-                      <span className="text-[10px] text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded-md">Aggiornamento Automatico</span>
+                      <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Scadenzario Pagamenti & Prossima Scadenza</h4>
+                      <span className="text-[10px] text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded-md">Aggiornamento Automatico Scadenze</span>
                     </div>
 
                     <div className="border border-slate-200 rounded-xl overflow-hidden">
                       <table className="w-full table-fixed text-left border-collapse">
                         <colgroup>
-                          <col className="w-[17%]" />
                           <col className="w-[13%]" />
-                          <col className="w-[40%]" />
-                          <col className="w-[30%]" />
+                          <col className="w-[10%]" />
+                          <col className="w-[24%]" />
+                          <col className="w-[24%]" />
+                          <col className="w-[29%]" />
                         </colgroup>
                         <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase">
                           <tr>
-                            <th className="px-2 py-2">Scadenza</th>
-                            <th className="px-2 py-2">Importo</th>
-                            <th className="px-2 py-2">Fattura (N° / Data)</th>
-                            <th className="px-2 py-2">Stato</th>
+                            <th className="px-1.5 py-2">Scadenza</th>
+                            <th className="px-1.5 py-2">Importo</th>
+                            <th className="px-1.5 py-2">Fattura (N° / Data)</th>
+                            <th className="px-1.5 py-2">Consegna Referti</th>
+                            <th className="px-1.5 py-2">Stato</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                           {selectedAmministratore.payments.map((p, index) => (
                             <tr key={p.id || index} className="hover:bg-slate-50/50">
-                              <td className="px-1.5 py-1.5 align-top">
+                              <td className="px-1 py-1.5 align-top">
                                 <input 
                                   type="date" 
                                   value={p.date}
@@ -2402,10 +2404,10 @@ export default function ManagerDashboard() {
                                     updatedPayments[index] = { ...updatedPayments[index], date: e.target.value };
                                     setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
                                   }}
-                                  className="w-full bg-white border border-slate-200 rounded-lg px-1.5 py-1 font-mono font-bold text-slate-900 text-[10px] focus:outline-none focus:border-purple-500"
+                                  className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-mono font-bold text-slate-900 text-[10px] focus:outline-none focus:border-purple-500"
                                 />
                               </td>
-                              <td className="px-1.5 py-1.5 align-top">
+                              <td className="px-1 py-1.5 align-top">
                                 <input 
                                   type="number" 
                                   value={p.amount}
@@ -2414,21 +2416,21 @@ export default function ManagerDashboard() {
                                     updatedPayments[index] = { ...updatedPayments[index], amount: parseFloat(e.target.value) || 0 };
                                     setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
                                   }}
-                                  className="w-full bg-white border border-slate-200 rounded-lg px-1.5 py-1 font-bold text-slate-900 text-[10px] focus:outline-none focus:border-purple-500"
+                                  className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-bold text-slate-900 text-[10px] focus:outline-none focus:border-purple-500"
                                 />
                               </td>
-                              <td className="px-1.5 py-1.5 align-top">
-                                <div className="flex flex-col gap-1">
+                              <td className="px-1 py-1.5 align-top">
+                                <div className="flex items-center gap-1 min-w-0">
                                   <input 
                                     type="text" 
-                                    placeholder="N° Fattura"
+                                    placeholder="N°"
                                     value={p.invoiceNumber || ''}
                                     onChange={(e) => {
                                       const updatedPayments = [...selectedAmministratore.payments];
                                       updatedPayments[index] = { ...updatedPayments[index], invoiceNumber: e.target.value };
                                       setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
                                     }}
-                                    className="w-full bg-white border border-slate-200 rounded-lg px-1.5 py-1 font-mono text-[10px] focus:outline-none focus:border-purple-500"
+                                    className="w-[38%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white font-mono"
                                   />
                                   <input 
                                     type="date" 
@@ -2438,11 +2440,37 @@ export default function ManagerDashboard() {
                                       updatedPayments[index] = { ...updatedPayments[index], invoiceDate: e.target.value };
                                       setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
                                     }}
-                                    className="w-full bg-white border border-slate-200 rounded-lg px-1.5 py-1 font-mono text-[10px] focus:outline-none focus:border-purple-500"
+                                    className="w-[62%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white text-slate-700"
                                   />
                                 </div>
                               </td>
-                              <td className="px-1.5 py-1.5 align-top">
+                              <td className="px-1 py-1.5 align-top">
+                                <div className="flex flex-col gap-1 min-w-0">
+                                  <input 
+                                    type="date" 
+                                    value={p.refertoData || ''}
+                                    onChange={(e) => {
+                                      const updatedPayments = [...selectedAmministratore.payments];
+                                      updatedPayments[index] = { ...updatedPayments[index], refertoData: e.target.value };
+                                      setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
+                                    }}
+                                    className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-mono text-[10px] focus:outline-none focus:border-purple-500"
+                                    title="Data consegna referti"
+                                  />
+                                  <input 
+                                    type="text" 
+                                    placeholder="Consegna"
+                                    value={p.consegnaReferti || ''}
+                                    onChange={(e) => {
+                                      const updatedPayments = [...selectedAmministratore.payments];
+                                      updatedPayments[index] = { ...updatedPayments[index], consegnaReferti: e.target.value };
+                                      setSelectedAmministratore({ ...selectedAmministratore, payments: updatedPayments });
+                                    }}
+                                    className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 text-[10px] focus:outline-none focus:border-purple-500"
+                                  />
+                                </div>
+                              </td>
+                              <td className="px-1 py-1.5 align-top">
                                 <select 
                                   value={p.status}
                                   onChange={(e) => {
@@ -2752,24 +2780,26 @@ export default function ManagerDashboard() {
                 <div className="border border-slate-200 rounded-xl overflow-hidden">
                   <table className="w-full table-fixed text-left border-collapse">
                     <colgroup>
-                      <col className="w-[17%]" />
                       <col className="w-[13%]" />
-                      <col className="w-[40%]" />
-                      <col className="w-[30%]" />
+                      <col className="w-[10%]" />
+                      <col className="w-[24%]" />
+                      <col className="w-[24%]" />
+                      <col className="w-[29%]" />
                     </colgroup>
                     <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase">
                       <tr>
-                        <th className="px-2 py-2">Scadenza</th>
-                        <th className="px-2 py-2">Importo</th>
-                        <th className="px-2 py-2">Fattura (N° / Data)</th>
-                        <th className="px-2 py-2">Stato</th>
+                        <th className="px-1.5 py-2">Scadenza</th>
+                        <th className="px-1.5 py-2">Importo</th>
+                        <th className="px-1.5 py-2">Fattura (N° / Data)</th>
+                        <th className="px-1.5 py-2">Consegna Referti</th>
+                        <th className="px-1.5 py-2">Stato</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {selectedDentista.payments.map((p, index) => (
                         <tr key={p.id || index} className="hover:bg-slate-50/50">
                           {/* SELETTORE DATA SCADENZA */}
-                          <td className="px-1.5 py-1.5 align-top">
+                          <td className="px-1 py-1.5 align-top">
                             <input 
                               type="date" 
                               value={p.date}
@@ -2784,7 +2814,7 @@ export default function ManagerDashboard() {
                           </td>
 
                           {/* IMPORTO */}
-                          <td className="px-1.5 py-1.5 align-top">
+                          <td className="px-1 py-1.5 align-top">
                             <input 
                               type="number" 
                               value={p.amount}
@@ -2798,8 +2828,8 @@ export default function ManagerDashboard() {
                             />
                           </td>
 
-                          {/* FATTURA DETAILS (N°, Data, Importo) */}
-                          <td className="px-1.5 py-1.5 align-top">
+                          {/* FATTURA DETAILS (N°, Data) */}
+                          <td className="px-1 py-1.5 align-top">
                             <div className="flex items-center gap-1 min-w-0">
                               <input 
                                 type="text" 
@@ -2825,8 +2855,36 @@ export default function ManagerDashboard() {
                             </div>
                           </td>
 
+                          {/* CONSEGNA REFERTI */}
+                          <td className="px-1 py-1.5 align-top">
+                            <div className="flex flex-col gap-1 min-w-0">
+                              <input 
+                                type="date" 
+                                value={p.refertoData || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedDentista.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], refertoData: e.target.value };
+                                  setSelectedDentista({ ...selectedDentista, payments: updatedPayments });
+                                }} 
+                                className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white font-mono focus:outline-none focus:border-purple-500" 
+                                title="Data consegna referti"
+                              />
+                              <input 
+                                type="text" 
+                                placeholder="Consegna" 
+                                value={p.consegnaReferti || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedDentista.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], consegnaReferti: e.target.value };
+                                  setSelectedDentista({ ...selectedDentista, payments: updatedPayments });
+                                }} 
+                                className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white focus:outline-none focus:border-purple-500" 
+                              />
+                            </div>
+                          </td>
+
                           {/* CAMBIO STATO CON COLORI DEDICATI ED AGGIORNAMENTO AUTOMATICO SCADENZA */}
-                          <td className="px-1.5 py-1.5 align-top">
+                          <td className="px-1 py-1.5 align-top">
                             <select 
                               value={p.status}
                               onChange={(e) => {
