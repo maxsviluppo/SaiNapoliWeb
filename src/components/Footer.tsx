@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, ExternalLink, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink, Shield, Lock } from 'lucide-react';
 
 export default function Footer() {
   const [azienda, setAzienda] = useState<any>(null);
@@ -172,9 +172,13 @@ export default function Footer() {
         <div className="flex gap-4 items-center">
           <a href="/privacy" className="text-[10px] text-slate-500 hover:text-white transition-colors">Privacy Policy</a>
           <a href="/privacy" className="text-[10px] text-slate-500 hover:text-white transition-colors">Cookie Policy</a>
-          <a href="/admin" className="text-[10px] text-slate-500 hover:text-white transition-colors flex items-center gap-1" title="Area Amministrativa">
+          <a href="/admin" className="text-[10px] text-slate-500 hover:text-white transition-colors flex items-center gap-1" title="Area Riservata">
             <Shield size={10} className="text-sai-green shrink-0" />
             <span>Area Riservata</span>
+          </a>
+          <a href="/manager" className="text-[10px] text-slate-500 hover:text-white transition-colors flex items-center gap-1" title="Area Amministrazione Manager">
+            <Lock size={10} className="text-amber-400 shrink-0" />
+            <span className="font-bold text-slate-400 hover:text-amber-300">Manager</span>
           </a>
           <a href="https://www.codecafe.it" target="_blank" rel="noopener noreferrer" className="text-[10px] text-purple-400 hover:underline flex items-center gap-1 font-bold">
             Realizzato da CODECAFE <ExternalLink size={8} />

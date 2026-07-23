@@ -29,16 +29,11 @@ export async function getCmsData(key: string): Promise<any | null> {
       .maybeSingle();
 
     if (error) {
-      if (error.code === '42P01') {
-        console.warn('Table cms_data does not exist yet on Supabase.');
-      } else {
-        console.error('Supabase read error:', error);
-      }
+      // Graceful fallback without cluttering console with stack traces
       return null;
     }
     return data ? data.value : null;
   } catch (err) {
-    console.error('Error reading from Supabase:', err);
     return null;
   }
 }

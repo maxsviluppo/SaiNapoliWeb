@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { 
   Shield, Settings, Globe, FileText, Check, Save, Eye, EyeOff, Cpu, Database, 
   MapPin, Phone, Mail, Clock, MessageSquare, AlertCircle, AlertTriangle, 
-  ArrowUpRight, BarChart3, Lock, LogOut, RefreshCw, Key, User
+  ArrowUpRight, BarChart3, Lock, LogOut, RefreshCw, Key, User,
+  Users, GraduationCap, Stethoscope, BookOpen, Plus, Trash2, Edit
 } from 'lucide-react';
 
-type Tab = 'dati' | 'seo' | 'pagine' | 'ai' | 'traffico';
+type Tab = 'dati' | 'seo' | 'pagine' | 'ai' | 'traffico' | 'amministratori' | 'scuole' | 'dentisti' | 'registri';
 
 interface PageSeoConfig {
   id: string;
@@ -885,6 +886,8 @@ export default function AdminDashboard() {
               </div>
             </form>
           )}
+
+
 
           {/* SAVE CONFIRMATION BUBBLE */}
           {saveStatus !== 'idle' && (
