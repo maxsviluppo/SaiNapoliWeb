@@ -1,0 +1,13 @@
+rows 15 cols 5
+0 ['Dirigente :', 'Vincenzo Varriale', 'RIEPILOGO', 'Note : analisi primo controllo inviate a mezzo per il 09/01/2018', '']
+1 ['Telefono', '081/450862', '', '', '']
+2 ['Cellulare', 'PAGAMENTO AL II CONTROLLO', "SU RICHIESTA DEL PRESIDE IL 2 CONTROLLO E' STATO POSTICIPATO A SETTEMBRE 2018", '', '']
+3 ['email', 'naee01700c@istruzione.it', '', '', '']
+4 ['freq. Controlli', 'SEMESTRALE', '', '', '']
+5 ['Contratti', '', '', '', '']
+6 ['Indirizzo', 'p.zza Mario Pagano 1', 'Indice', '', '']
+8 ['Data ultimo Prelievo', 'N. Fattura', 'data fattura', 'Importo fattura', 'Scadenza']
+9 ['43091.0', 'da fatturare al II CONTROLLO', '', '', '43273.0']
+11 ['43353.0', '889.0', '43369.0', '244.0', 'B/B 09/11/2018']
+13 ['ANNO 2019', '', '', '', '']
+14 ['Data ultimo Prelievo', 'N. Fattura', 'data fattura', 'Importo fattura', 'Scadenza']

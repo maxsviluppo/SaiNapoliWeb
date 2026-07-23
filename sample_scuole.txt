@@ -1,0 +1,34 @@
+Sheets: 28
+ - Indice 
+ - ANGIULLI
+ - NICOLINI-DI GIACOMO
+ - 5 circolo GIUGLIANO
+ - CACCIOPPOLI
+ - COLOMBO
+ - LICEO CUOCO
+ - CUOCO-SCHIPA
+ - CONFALONIERI
+ - D'AOSTA-SCURA
+ - DON GIUSEPPE DIANA 
+ - DE NICOLA
+ - MARCONI
+ - MATTEOTTI-CIRILLO
+ - Pavese-Nobile
+ - PICIONE
+ - PITAGORA
+ - RISTORI
+ - 33 circolo risorgimento
+ - RUSSOLILLO
+First sheet rows 12 cols 3
+0 ['RIEPILOGO', '', '']
+1 ['PRIMARIA E COMPRENSIVI', 'SCUOLE SECONDARIE', 'SCUOLE MEDIE']
+2 ['Angiulli', 'PITAGORA', "D'AZEGLIO"]
+3 ['Ristori', 'De Nicola', '']
+4 ['Oriani', "LICEO CUOCO'!A1", '']
+5 ['Pavese', 'Caccioppoli', '']
+6 ["D'aosta", 'Sanazzaro', '']
+7 ['Cuoco-schipa', 'Marconi', '']
+8 ['Russolillo', 'Colombo', '']
+9 ['Don Giuseppe Diana', 'ITE TERRA DI LAVORO', '']
+10 ['5░ circolo di giugliano', 'MOSCATI', '']
+11 ['NICOLINI', '', '']

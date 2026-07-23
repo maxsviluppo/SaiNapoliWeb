@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { generateInitialDentisti, ClientContract, Payment, hasOverduePayment, addIntervalToDate, getExpiryStatus, getNextDueDate, matchesMonthYearFilter } from '../../data/dentistiSeed';
 import { generateInitialAmministratori, AmministratoreContract } from '../../data/amministratoriSeed';
+import { generateInitialScuole, ScuolaContract } from '../../data/scuoleSeed';
 
 type ManagerTab = 'dashboard' | 'amministratori' | 'scuole' | 'dentisti' | 'registri';
 
@@ -28,12 +29,18 @@ export default function ManagerDashboard() {
   // Amministratori state loaded from seed & localStorage safely
   const [amministratori, setAmministratori] = useState<AmministratoreContract[]>([]);
   const [selectedAmministratore, setSelectedAmministratore] = useState<AmministratoreContract | null>(null);
+  const [scuole, setScuole] = useState<ScuolaContract[]>([]);
+  const [selectedScuola, setSelectedScuola] = useState<ScuolaContract | null>(null);
 
   // Filters & Sorting for Dentisti
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLetter, setSelectedLetter] = useState<string>('all');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQueryScuole, setSearchQueryScuole] = useState('');
+  const [selectedLetterScuole, setSelectedLetterScuole] = useState<string>('all');
+  const [selectedStatusFilterScuole, setSelectedStatusFilterScuole] = useState<string>('all');
+  const [currentPageScuole, setCurrentPageScuole] = useState(1);
 
   // Filters & Sorting for Amministratori
   const [searchQueryAdmin, setSearchQueryAdmin] = useState('');
@@ -50,6 +57,8 @@ export default function ManagerDashboard() {
   // Sorting State for Dentisti
   const [sortFieldDentisti, setSortFieldDentisti] = useState<'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status'>('contractNumber');
   const [sortOrderDentisti, setSortOrderDentisti] = useState<'asc' | 'desc'>('asc');
+  const [sortFieldScuole, setSortFieldScuole] = useState<'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status'>('contractNumber');
+  const [sortOrderScuole, setSortOrderScuole] = useState<'asc' | 'desc'>('asc');
 
   const handleSortAdmin = (field: 'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status') => {
     setCurrentPageAdmin(1);
@@ -58,6 +67,16 @@ export default function ManagerDashboard() {
     } else {
       setSortFieldAdmin(field);
       setSortOrderAdmin('asc');
+    }
+  };
+
+  const handleSortScuole = (field: 'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status') => {
+    setCurrentPageScuole(1);
+    if (sortFieldScuole === field) {
+      setSortOrderScuole(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortFieldScuole(field);
+      setSortOrderScuole('asc');
     }
   };
 
@@ -122,6 +141,14 @@ export default function ManagerDashboard() {
     } catch (e) {
       console.warn("Storage quota exceeded, keeping in-memory state:", e);
     }
+
+    const seedScuole = generateInitialScuole();
+    setScuole(seedScuole);
+    try {
+      localStorage.setItem('sai_scuole_db_v2', JSON.stringify(seedScuole));
+    } catch (e) {
+      console.warn("Storage quota exceeded, keeping in-memory state:", e);
+    }
   }, []);
 
   const saveDentisti = (newList: ClientContract[]) => {
@@ -131,6 +158,11 @@ export default function ManagerDashboard() {
     } catch (e) {
       console.warn("Could not save to localStorage due to quota:", e);
     }
+  };
+
+  const saveScuole = (newList: ScuolaContract[]) => {
+    setScuole(newList);
+    try { localStorage.setItem('sai_scuole_db_v2', JSON.stringify(newList)); } catch (e) {}
   };
 
   const saveAmministratori = (newList: AmministratoreContract[]) => {
@@ -413,6 +445,135 @@ export default function ManagerDashboard() {
       };
     });
   }, [stats]);
+  const filteredScuole = useMemo(() => {
+    let result = [...scuole];
+    if (searchQueryScuole.trim() !== '') {
+      const q = searchQueryScuole.toLowerCase();
+      result = result.filter(c => 
+        c.name.toLowerCase().includes(q) || 
+        c.city.toLowerCase().includes(q) ||
+        c.paese.toLowerCase().includes(q) ||
+        c.email.toLowerCase().includes(q)
+      );
+    }
+    if (selectedLetterScuole !== 'all') {
+      result = result.filter(c => c.letter.toUpperCase() === selectedLetterScuole.toUpperCase());
+    }
+    if (selectedStatusFilterScuole !== 'all') {
+      result = result.filter(c => c.status === selectedStatusFilterScuole);
+    }
+    return [...result].sort((a, b) => {
+      const valA = a[sortFieldScuole];
+      const valB = b[sortFieldScuole];
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return sortOrderScuole === 'asc' ? valA - valB : valB - valA;
+      }
+      const strA = String(valA || '').toLowerCase();
+      const strB = String(valB || '').toLowerCase();
+      return sortOrderScuole === 'asc' ? strA.localeCompare(strB) : strB.localeCompare(strA);
+    });
+  }, [scuole, searchQueryScuole, selectedLetterScuole, selectedStatusFilterScuole, sortFieldScuole, sortOrderScuole]);
+
+  const totalPagesScuole = Math.ceil(filteredScuole.length / itemsPerPage) || 1;
+  const paginatedScuole = useMemo(() => {
+    const start = (currentPageScuole - 1) * itemsPerPage;
+    return filteredScuole.slice(start, start + itemsPerPage);
+  }, [filteredScuole, currentPageScuole]);
+
+  const statsScuole = useMemo(() => {
+    const total = scuole.length;
+    const attivi = scuole.filter(c => c.status === 'attivo').length;
+    const sollecito = scuole.filter(c => c.status === 'sollecito').length;
+    const sospesi = scuole.filter(c => c.status === 'sospeso').length;
+    const disdetti = scuole.filter(c => c.status === 'disdetto').length;
+    const nonReperibili = scuole.filter(c => c.status === 'non_reperibile').length;
+    const scaduti = scuole.filter(c => {
+      const todayStr = new Date().toISOString().split('T')[0];
+      return c.payments.some((p: any) => p.status === 'in_attesa' && p.date < todayStr);
+    }).length;
+
+    const validContractNumbers = scuole
+      .map(c => c.contractNumber)
+      .filter((num): num is number => num !== null);
+    const lastContractNumber = validContractNumbers.length > 0 ? Math.max(...validContractNumbers) : 5000000;
+
+    const activeRevenue = scuole
+      .filter(c => c.status === 'attivo')
+      .reduce((sum, c) => sum + c.monthlyFee, 0);
+
+    const pendingRevenue = scuole
+      .filter(c => c.status === 'sospeso' || c.status === 'sollecito')
+      .reduce((sum, c) => sum + c.monthlyFee, 0);
+
+    const totalMRR = activeRevenue + pendingRevenue;
+
+    const cityCounts: Record<string, number> = {};
+    scuole.forEach(c => {
+      const location = c.paese || c.city;
+      cityCounts[location] = (cityCounts[location] || 0) + 1;
+    });
+    const topCities = Object.entries(cityCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    const maxCityCount = topCities.length > 0 ? Math.max(...topCities.map(t => t[1])) : 1;
+
+    return {
+      total,
+      attivi,
+      sollecito,
+      sospesi,
+      disdetti,
+      nonReperibili,
+      scaduti,
+      lastContractNumber,
+      activeRevenue,
+      pendingRevenue,
+      totalMRR,
+      topCities,
+      maxCityCount
+    };
+  }, [scuole]);
+
+  const donutSlicesScuole = useMemo(() => {
+    const statusItems = [
+      { key: 'attivo', label: 'Attivi', count: statsScuole.attivi, color: '#10B981', bg: 'bg-emerald-500' },
+      { key: 'sospeso', label: 'In Sospeso', count: statsScuole.sospesi, color: '#F59E0B', bg: 'bg-amber-500' },
+      { key: 'sollecito', label: 'Solleciti', count: statsScuole.sollecito, color: '#EF4444', bg: 'bg-red-500' },
+      { key: 'disdetto', label: 'Disdetti', count: statsScuole.disdetti, color: '#6B7280', bg: 'bg-slate-500' },
+      { key: 'non_reperibile', label: 'Non Reperibili', count: statsScuole.nonReperibili, color: '#8B5CF6', bg: 'bg-purple-500' },
+    ];
+
+    const totalCount = statsScuole.total || 1;
+    let cumulativePercent = 0;
+
+    return statusItems.map((item) => {
+      const percent = item.count / totalCount;
+      const startPercent = cumulativePercent;
+      cumulativePercent += percent;
+
+      const getCoordinatesForPercent = (p: number) => {
+        const x = Math.cos(2 * Math.PI * p - Math.PI / 2);
+        const y = Math.sin(2 * Math.PI * p - Math.PI / 2);
+        return [x, y];
+      };
+
+      const [startX, startY] = getCoordinatesForPercent(startPercent);
+      const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+      const largeArcFlag = percent > 0.5 ? 1 : 0;
+
+      const r = 40;
+      const pathData = percent === 1 
+        ? `M 0 ${-r} A ${r} ${r} 0 1 1 -0.01 ${-r} Z` 
+        : `M ${startX * r} ${startY * r} A ${r} ${r} 0 ${largeArcFlag} 1 ${endX * r} ${endY * r}`;
+
+      return {
+        ...item,
+        pathData,
+        percentStr: (percent * 100).toFixed(1) + '%'
+      };
+    });
+  }, [statsScuole]);
 
   // --- AMMINISTRATORI LOGIC ---
 
@@ -805,18 +966,17 @@ export default function ManagerDashboard() {
             </div>
 
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[1.5rem] p-5 text-white shadow-lg border border-slate-700/50">
-              <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">Database DENTISTI.SI</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">Database DENTISTI</span>
               <div className="text-2xl font-black mt-1">{stats.total.toLocaleString('it-IT')} Studi</div>
               <p className="text-[10px] text-slate-400 mt-2 leading-relaxed">
                 {stats.attivi.toLocaleString('it-IT')} attivi · Ultimo contratto N° {stats.lastContractNumber}
               </p>
             </div>
-
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[1.5rem] p-5 text-white shadow-lg border border-slate-700/50">
-              <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Gestionale Scuole</span>
-              <div className="text-2xl font-black mt-1">0 Plessi</div>
+              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Database SCUOLE</span>
+              <div className="text-2xl font-black mt-1">{statsScuole.total.toLocaleString('it-IT')} Plessi</div>
               <p className="text-[10px] text-slate-400 mt-2 leading-relaxed">
-                Modulo HACCP mensa e potabilità acque — in attivazione
+                {statsScuole.attivi.toLocaleString('it-IT')} attivi · Ultimo contratto N° {statsScuole.lastContractNumber}
               </p>
             </div>
 
@@ -864,7 +1024,7 @@ export default function ManagerDashboard() {
                     <GraduationCap className="w-5 h-5" />
                   </div>
                   <h3 className="font-bold text-slate-900 text-sm">Scuole</h3>
-                  <p className="text-[11px] text-slate-500 mt-1">0 Plessi</p>
+                  <p className="text-[11px] text-blue-700 font-bold mt-1">{scuole.length} Plessi Censiti</p>
                   <span className="text-[10px] text-blue-600 font-bold mt-3 block">Apri Gestionale →</span>
                 </button>
 
@@ -874,7 +1034,7 @@ export default function ManagerDashboard() {
                   </div>
                   <div className="flex items-center justify-between">
                     <h3 className="font-bold text-slate-900 text-sm">Dentisti</h3>
-                    <span className="text-[10px] font-black bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">DB DENTISTI.SI</span>
+                    <span className="text-[10px] font-black bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">DB DENTISTI</span>
                   </div>
                   <p className="text-[11px] text-purple-700 font-bold mt-1">{dentisti.length} Studi Censiti</p>
                   <span className="text-[10px] text-purple-600 font-bold mt-3 block">Apri Anagrafica & Statistiche →</span>
@@ -905,8 +1065,8 @@ export default function ManagerDashboard() {
                   </div>
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white border border-slate-700/50">
                     <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Scuole</span>
-                    <div className="text-2xl font-black mt-1">0</div>
-                    <p className="text-[10px] text-slate-400 mt-2">Plessi scolastici — modulo in preparazione</p>
+                    <div className="text-2xl font-black mt-1">{statsScuole.total}</div>
+                    <p className="text-[10px] text-slate-400 mt-2">{statsScuole.attivi} attivi · {statsScuole.sollecito} solleciti</p>
                   </div>
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white border border-slate-700/50">
                     <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">Registri</span>
@@ -1430,22 +1590,175 @@ export default function ManagerDashboard() {
 
           {/* TAB: SCUOLE */}
           {activeTab === 'scuole' && (
-            <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm text-slate-800 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-wider">Gestionale V1</span>
-                    <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">Istituti Scolastici & Plessi</h2>
+            <div className="space-y-8">
+              <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm text-slate-800 space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-wider">Database SCUOLE</span>
+                      <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Gestionale Istituti & Plessi ({filteredScuole.length})</h2>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">Anagrafica plessi scolastici, HACCP mensa, potabilità acque e scadenze contrattuali.</p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Gestione piani HACCP mensa scolastica, potabilità acque e corsi sicurezza personale.</p>
+                  <button
+                    onClick={() => {
+                      const newId = `scuola_${Date.now()}`;
+                      const today = new Date().toISOString().split('T')[0];
+                      const maxContract = scuole.reduce((max, d) => Math.max(max, d.contractNumber || 0), 0);
+                      setSelectedScuola({
+                        id: newId,
+                        name: 'Nuovo Plesso Scolastico',
+                        letter: 'N',
+                        contractNumber: maxContract > 0 ? maxContract + 1 : 3000,
+                        status: 'attivo',
+                        city: 'Napoli',
+                        paese: 'Napoli',
+                        phone: '081 0000000',
+                        email: 'scuola@istruzione.it',
+                        monthlyFee: 350,
+                        billingInterval: '6 mesi',
+                        notes: 'Nuovo plesso registrato.',
+                        nCampioni: '1',
+                        payments: [{ id: `pay_${Date.now()}`, date: today, amount: 350, status: 'in_attesa' }]
+                      });
+                    }}
+                    className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-600/20 transition-all shrink-0"
+                  >
+                    <Plus className="w-4 h-4" /> Nuovo Plesso Scolastico
+                  </button>
                 </div>
-                <button onClick={() => alert("Form in attivazione")} className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center gap-2">
-                  <Plus className="w-4 h-4" /> Nuovo Plesso Scolastico
-                </button>
-              </div>
-              <div className="border border-slate-200 rounded-2xl p-12 text-center bg-slate-50/50">
-                <GraduationCap className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <h3 className="font-bold text-slate-700 text-sm">Nessun plesso scolastico censito</h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Totale Plessi</span>
+                    <div className="text-3xl font-black text-slate-900 mt-1">{statsScuole.total}</div>
+                    <span className="text-[10px] text-emerald-600 font-bold mt-3 block">{statsScuole.attivi} attivi</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm overflow-hidden">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Ultimo N° Contratto</span>
+                    <div className="mt-1 font-black text-slate-900 font-mono text-[clamp(0.7rem,1.4vw,1.05rem)]">N° {statsScuole.lastContractNumber}</div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entrate Stimate (MRR)</span>
+                    <div className="text-2xl font-black text-slate-900 mt-1">€ {statsScuole.totalMRR.toLocaleString('it-IT')}</div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Solleciti</span>
+                    <div className="text-3xl font-black text-red-600 mt-1">{statsScuole.sollecito}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-4 border-t border-slate-100">
+                  {[
+                    { key: 'all', label: 'Tutti', count: statsScuole.total, active: selectedStatusFilterScuole === 'all', cls: 'bg-slate-900 text-white border-slate-900' },
+                    { key: 'attivo', label: 'Attivi', count: statsScuole.attivi, active: selectedStatusFilterScuole === 'attivo', cls: 'bg-emerald-600 text-white border-emerald-600' },
+                    { key: 'sollecito', label: 'Sollecito', count: statsScuole.sollecito, active: selectedStatusFilterScuole === 'sollecito', cls: 'bg-red-600 text-white border-red-600' },
+                    { key: 'sospeso', label: 'Sospesi', count: statsScuole.sospesi, active: selectedStatusFilterScuole === 'sospeso', cls: 'bg-amber-600 text-white border-amber-600' },
+                    { key: 'disdetto', label: 'Disdetti', count: statsScuole.disdetti, active: selectedStatusFilterScuole === 'disdetto', cls: 'bg-slate-600 text-white border-slate-600' },
+                  ].map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => { setSelectedStatusFilterScuole(f.key); setCurrentPageScuole(1); }}
+                      className={`p-3 rounded-2xl border text-left transition-all ${f.active ? `${f.cls} shadow-md` : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
+                    >
+                      <span className="text-[9px] font-black uppercase tracking-widest block opacity-70">{f.label}</span>
+                      <span className="text-xl font-black">{f.count}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="space-y-3">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={searchQueryScuole}
+                      onChange={(e) => { setSearchQueryScuole(e.target.value); setCurrentPageScuole(1); }}
+                      placeholder="Cerca plesso, città, email (es. Angiulli, Moscati, Pozzuoli)..."
+                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 pl-11 text-xs text-slate-900 focus:outline-none focus:border-blue-500 font-medium"
+                    />
+                    <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                  </div>
+                  <div className="flex flex-wrap gap-1 bg-slate-50 p-2 rounded-2xl border border-slate-200 justify-center">
+                    <button onClick={() => { setSelectedLetterScuole('all'); setCurrentPageScuole(1); }} className={`px-2.5 py-1 rounded-xl text-[10px] font-black uppercase ${selectedLetterScuole === 'all' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-200'}`}>TUTTI</button>
+                    {alphabet.map(l => (
+                      <button key={l} onClick={() => { setSelectedLetterScuole(l); setCurrentPageScuole(1); }} className={`w-7 h-7 rounded-xl text-[10px] font-black ${selectedLetterScuole === l ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-200'}`}>{l}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                  <table className="w-full table-fixed text-left border-collapse">
+                    <colgroup>
+                      <col className="w-[24%]" /><col className="w-[14%]" /><col className="w-[10%]" /><col className="w-[8%]" /><col className="w-[22%]" /><col className="w-[14%]" /><col className="w-[8%]" />
+                    </colgroup>
+                    <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase">
+                      <tr>
+                        <th onClick={() => handleSortScuole('name')} className="px-2 py-2.5 cursor-pointer hover:bg-blue-100/50 text-blue-900 text-left">Plesso / Istituto {sortFieldScuole === 'name' ? (sortOrderScuole === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th onClick={() => handleSortScuole('paese')} className="px-2 py-2.5 cursor-pointer hover:bg-blue-100/50 text-blue-900 text-left">Comune {sortFieldScuole === 'paese' ? (sortOrderScuole === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th onClick={() => handleSortScuole('contractNumber')} className="px-2 py-2.5 cursor-pointer hover:bg-blue-100/50 text-blue-900 text-left">Contratto {sortFieldScuole === 'contractNumber' ? (sortOrderScuole === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th className="px-2 py-2.5 text-center">Campioni</th>
+                        <th className="px-2 py-2.5 text-left">Fattura / Scadenza</th>
+                        <th onClick={() => handleSortScuole('status')} className="px-2 py-2.5 cursor-pointer hover:bg-blue-100/50 text-blue-900 text-left">Stato {sortFieldScuole === 'status' ? (sortOrderScuole === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th className="px-2 py-2.5 text-center">Scheda</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-[11px] divide-y divide-slate-100">
+                      {paginatedScuole.map(c => {
+                        const todayStr = new Date().toISOString().split('T')[0];
+                        const isOverdueActive = c.status === 'attivo' && c.payments.some(p => (p.status === 'in_attesa' || p.status === 'insoluto') && p.date < todayStr);
+                        const lastInvoice = [...c.payments].reverse().find(p => p.invoiceNumber || p.invoiceDate);
+                        const lastPaid = [...c.payments].reverse().find(p => p.status === 'pagato');
+                        const dueDate = lastPaid?.date ? addIntervalToDate(lastPaid.date, c.billingInterval || '6 mesi') : (c.payments[c.payments.length - 1]?.date || '');
+                        return (
+                          <tr key={c.id} className={`transition-colors ${isOverdueActive ? 'bg-red-50/90 border-l-4 border-red-500 font-bold' : 'hover:bg-blue-50/30'}`}>
+                            <td className="px-2 py-2 font-bold text-slate-900 align-top"><span className="line-clamp-2 break-words leading-snug" title={c.name}>{c.name}</span></td>
+                            <td className="px-2 py-2 text-slate-600 align-top"><span className="line-clamp-2 break-words">{c.paese}</span></td>
+                            <td className="px-2 py-2 font-mono font-bold align-top whitespace-nowrap">{c.contractNumber ? `N° ${c.contractNumber}` : <span className="text-slate-400 italic font-sans text-[10px]">N/D</span>}</td>
+                            <td className="px-1 py-2 text-center align-top"><span className="inline-block px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded text-[9px] font-black">{c.nCampioni || '—'}</span></td>
+                            <td className="px-2 py-2 align-top min-w-0">
+                              <div className="font-mono text-[10px] font-bold leading-snug">
+                                {lastInvoice ? <>Fatt. {lastInvoice.invoiceNumber || 'N/D'}<br /><span className="text-slate-500 font-sans">{lastInvoice.invoiceDate || 'N/D'}</span></> : <span className="text-slate-400 italic font-sans">Nessuna fattura</span>}
+                              </div>
+                              {dueDate && <span className="text-[9px] text-slate-500">Scad. {dueDate}</span>}
+                            </td>
+                            <td className="px-2 py-2 align-top">
+                              {c.status === 'attivo' && !isOverdueActive && <span className="inline-block px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[9px] font-black">ATTIVO</span>}
+                              {c.status === 'attivo' && isOverdueActive && <span className="inline-block px-1.5 py-0.5 bg-red-200 text-red-900 rounded text-[9px] font-black">SCADUTO</span>}
+                              {c.status === 'sollecito' && <span className="inline-block px-1.5 py-0.5 bg-red-100 text-red-800 rounded text-[9px] font-black">SOLLECITO</span>}
+                              {c.status === 'sospeso' && <span className="inline-block px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[9px] font-black">SOSPESO</span>}
+                              {c.status === 'disdetto' && <span className="inline-block px-1.5 py-0.5 bg-slate-200 text-slate-700 rounded text-[9px] font-black">DISDETTO</span>}
+                            </td>
+                            <td className="px-1 py-2 text-center align-top">
+                              <button
+                                onClick={() => {
+                                  let s = { ...c };
+                                  if (s.payments?.length) {
+                                    const last = s.payments[s.payments.length - 1];
+                                    if (last.status === 'pagato') {
+                                      s.payments = [...s.payments, { id: `pay_${Date.now()}`, date: addIntervalToDate(last.date, s.billingInterval || '6 mesi'), amount: s.monthlyFee, status: 'in_attesa' }];
+                                    }
+                                  }
+                                  setSelectedScuola(s);
+                                }}
+                                className="px-1.5 py-1 font-bold rounded-md text-[9px] border bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 border-blue-200"
+                              >
+                                Apri
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-xs text-slate-500 font-medium">Pagina {currentPageScuole} di {totalPagesScuole} ({filteredScuole.length} plessi)</span>
+                  <div className="flex gap-2">
+                    <button disabled={currentPageScuole === 1} onClick={() => setCurrentPageScuole(p => Math.max(p - 1, 1))} className="p-2 rounded-xl border border-slate-200 disabled:opacity-30"><ChevronLeft className="w-4 h-4" /></button>
+                    <button disabled={currentPageScuole === totalPagesScuole} onClick={() => setCurrentPageScuole(p => Math.min(p + 1, totalPagesScuole))} className="p-2 rounded-xl border border-slate-200 disabled:opacity-30"><ChevronRight className="w-4 h-4" /></button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -1461,7 +1774,7 @@ export default function ManagerDashboard() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[10px] font-black uppercase tracking-wider">Database DENTISTI.SI</span>
+                      <span className="px-2.5 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[10px] font-black uppercase tracking-wider">Database DENTISTI</span>
                       <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Gestionale Studi Odontoiatrici ({filteredDentisti.length})</h2>
                     </div>
                     <p className="text-xs text-slate-500 mt-1">Anagrafica completa, statistiche entrate (MRR), grafici di distribuzione e verbali autoclavi.</p>
@@ -2051,6 +2364,10 @@ export default function ManagerDashboard() {
                     setAmministratori(updated);
                     setSelectedAmministratore(null);
                     try { localStorage.setItem('sai_amministratori_db', JSON.stringify(updated)); } catch(e){}
+                  } else if (scuole.some(s => s.id === clientToDelete.id)) {
+                    const updated = scuole.filter(s => s.id !== clientToDelete.id);
+                    saveScuole(updated);
+                    setSelectedScuola(null);
                   } else {
                     const updated = dentisti.filter(d => d.id !== clientToDelete.id);
                     saveDentisti(updated);
@@ -2545,6 +2862,424 @@ export default function ManagerDashboard() {
           </div>
         </div>
       )}
+
+      {selectedScuola && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2.5rem] max-w-[96vw] xl:max-w-[1450px] w-full p-6 md:p-8 shadow-2xl border border-slate-100 flex flex-col text-left max-h-[94vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Modifica Scheda Plesso Scolastico</span>
+                </div>
+                <h3 className="text-xl font-black text-slate-900 mt-1">{selectedScuola.name}</h3>
+                <p className="text-xs text-slate-500 font-medium">Modifica i dati anagrafici, importi e note contrattuali.</p>
+              </div>
+              <button 
+                onClick={() => setSelectedScuola(null)}
+                className="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const exists = scuole.some(d => d.id === selectedScuola.id);
+                let updatedList;
+                if (exists) {
+                  updatedList = scuole.map(d => d.id === selectedScuola.id ? selectedScuola : d);
+                } else {
+                  updatedList = [selectedScuola, ...scuole];
+                }
+                saveScuole(updatedList);
+                setSelectedScuola(null);
+              }} 
+              className="space-y-6 text-xs text-slate-700"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* COLONNA SINISTRA: ANAGRAFICA & NOTE */}
+                <div className="lg:col-span-5 space-y-4">
+                  {/* EDIT FORM FIELDS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                <div className="sm:col-span-2">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Nome Plesso / Istituto Scolastico</label>
+                  <input 
+                    type="text" 
+                    value={selectedScuola.name}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, name: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                    required
+                  />
+                </div>
+
+                {/* DROPDOWN MENU SELETTORE COMUNE / PAESE */}
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Comune / Paese (Scelta Rapida)</label>
+                  <select 
+                    value={selectedScuola.paese}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, paese: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  >
+                    <option value="Napoli">Napoli</option>
+                    <option value="Marano di Napoli">Marano di Napoli</option>
+                    <option value="Pozzuoli">Pozzuoli</option>
+                    <option value="Casoria">Casoria</option>
+                    <option value="Giugliano in Campania">Giugliano in Campania</option>
+                    <option value="Torre del Greco">Torre del Greco</option>
+                    <option value="Aversa">Aversa</option>
+                    <option value="Caserta">Caserta</option>
+                    <option value="Salerno">Salerno</option>
+                    <option value="Avellino">Avellino</option>
+                    <option value="Benevento">Benevento</option>
+                    {/* fallback option if custom */}
+                    {!["Napoli","Marano di Napoli","Pozzuoli","Casoria","Giugliano in Campania","Torre del Greco","Aversa","Caserta","Salerno","Avellino","Benevento"].includes(selectedScuola.paese) && (
+                      <option value={selectedScuola.paese}>{selectedScuola.paese}</option>
+                    )}
+                  </select>
+                </div>
+
+                {/* DROPDOWN MENU SELETTORE CITTÀ / PROVINCIA */}
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Città / Provincia (Scelta Rapida)</label>
+                  <select 
+                    value={selectedScuola.city}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, city: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  >
+                    <option value="Napoli">Napoli (NA)</option>
+                    <option value="Caserta">Caserta (CE)</option>
+                    <option value="Salerno">Salerno (SA)</option>
+                    <option value="Avellino">Avellino (AV)</option>
+                    <option value="Benevento">Benevento (BN)</option>
+                    {!["Napoli","Caserta","Salerno","Avellino","Benevento"].includes(selectedScuola.city) && (
+                      <option value={selectedScuola.city}>{selectedScuola.city}</option>
+                    )}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Numero Contratto N°</label>
+                  <input 
+                    type="number" 
+                    value={selectedScuola.contractNumber || ''}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, contractNumber: e.target.value ? parseInt(e.target.value) : null })}
+                    placeholder="Es. 547"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-900 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                {/* CANONE E TERMINE (STESSO BLOCCO COMBINATO) */}
+                <div className="sm:col-span-2 bg-emerald-50/50 border border-emerald-100 p-4 rounded-2xl space-y-3">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 block">Canone (€) & Termine / Frequenza Contratto</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-[9px] font-black uppercase text-slate-400 block mb-1">Importo Canone (€)</label>
+                      <input 
+                        type="number" 
+                        value={selectedScuola.monthlyFee}
+                        onChange={(e) => setSelectedScuola({ ...selectedScuola, monthlyFee: parseFloat(e.target.value) || 0 })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[9px] font-black uppercase text-slate-400 block mb-1">Termine / Frequenza</label>
+                      <select 
+                        value={["1 mese", "3 mesi", "1 anno"].includes(selectedScuola.billingInterval) ? selectedScuola.billingInterval : "personalizzata"}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === 'personalizzata') {
+                            setSelectedScuola({ ...selectedScuola, billingInterval: '45 giorni' });
+                          } else {
+                            setSelectedScuola({ ...selectedScuola, billingInterval: val });
+                          }
+                        }}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                      >
+                        <option value="1 mese">1 Mese (Mensile)</option>
+                        <option value="3 mesi">3 Mesi (Trimestrale)</option>
+                        <option value="1 anno">1 Anno (Annuale)</option>
+                        <option value="personalizzata">Personalizzata (Inserisci Manuale)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* CAMPO DI TESTO PER INSERIRE UN PERIODO PERSONALIZZATO MANUALE */}
+                  {!["1 mese", "3 mesi", "1 anno"].includes(selectedScuola.billingInterval) && (
+                    <div className="pt-2 border-t border-emerald-100">
+                      <label className="text-[9px] font-black uppercase text-emerald-700 block mb-1">Periodo Personalizzato Manuale (es. 45 giorni, 2 mesi, 6 mesi)</label>
+                      <input 
+                        type="text" 
+                        value={selectedScuola.billingInterval}
+                        onChange={(e) => setSelectedScuola({ ...selectedScuola, billingInterval: e.target.value })}
+                        placeholder="Es. 45 giorni, 60 giorni, 2 mesi..."
+                        className="w-full bg-white border border-emerald-300 rounded-xl px-3 py-2 text-xs font-bold text-emerald-900 focus:outline-none focus:border-emerald-600"
+                        required
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Telefono</label>
+                  <input 
+                    type="text" 
+                    value={selectedScuola.phone}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, phone: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Email Contatto</label>
+                  <input 
+                    type="email" 
+                    value={selectedScuola.email}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, email: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Stato Contratto Generale</label>
+                  <select 
+                    value={selectedScuola.status}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, status: e.target.value as ScuolaContract['status'] })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  >
+                    <option value="attivo">ATTIVO</option>
+                    <option value="sollecito">SOLLECITO</option>
+                    <option value="sospeso">SOSPESO</option>
+                    <option value="disdetto">DISDETTO</option>
+                    <option value="non_reperibile">NON REPERIBILE</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-900 mb-1 uppercase text-[10px] tracking-wider text-slate-400 block">Note di Servizio & Registri</label>
+                <textarea 
+                  rows={3}
+                  value={selectedScuola.notes}
+                  onChange={(e) => setSelectedScuola({ ...selectedScuola, notes: e.target.value })}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-emerald-500 leading-relaxed"
+                />
+              </div>
+
+              </div> {/* FINE COLONNA SINISTRA */}
+
+                {/* COLONNA DESTRA: SCADENZARIO, FATTURE & REFERTI */}
+                <div className="lg:col-span-7 space-y-6">
+                  {/* TABLE SCADENZARIO PAGAMENTI EDITABILE CON PROSSIMA SCADENZA */}
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Scadenzario Pagamenti & Prossima Scadenza</h4>
+                  <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">Aggiornamento Automatico Scadenze</span>
+                </div>
+
+                <div className="border border-slate-200 rounded-xl overflow-hidden">
+                  <table className="w-full table-fixed text-left border-collapse">
+                    <colgroup>
+                      <col className="w-[13%]" />
+                      <col className="w-[10%]" />
+                      <col className="w-[24%]" />
+                      <col className="w-[24%]" />
+                      <col className="w-[29%]" />
+                    </colgroup>
+                    <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase">
+                      <tr>
+                        <th className="px-1.5 py-2">Scadenza</th>
+                        <th className="px-1.5 py-2">Importo</th>
+                        <th className="px-1.5 py-2">Fattura (N° / Data)</th>
+                        <th className="px-1.5 py-2">Consegna Referti</th>
+                        <th className="px-1.5 py-2">Stato</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {selectedScuola.payments.map((p, index) => (
+                        <tr key={p.id || index} className="hover:bg-slate-50/50">
+                          {/* SELETTORE DATA SCADENZA */}
+                          <td className="px-1 py-1.5 align-top">
+                            <input 
+                              type="date" 
+                              value={p.date}
+                              onChange={(e) => {
+                                const newDate = e.target.value;
+                                const updatedPayments = [...selectedScuola.payments];
+                                updatedPayments[index] = { ...updatedPayments[index], date: newDate };
+                                setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                              }}
+                              className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1.5 py-1 font-mono font-bold text-slate-900 text-[10px] focus:outline-none focus:border-emerald-500"
+                            />
+                          </td>
+
+                          {/* IMPORTO */}
+                          <td className="px-1 py-1.5 align-top">
+                            <input 
+                              type="number" 
+                              value={p.amount}
+                              onChange={(e) => {
+                                const newAmount = parseFloat(e.target.value) || 0;
+                                const updatedPayments = [...selectedScuola.payments];
+                                updatedPayments[index] = { ...updatedPayments[index], amount: newAmount };
+                                setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                              }}
+                              className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1.5 py-1 font-bold text-slate-900 text-[10px] focus:outline-none focus:border-emerald-500"
+                            />
+                          </td>
+
+                          {/* FATTURA DETAILS (N°, Data) */}
+                          <td className="px-1 py-1.5 align-top">
+                            <div className="flex items-center gap-1 min-w-0">
+                              <input 
+                                type="text" 
+                                placeholder="N°" 
+                                value={p.invoiceNumber || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedScuola.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], invoiceNumber: e.target.value };
+                                  setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                                }} 
+                                className="w-[38%] min-w-0 px-1.5 py-1 border border-slate-200 rounded-md text-[10px] bg-white font-mono" 
+                              />
+                              <input 
+                                type="date" 
+                                value={p.invoiceDate || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedScuola.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], invoiceDate: e.target.value };
+                                  setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                                }} 
+                                className="w-[62%] min-w-0 px-1.5 py-1 border border-slate-200 rounded-md text-[10px] bg-white text-slate-700" 
+                              />
+                            </div>
+                          </td>
+
+                          {/* CONSEGNA REFERTI */}
+                          <td className="px-1 py-1.5 align-top">
+                            <div className="flex flex-col gap-1 min-w-0">
+                              <input 
+                                type="date" 
+                                value={p.refertoData || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedScuola.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], refertoData: e.target.value };
+                                  setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                                }} 
+                                className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white font-mono focus:outline-none focus:border-emerald-500" 
+                                title="Data consegna referti"
+                              />
+                              <input 
+                                type="text" 
+                                placeholder="Consegna" 
+                                value={p.consegnaReferti || ''} 
+                                onChange={(e) => {
+                                  const updatedPayments = [...selectedScuola.payments];
+                                  updatedPayments[index] = { ...updatedPayments[index], consegnaReferti: e.target.value };
+                                  setSelectedScuola({ ...selectedScuola, payments: updatedPayments });
+                                }} 
+                                className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] bg-white focus:outline-none focus:border-emerald-500" 
+                              />
+                            </div>
+                          </td>
+
+                          {/* CAMBIO STATO CON COLORI DEDICATI ED AGGIORNAMENTO AUTOMATICO SCADENZA */}
+                          <td className="px-1 py-1.5 align-top">
+                            <select 
+                              value={p.status}
+                              onChange={(e) => {
+                                const newStatus = e.target.value as Payment['status'];
+                                let updatedPayments = [...selectedScuola.payments];
+                                updatedPayments[index] = { ...updatedPayments[index], status: newStatus };
+
+                                // Se viene impostato in PAGATO, crea automaticamente la nuova scadenza in ATTESA basandosi sul termine scelto
+                                if (newStatus === 'pagato') {
+                                  const currentDate = p.date || new Date().toISOString().split('T')[0];
+                                  const nextDate = addIntervalToDate(currentDate, selectedScuola.billingInterval || '1 anno');
+
+                                  const hasFuture = updatedPayments.some((pay, i) => i > index);
+                                  if (!hasFuture) {
+                                    updatedPayments.push({
+                                      id: `pay_${Date.now()}`,
+                                      date: nextDate,
+                                      amount: selectedScuola.monthlyFee,
+                                      status: 'in_attesa'
+                                    });
+                                  } else {
+                                    if (updatedPayments[index + 1]) {
+                                      updatedPayments[index + 1].status = 'in_attesa';
+                                      if (!updatedPayments[index + 1].date) {
+                                        updatedPayments[index + 1].date = nextDate;
+                                      }
+                                    }
+                                  }
+                                }
+
+                                setSelectedScuola({ 
+                                  ...selectedScuola, 
+                                  payments: updatedPayments,
+                                  status: newStatus === 'pagato' ? 'attivo' : (newStatus === 'disdetto' ? 'disdetto' : (newStatus === 'sospeso' ? 'sospeso' : selectedScuola.status))
+                                });
+                              }}
+                              className={`w-full min-w-0 border rounded-md px-1 py-1 font-black text-[10px] focus:outline-none transition-all ${
+                                p.status === 'pagato' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' :
+                                p.status === 'in_attesa' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                                p.status === 'insoluto' ? 'bg-red-100 text-red-900 border-red-300' :
+                                p.status === 'sospeso' ? 'bg-orange-100 text-orange-900 border-orange-300' :
+                                'bg-slate-200 text-slate-800 border-slate-300'
+                              }`}
+                            >
+                              <option value="pagato" className="bg-white text-emerald-800 font-bold">PAGATO</option>
+                              <option value="in_attesa" className="bg-white text-amber-900 font-bold">IN ATTESA</option>
+                              <option value="insoluto" className="bg-white text-red-900 font-bold">INSOLUTO</option>
+                              <option value="sospeso" className="bg-white text-orange-900 font-bold">SOSPESO</option>
+                              <option value="disdetto" className="bg-white text-slate-800 font-bold">DISDETTO</option>
+                            </select>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+                </div> {/* FINE COLONNA DESTRA */}
+              </div> {/* FINE GRID DESKTOP */}
+
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <button 
+                  type="button"
+                  onClick={() => setClientToDelete({ id: selectedScuola.id, name: selectedScuola.name, isAdmin: false })}
+                  className="px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-xl text-xs flex items-center gap-1.5 border border-red-200 transition-all"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  Elimina Scheda
+                </button>
+                
+                <div className="flex items-center gap-3">
+                  <button 
+                    type="button"
+                    onClick={() => { setPrintDentistiList(false); setPrintClient(selectedScuola as any); }}
+                    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl flex items-center gap-2 text-xs"
+                  >
+                    <Printer className="w-4 h-4" /> Stampa Verbale
+                  </button>
+                  <button 
+                    type="submit"
+                    className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2"
+                  >
+                    <CheckCircle className="w-4 h-4" /> Salva Modifiche
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      
 
       {selectedDentista && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">

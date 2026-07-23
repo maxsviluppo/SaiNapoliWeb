@@ -1,0 +1,2632 @@
+[
+  {
+    "id": "scuola_ex_1",
+    "name": "SCUOLA ANGIULLI",
+    "paese": "p.zza Mario Pagano 1",
+    "city": "Napoli",
+    "phone": "081/450862",
+    "email": "naee01700c@istruzione.it",
+    "contractNumber": 3001,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Vincenzo Varriale",
+    "letter": "A",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2025-01-01",
+        "amount": 350,
+        "status": "in_attesa",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_2",
+    "name": "SCUOLA NICOLINI-DI GIACOMO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/7513142",
+    "email": "naic8e800l@istruzione.it",
+    "contractNumber": 3002,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 585.6,
+    "status": "attivo",
+    "notes": "Dirigente: IOLANDA MANCO. Plessi: SEDE CENTRALE: VIA A. SOGLIANO, 45 NAPOLI | PLESSO: VIA S. EFRAMO VECCHIO 11/4 NAPOLI | PLESSO: VIA M. A. SEVERINO, 28 NAPOLI",
+    "letter": "N",
+    "nCampioni": "1 CAMPIONE PER OGNI SEDE + 1 PALESTRA LOCALE DISLOCATO",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2022-11-15",
+        "amount": 585.6,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2022-11-15",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2023-05-15",
+        "amount": 585.6,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2023-05-15",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2022-11-14",
+        "amount": 585.6,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2022-11-14",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_3",
+    "name": "SCUOLA 5 CIRCOLO GIUGLIANO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/8958351 - 0816334856",
+    "email": "naee346003@istruzione.it",
+    "contractNumber": 3003,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: SABRINA ZINNO",
+    "letter": "S",
+    "nCampioni": "4",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2020-01-29",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2020-01-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_4",
+    "name": "SCUOLA CACCIOPPOLI",
+    "paese": "Succ. via de Matha",
+    "city": "Napoli",
+    "phone": "081/6584522 nuovo num.",
+    "email": "naps07000r@istruzione.it",
+    "contractNumber": 549,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: D.ssa roberta Tagliaferro",
+    "letter": "C",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-03-01",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "1006",
+        "invoiceDate": "2017-09-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2018-09-06",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "288",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2019-03-06",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "892 IL 03/10/2018",
+        "invoiceDate": "2018-09-26",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-04-02",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "271",
+        "invoiceDate": "2019-04-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-09-25",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-09-25",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_5",
+    "name": "SCUOLA COLOMBO",
+    "paese": "via nuova del bosco Marigliano",
+    "city": "Napoli",
+    "phone": "081/8851978",
+    "email": "naps02000q@istruzione.it",
+    "contractNumber": 5,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Nicoletta Albano",
+    "letter": "C",
+    "nCampioni": "2",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2017-10-06",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "663",
+        "invoiceDate": "2017-06-21",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2018-04-30",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1191",
+        "invoiceDate": "2017-11-14",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-10-16",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "420",
+        "invoiceDate": "2018-05-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2019-04-19",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1014",
+        "invoiceDate": "2018-10-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-04-20",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "359",
+        "invoiceDate": "2019-04-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2019-11-04",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1059",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "ANNO 2021",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2021",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "2021-06-04",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2021-06-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_6",
+    "name": "SCUOLA LICEO CUOCO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/440200",
+    "email": "naps84000x@istruzione.it",
+    "contractNumber": 260,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: preside Adele Barile. Plessi: SEDE centrale: via Annibale de Gasparis,12",
+    "letter": "L",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-03-13",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1088",
+        "invoiceDate": "2017-10-05",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2018-09-02",
+        "amount": 146.4,
+        "status": "pagato",
+        "invoiceNumber": "287",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2019-03-13",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "947",
+        "invoiceDate": "2018-10-13",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-04-02",
+        "amount": 146.4,
+        "status": "pagato",
+        "invoiceNumber": "270",
+        "invoiceDate": "2019-04-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-09-23",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-09-23",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_7",
+    "name": "SCUOLA CUOCO-SCHIPA",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/5442350 / 5448765",
+    "email": "naic8a8006@istruzione.it",
+    "contractNumber": 3004,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Longo Angela",
+    "letter": "C",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-06-13",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1323",
+        "invoiceDate": "2017-12-19",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2018-12-25",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "708",
+        "invoiceDate": "2018-07-16",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-12-24",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1219",
+        "invoiceDate": "2018-12-24",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-12-13",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "609",
+        "invoiceDate": "2019-06-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-12-30",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1427",
+        "invoiceDate": "2019-12-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_8",
+    "name": "SCUOLA CONFALONIERI",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/5517035-081/5514798",
+    "email": "scuola@istruzione.it",
+    "contractNumber": 1376,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: D'Isanto Tiziana",
+    "letter": "C",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2017-09-03",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "448",
+        "invoiceDate": "2017-03-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "RICHIAMARE INIZIO DI DICEMBRE 2017",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "RICHIAMARE INIZIO DI DICEMBRE 2017",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_9",
+    "name": "SCUOLA D'AOSTA-SCURA",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/5520537-081/414741",
+    "email": "naic8c500x@istruzione.it",
+    "contractNumber": 73,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Eugenio Tipaldi",
+    "letter": "D",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "1500,45,105",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "1500,45,105",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "1500,45,40",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "1500,45,40",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "1500,45,45",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "1500,45,45",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "1500,45,365",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "1500,45,365",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2018-04-13",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "1146 - 447",
+        "invoiceDate": "2017-10-25",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2018-10-10",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "423",
+        "invoiceDate": "2018-05-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2019-04-16",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "1012",
+        "invoiceDate": "2018-10-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "2019-04-20",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "356",
+        "invoiceDate": "2019-04-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "2019-11-04",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "1060",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_10",
+    "name": "SCUOLA DON GIUSEPPE DIANA",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/8392794-3494956564",
+    "email": "naee333001@istruzione.it",
+    "contractNumber": 1361,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Del Vecchio Michelina",
+    "letter": "D",
+    "nCampioni": "4",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2017-10-07",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "659",
+        "invoiceDate": "2017-06-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2018-05-23",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1277",
+        "invoiceDate": "2017-12-06",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-11-04",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "473",
+        "invoiceDate": "2018-05-21",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2019-05-07",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1094",
+        "invoiceDate": "2018-11-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-06-04",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "547",
+        "invoiceDate": "2019-06-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2019-11-30",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "1292",
+        "invoiceDate": "2019-11-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_11",
+    "name": "SCUOLA DE NICOLA",
+    "paese": "via E.A. Mario",
+    "city": "Napoli",
+    "phone": "081/5607750  / 5607333",
+    "email": "nais042007@istruzione.it",
+    "contractNumber": 573,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Zen Stefano",
+    "letter": "D",
+    "nCampioni": "1",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-03-05",
+        "amount": 50.0,
+        "status": "pagato",
+        "invoiceNumber": "1061",
+        "invoiceDate": "2017-09-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2018-09-08",
+        "amount": 50.0,
+        "status": "pagato",
+        "invoiceNumber": "284",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_12",
+    "name": "SCUOLA MARCONI",
+    "paese": "Napoli",
+    "city": "Giugliano in Campania",
+    "phone": "081/8945777",
+    "email": "nais13700l@istruzione.it",
+    "contractNumber": 318,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: MUGIONE GIOVANNA",
+    "letter": "M",
+    "nCampioni": "1",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-01-20",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "952",
+        "invoiceDate": "2017-07-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2018-08-22",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "285",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2019-04-10",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "1010",
+        "invoiceDate": "2018-10-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "INVIATA DINUVO EMAIL IL 23/3",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "INVIATA DINUVO EMAIL IL 23/3",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2019-10-10",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "354",
+        "invoiceDate": "2019-04-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-11-04",
+        "amount": 122.0,
+        "status": "pagato",
+        "invoiceNumber": "1061",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "INVIATA DINUVO EMAIL IL 23/3",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "INVIATA DINUVO EMAIL IL 23/3",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2021-06-30",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2021-06-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "2021-11-22",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2021-11-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "INVIATA DINUVO EMAIL IL 23/3",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "INVIATA DINUVO EMAIL IL 23/3",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "2022-07-01",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2022-07-01",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_12",
+        "date": "2022-12-01",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2022-12-01",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_13",
+    "name": "SCUOLA MATTEOTTI-CIRILLO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/7366214",
+    "email": "naic897007@istruzione.it",
+    "contractNumber": 3005,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Maria Migliaccio",
+    "letter": "M",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "rinviato a settembre 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "rinviato a settembre 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "Su richesta telefonica della Preside",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Su richesta telefonica della Preside",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "RIEPILOGO",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "RIEPILOGO",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-06-05",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "17",
+        "invoiceDate": "2018-01-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANN0 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANN0 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2018-12-06",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "575",
+        "invoiceDate": "2018-06-19",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-06-14",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "1220",
+        "invoiceDate": "2018-12-27",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "ANN0 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANN0 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "2020-03-25",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-09-25",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_14",
+    "name": "SCUOLA PAVESE-NOBILE",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081/5457087",
+    "email": "naic8aw00b@istruzione.it",
+    "contractNumber": 1429,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico Pavese-Nobile - Excel import",
+    "letter": "P",
+    "nCampioni": "2",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2017-10-06",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "660",
+        "invoiceDate": "2017-06-21",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2018-04-30",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1190",
+        "invoiceDate": "2017-11-14",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-10-13",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "421",
+        "invoiceDate": "2018-05-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2019-04-19",
+        "amount": 97.6,
+        "status": "pagato",
+        "invoiceNumber": "1013",
+        "invoiceDate": "2018-10-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-04-09",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-04-09",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2019-10-08",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-10-08",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_15",
+    "name": "SCUOLA PICIONE",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 0000000",
+    "email": "scuola@istruzione.it",
+    "contractNumber": 3006,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico PICIONE - Excel import",
+    "letter": "P",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2006-11-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "256",
+        "invoiceDate": "2006-05-23",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2007-05-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "548",
+        "invoiceDate": "2006-12-05",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2007-04-26",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2007-04-26",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2007-10-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "242",
+        "invoiceDate": "2007-05-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2008-04-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "571",
+        "invoiceDate": "2007-10-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2007-10-27",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2007-10-27",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2008-04-22",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2008-04-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_12",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_13",
+        "date": "2008-10-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "300",
+        "invoiceDate": "2008-05-27",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_14",
+        "date": "2009-04-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "628",
+        "invoiceDate": "2008-10-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_15",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_16",
+        "date": "2009-09-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "111",
+        "invoiceDate": "2009-03-18",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_17",
+        "date": "2010-03-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "437",
+        "invoiceDate": "2009-10-14",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_18",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_19",
+        "date": "2010-09-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "102",
+        "invoiceDate": "2010-04-10",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_20",
+        "date": "2011-03-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "385",
+        "invoiceDate": "2010-10-18",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_21",
+        "date": "2010-12-24",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "459",
+        "invoiceDate": "2010-12-24",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_22",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_23",
+        "date": "2011-10-01",
+        "amount": 120.0,
+        "status": "pagato",
+        "invoiceNumber": "114",
+        "invoiceDate": "2011-04-08",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_24",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_25",
+        "date": "2012-03-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "380",
+        "invoiceDate": "2011-10-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_26",
+        "date": "2012-10-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "210",
+        "invoiceDate": "2012-04-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_16",
+    "name": "SCUOLA PITAGORA",
+    "paese": "Napoli",
+    "city": "Pozzuoli",
+    "phone": "081/8555372",
+    "email": "nais00400c@istruzione.it",
+    "contractNumber": 115,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Antonio Vitagliano",
+    "letter": "P",
+    "nCampioni": "1",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-03-06",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2017-09-06",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2018-09-09",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "286",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2019-04-10",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "1011",
+        "invoiceDate": "2018-10-31",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-04-20",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "355",
+        "invoiceDate": "2019-04-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2019-11-04",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "1057",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_17",
+    "name": "SCUOLA RISTORI",
+    "paese": "via Lucrezia D'alagno, 16",
+    "city": "Napoli",
+    "phone": "081/5546902",
+    "email": "naic8a400v@istruzione.it",
+    "contractNumber": 44,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: STEFANIA COLICELLI",
+    "letter": "R",
+    "nCampioni": "2",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2017-09-07",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "742",
+        "invoiceDate": "2017-07-10",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2017-09-21",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "662",
+        "invoiceDate": "2017-06-21",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2018-03-01",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "1005",
+        "invoiceDate": "2017-09-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2018-09-07",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "290",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-03-12",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "890",
+        "invoiceDate": "2018-09-26",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2019-04-02",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "269",
+        "invoiceDate": "2019-04-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "2019-11-04",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "1056",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "CONTRATTO ANNO 2017/18",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "CONTRATTO ANNO 2017/18",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "DICHIARAZIONE DEL CONTO DEDICATO",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "DICHIARAZIONE DEL CONTO DEDICATO",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_12",
+        "date": "ANNO 2022",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2022",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_18",
+    "name": "SCUOLA 33 CIRCOLO RISORGIMENTO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 0000000",
+    "email": "scuola@istruzione.it",
+    "contractNumber": 3007,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico 33 circolo risorgimento - Excel import",
+    "letter": "S",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2015-11-12",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "361",
+        "invoiceDate": "2015-11-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_19",
+    "name": "SCUOLA RUSSOLILLO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 0000000",
+    "email": "naic8cu004@istruzione.it",
+    "contractNumber": 3008,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: DANIELA PES. Plessi: SEDE CENTRALE: corso Duca D'Aosta n° 78; | PLESSO: Via Evangelista Torricelli n° 5/c | PLESSO: Via Napoli n°101",
+    "letter": "R",
+    "nCampioni": "1 PER OGNI SEDE",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-07-19",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "209",
+        "invoiceDate": "2018-02-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2019-01-11",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "774 B/B 04/09/2018",
+        "invoiceDate": "2018-07-24",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "Anno 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Anno 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2020-02-12",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "138",
+        "invoiceDate": "2019-02-08",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2020-02-12",
+        "amount": 183.0,
+        "status": "pagato",
+        "invoiceNumber": "774",
+        "invoiceDate": "2019-07-27",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "CONTO DEDICATO  + NUOVO CONTRATTO X IL 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "CONTO DEDICATO  + NUOVO CONTRATTO X IL 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_20",
+    "name": "SCUOLA GARIBALDI",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 0000000",
+    "email": "scuola@istruzione.it",
+    "contractNumber": 3009,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico GARIBALDI - Excel import",
+    "letter": "G",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2006-07-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "39",
+        "invoiceDate": "2006-01-17",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "2007-01-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "330",
+        "invoiceDate": "2006-09-01",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2007-09-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "157",
+        "invoiceDate": "2007-03-16",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2008-03-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "468",
+        "invoiceDate": "2007-09-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2008-09-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "188",
+        "invoiceDate": "2008-03-19",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "2009-03-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "505",
+        "invoiceDate": "2008-09-10",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "2009-09-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "101",
+        "invoiceDate": "2009-03-16",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "2010-03-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "387",
+        "invoiceDate": "2009-09-18",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_12",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_13",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_14",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_15",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_16",
+        "date": "2010-09-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "99",
+        "invoiceDate": "2010-04-08",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_17",
+        "date": "2011-03-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "328",
+        "invoiceDate": "2010-09-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_18",
+        "date": "2011-02-28",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2011-02-28",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_19",
+        "date": "2011-03-02",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2011-03-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_20",
+        "date": "2011-03-09",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2011-03-09",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_21",
+        "date": "2011-03-10",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2011-03-10",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_22",
+        "date": "2011-03-11",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2011-03-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_23",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_24",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_25",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_26",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_27",
+        "date": "2011-09-01",
+        "amount": 60.0,
+        "status": "pagato",
+        "invoiceNumber": "116",
+        "invoiceDate": "2011-04-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_28",
+        "date": "2012-03-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "354",
+        "invoiceDate": "2011-09-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_29",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_30",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_31",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_32",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_33",
+        "date": "2012-09-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "168",
+        "invoiceDate": "2012-03-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_34",
+        "date": "2013-03-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "451",
+        "invoiceDate": "2012-09-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_35",
+        "date": "2012-12-12",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2012-12-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_36",
+        "date": "2013-01-07",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2013-01-07",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_37",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_38",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_39",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_40",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_41",
+        "date": "2013-09-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "107",
+        "invoiceDate": "2013-03-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_42",
+        "date": "2014-03-01",
+        "amount": 60.5,
+        "status": "pagato",
+        "invoiceNumber": "328",
+        "invoiceDate": "2013-09-09",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_43",
+        "date": "2014-03-05",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2014-03-05",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_44",
+        "date": "2014-03-07",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2014-03-07",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_45",
+        "date": "2014-03-17",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2014-03-17",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_46",
+        "date": "2014-03-25",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2014-03-25",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_47",
+        "date": "Dirigente :",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Dirigente :",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_48",
+        "date": "Telefono",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Telefono",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_49",
+        "date": "Cellulare",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Cellulare",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_50",
+        "date": "Fax",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "Fax",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_51",
+        "date": "2014-11-01",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "133",
+        "invoiceDate": "2014-05-20",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_52",
+        "date": "2015-05-01",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "462",
+        "invoiceDate": "2014-12-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_53",
+        "date": "Indice",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "RIEPILOGO",
+        "invoiceDate": "Indice",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_54",
+        "date": "1500,45,135",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": "ANNO 2015",
+        "invoiceDate": "1500,45,135",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_21",
+    "name": "SCUOLA DAZEGLIO",
+    "paese": "VIA PIAVE 51 MARANO",
+    "city": "Napoli",
+    "phone": "081/7420423",
+    "email": "namm32100n@istruzione.it",
+    "contractNumber": 3010,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: ANTONIETTA MAGLIONE",
+    "letter": "D",
+    "nCampioni": "1",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2019-05-30",
+        "amount": 61.0,
+        "status": "pagato",
+        "invoiceNumber": "1426",
+        "invoiceDate": "2019-12-30",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_22",
+    "name": "SCUOLA MARIE CURIE",
+    "paese": "via Argine, 902",
+    "city": "Napoli",
+    "phone": "081/5961947",
+    "email": "natf190001@istruzione.it",
+    "contractNumber": 571,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Prof. Patrizia Porretti",
+    "letter": "M",
+    "nCampioni": "3",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-04-04",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2017-10-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_23",
+    "name": "SCUOLA MOSCATI",
+    "paese": "Via F. Solimena, 44 Sant'Antimo (Na)",
+    "city": "Caserta",
+    "phone": "081 833 04 01",
+    "email": "nais077006@istruzione.it",
+    "contractNumber": 1066,
+    "billingInterval": "1 anno",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: ANTONIETTA MAGLIONE",
+    "letter": "M",
+    "nCampioni": "1",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2021-12-21",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2021-12-21",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_24",
+    "name": "SCUOLA ORIANI-DIAZ",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 867 91 17",
+    "email": "naic8dm00p@istruzione.it",
+    "contractNumber": 3011,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico ORIANI-DIAZ - Excel import",
+    "letter": "O",
+    "nCampioni": "5",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2018-03-06",
+        "amount": 450.0,
+        "status": "pagato",
+        "invoiceNumber": "1056",
+        "invoiceDate": "2017-09-29",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2019-03-07",
+        "amount": 450.0,
+        "status": "pagato",
+        "invoiceNumber": "891",
+        "invoiceDate": "2018-09-26",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "2019-03-11",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2019-03-11",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2019-11-04",
+        "amount": 450.0,
+        "status": "pagato",
+        "invoiceNumber": "1055",
+        "invoiceDate": "2019-11-04",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "dichiarazione conto dedicato",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "dichiarazione conto dedicato",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "documento",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "documento",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "durc",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "durc",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_25",
+    "name": "SCUOLA 4 CIRCOLO ACERRA",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "081 0000000",
+    "email": "scuola@istruzione.it",
+    "contractNumber": 3012,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Plesso scolastico 4 CIRCOLO ACERRA - Excel import",
+    "letter": "S",
+    "nCampioni": "",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "2015-12-05",
+        "amount": 244.0,
+        "status": "pagato",
+        "invoiceNumber": "407",
+        "invoiceDate": "2015-12-05",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  },
+  {
+    "id": "scuola_ex_26",
+    "name": "SCUOLA ITE TERRA DI LAVORO",
+    "paese": "Napoli",
+    "city": "Napoli",
+    "phone": "0823/326318",
+    "email": "ceis03800n@istruzione.it",
+    "contractNumber": 1328,
+    "billingInterval": "6 mesi",
+    "monthlyFee": 350,
+    "status": "attivo",
+    "notes": "Dirigente: Emilia Nocerino",
+    "letter": "I",
+    "nCampioni": "3 in centrale ; 2 in succ.",
+    "payments": [
+      {
+        "id": "p_1",
+        "date": "chiuso",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "207",
+        "invoiceDate": "2016-06-18",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_2",
+        "date": "ANNO 2017",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2017",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_3",
+        "date": "2017-08-13",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "59",
+        "invoiceDate": "2017-03-03",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_4",
+        "date": "2018-03-25",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "1071",
+        "invoiceDate": "2017-10-03",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_5",
+        "date": "ANNO 2018",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2018",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_6",
+        "date": "2018-03-22",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "291",
+        "invoiceDate": "2018-03-22",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_7",
+        "date": "2018-11-10",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "2018-11-10",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_8",
+        "date": "ANNO 2019",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2019",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_9",
+        "date": "2019-04-02",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "272",
+        "invoiceDate": "2019-04-02",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_10",
+        "date": "2019-10-12",
+        "amount": 305.0,
+        "status": "pagato",
+        "invoiceNumber": "954",
+        "invoiceDate": "2019-10-12",
+        "refertoData": "",
+        "consegnaReferti": ""
+      },
+      {
+        "id": "p_11",
+        "date": "ANNO 2020",
+        "amount": 350,
+        "status": "in_attesa",
+        "invoiceNumber": null,
+        "invoiceDate": "ANNO 2020",
+        "refertoData": "",
+        "consegnaReferti": ""
+      }
+    ]
+  }
+]
