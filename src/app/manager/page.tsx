@@ -877,10 +877,7 @@ export default function ManagerDashboard() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-slate-800 px-3.5 py-1.5 rounded-xl border border-slate-700">
-            <Database className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold text-slate-300">{dentisti.length} Studi Odontoiatrici</span>
-          </div>
+
 
           <button 
             onClick={handleLogout}

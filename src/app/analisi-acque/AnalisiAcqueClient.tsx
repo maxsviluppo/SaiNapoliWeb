@@ -97,7 +97,7 @@ export default function AnalisiAcquePage() {
                   <a href="/studiodontoiatrici" className="px-3.5 py-2.5 hover:bg-slate-50 text-xs font-bold text-slate-700 hover:text-sai-blue rounded-lg transition-colors">Autoclavi Odontoiatri</a>
                   <a href="/analisi-acque" className="px-3.5 py-2.5 hover:bg-slate-50 text-xs font-bold text-sai-blue rounded-lg transition-colors flex items-center justify-between bg-sai-blue/5">
                     <span>Analisi Acque & Piscine</span>
-                    <span className="text-[9px] bg-cyan-100 text-cyan-600 px-1.5 py-0.5 rounded font-black">D.Lgs. 18/23</span>
+                    <span className="text-[9px] bg-cyan-100 text-cyan-600 px-1.5 py-0.5 rounded font-black">D.Lgs. 102/25</span>
                   </a>
                   <a href="/gasradon" className="px-3.5 py-2.5 hover:bg-slate-50 text-xs font-bold text-slate-700 hover:text-sai-blue rounded-lg transition-colors">Misurazione Gas Radon</a>
                   <a href="/gdpr" className="px-3.5 py-2.5 hover:bg-slate-50 text-xs font-bold text-slate-700 hover:text-sai-blue rounded-lg transition-colors">Privacy & GDPR</a>
@@ -154,7 +154,7 @@ export default function AnalisiAcquePage() {
                 <a href="/legionella" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-sm font-bold text-slate-700 hover:text-sai-blue hover:bg-slate-50 rounded-lg transition-colors">Controllo Legionella</a>
                 <a href="/studiodontoiatrici" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-sm font-bold text-slate-700 hover:text-sai-blue hover:bg-slate-50 rounded-lg transition-colors">Autoclavi Odontoiatri</a>
                 <a href="/analisi-acque" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-sm font-bold text-sai-blue bg-sai-blue/5 rounded-lg transition-colors flex items-center justify-between">
-                  Analisi Acque & Piscine <span className="text-[9px] bg-cyan-100 text-cyan-600 px-1.5 py-0.5 rounded font-black">D.Lgs. 18/23</span>
+                  Analisi Acque & Piscine <span className="text-[9px] bg-cyan-100 text-cyan-600 px-1.5 py-0.5 rounded font-black">D.Lgs. 102/25</span>
                 </a>
                 <a href="/gasradon" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-sm font-bold text-slate-700 hover:text-sai-blue hover:bg-slate-50 rounded-lg transition-colors">Misurazione Gas Radon</a>
                 <a href="/gdpr" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-sm font-bold text-slate-700 hover:text-sai-blue hover:bg-slate-50 rounded-lg transition-colors">Privacy & GDPR</a>
@@ -189,7 +189,7 @@ export default function AnalisiAcquePage() {
             Analisi Acque & Piscine
           </h1>
           <p className="text-slate-300 text-lg max-w-3xl leading-relaxed mx-auto">
-            Consulenza e controllo chimico-microbiologico delle acque destinate al consumo umano (D.Lgs. 18/2023) ed impianti balneari o piscine pubbliche e condominiali.
+            Consulenza e controllo chimico-microbiologico delle acque destinate al consumo umano (D.Lgs. 102/2025) ed impianti balneari o piscine pubbliche e condominiali.
           </p>
         </div>
         
@@ -206,15 +206,26 @@ export default function AnalisiAcquePage() {
             Qualità Acque al Consumo Umano
           </h2>
           <span className="text-xs font-black tracking-wider text-sai-blue uppercase block mt-1">
-            NUOVA NORMATIVA DECRETO LEGISLATIVO N. 18 DEL 23 FEBBRAIO 2023
+            AGGIORNAMENTO NORMATIVO: D.LGS. N. 102 DEL 19 GIUGNO 2025
           </span>
           <div className="text-slate-600 space-y-4 leading-relaxed text-sm sm:text-base">
             <p>
               L'acqua assolve la funzione biologica di "igiene", pulizia e prevenzione delle malattie assicurando un superiore livello di qualità della vita. Tuttavia, se l'acqua non è microbiologicamente o chimicamente salubre, essa si trasforma in un pericoloso veicolo di contaminazione patogena.
             </p>
-            <p>
-              Il <strong>D.Lgs. n.18 del 23/02/2023</strong> (pubblicato in G.U. n.55 del 06/03/2023), concernente la qualità delle acque destinate al consumo umano, sostituisce ed abroga integralmente la vecchia normativa del D.Lgs. 31/2001.
-            </p>
+            <div className="space-y-4 pt-2 border-t border-slate-100">
+              <p>
+                Il nuovo <strong>Decreto Legislativo 19 giugno 2025, n. 102</strong> (pubblicato in Gazzetta Ufficiale n. 153 del 4 luglio 2025 ed entrato in vigore il 19 luglio 2025) introduce le disposizioni integrative e correttive al D.Lgs. 18/2023, armonizzando la disciplina sulla salubrità delle acque destinate al consumo umano secondo la Direttiva Europea UE 2020/2184.
+              </p>
+              <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-3 text-xs sm:text-sm">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs text-sai-blue">Punti Chiave e Novità del D.Lgs. n. 102/2025:</h4>
+                <ul className="space-y-2 list-disc list-inside text-slate-700 leading-relaxed">
+                  <li><strong>Limiti più severi per PFAS e TFA:</strong> Introduzione di valori limite stringenti per le sostanze perfluoroalchiliche (PFAS) e monitoraggio obbligatorio dell'acido trifluoroacetico (TFA) a tutela della salute pubblica.</li>
+                  <li><strong>Responsabilità del GIDI (Gestore Distribuzione Idrica Interna):</strong> Rafforzamento degli obblighi di controllo e prevenzione sanitaria per gli <em>edifici prioritari</em> (condomini, scuole, strutture sanitarie, alberghi, ristoranti e mense).</li>
+                  <li><strong>Certificazione Materiali (ReMaF):</strong> Nuove procedure trasparenti e severe per l'idoneità di tubature, reagenti e materiali a contatto con l'acqua potabile.</li>
+                  <li><strong>Piani di Sicurezza dell'Acqua (Water Safety Plans):</strong> Approccio di valutazione e gestione del rischio dall'origine (captazione) al rubinetto finale dell'utente.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -343,7 +354,7 @@ export default function AnalisiAcquePage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="space-y-2 text-center md:text-left">
             <h4 className="text-xl sm:text-2xl font-black">Esegui l'analisi delle acque</h4>
-            <p className="text-white/80 text-sm">Campionamenti potabilità condomini (D.Lgs. 18/2023), registri autocontrollo e campionamenti microbiologici piscine.</p>
+            <p className="text-white/80 text-sm">Campionamenti potabilità condomini (D.Lgs. 102/2025), registri autocontrollo e campionamenti microbiologici piscine.</p>
           </div>
           <div className="flex flex-wrap gap-4 justify-center">
             <a 
