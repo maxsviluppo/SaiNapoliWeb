@@ -244,16 +244,20 @@ export function migrateRegistroServizi(c: RegistroContract): RegistroContract {
   };
 }
 
+function resolveServizioStatus(
+  s: RegistroServizioAttivo,
+): RegistroServizioAttivo['status'] {
+  if (s.status === 'disdetto' || s.status === 'sospeso') return s.status;
+  const exp = getServizioExpiryStatus(s.scadenza);
+  if (exp === 'scaduto') return 'scaduto';
+  if (exp === 'in_scadenza') return 'in_scadenza';
+  return 'attivo';
+}
+
 export function normalizeRegistroOnSave(c: RegistroContract): RegistroContract {
-  const serviziAttivi = (c.serviziAttivi || []).map(s => ({
+  const serviziAttivi: RegistroServizioAttivo[] = (c.serviziAttivi || []).map(s => ({
     ...s,
-    status: (() => {
-      if (s.status === 'disdetto' || s.status === 'sospeso') return s.status;
-      const exp = getServizioExpiryStatus(s.scadenza);
-      if (exp === 'scaduto') return 'scaduto';
-      if (exp === 'in_scadenza') return 'in_scadenza';
-      return 'attivo';
-    })(),
+    status: resolveServizioStatus(s),
   }));
   return {
     ...c,
