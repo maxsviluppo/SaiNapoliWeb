@@ -1,0 +1,2 @@
+Python 3.12.10
+110 ['Indice', 'Riepilogo', 'INDIRIZZI MAIL', 'FATTURE 2023', 'FATT. 2024']

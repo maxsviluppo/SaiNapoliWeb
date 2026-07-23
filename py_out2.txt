@@ -1,0 +1,4 @@
+=== BUILDING AMMINISTRATORI DATASET FROM EXCEL ===
+Saved 122 administrators into src/data/amministratori_full_excel_master.json
+Abbate records: 1
+  name=Abbate Marco, condos=75, payments=92, contract=1396
