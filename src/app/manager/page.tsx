@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { 
   Lock, Key, Eye, EyeOff, LogOut, Shield, Users, GraduationCap, Stethoscope, 
   BookOpen, Plus, Database, AlertCircle, Search, MapPin, Phone, Mail, ChevronLeft, ChevronRight,
-  Edit, Trash2, Calendar, Euro, FileText, CheckCircle, Clock, XCircle, Printer,
+  Edit, Trash2, Calendar, FileText, CheckCircle, Clock, XCircle, Printer,
   TrendingUp, Activity, AlertTriangle, FileX, FileCheck
 } from 'lucide-react';
 import { generateInitialDentisti, ClientContract, Payment, hasOverduePayment, addIntervalToDate, getExpiryStatus, getNextDueDate, matchesMonthYearFilter } from '../../data/dentistiSeed';
 import { generateInitialAmministratori, AmministratoreContract } from '../../data/amministratoriSeed';
 import { generateInitialScuole, ScuolaContract } from '../../data/scuoleSeed';
+import { generateInitialRegistri, RegistroContract, RegistroPayment, RegistroServizioAttivo, RegistroServiceTypeId, REGISTRO_SERVICE_CATALOG, REGISTRO_MODALITA_PAGAMENTO, REGISTRO_FREQUENZE_CONTROLLO, getRegistroServiziAttivi, getRegistroServiceShort, getRegistroServiceLabel, getNextServizioScadenza, getServizioExpiryStatus, matchesRegistroMonthYearFilter, createEmptyRegistroServizio, normalizeRegistroOnSave, migrateRegistroServizi, buildRegistroCalendarEvents, countRegistroCalendarEventsByDay } from '../../data/registriSeed';
 
 type ManagerTab = 'dashboard' | 'amministratori' | 'scuole' | 'dentisti' | 'registri';
 
@@ -31,6 +32,8 @@ export default function ManagerDashboard() {
   const [selectedAmministratore, setSelectedAmministratore] = useState<AmministratoreContract | null>(null);
   const [scuole, setScuole] = useState<ScuolaContract[]>([]);
   const [selectedScuola, setSelectedScuola] = useState<ScuolaContract | null>(null);
+  const [registri, setRegistri] = useState<RegistroContract[]>([]);
+  const [selectedRegistro, setSelectedRegistro] = useState<RegistroContract | null>(null);
 
   // Filters & Sorting for Dentisti
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,6 +44,10 @@ export default function ManagerDashboard() {
   const [selectedLetterScuole, setSelectedLetterScuole] = useState<string>('all');
   const [selectedStatusFilterScuole, setSelectedStatusFilterScuole] = useState<string>('all');
   const [currentPageScuole, setCurrentPageScuole] = useState(1);
+  const [searchQueryRegistri, setSearchQueryRegistri] = useState('');
+  const [selectedLetterRegistri, setSelectedLetterRegistri] = useState<string>('all');
+  const [selectedStatusFilterRegistri, setSelectedStatusFilterRegistri] = useState<string>('all');
+  const [currentPageRegistri, setCurrentPageRegistri] = useState(1);
 
   // Filters & Sorting for Amministratori
   const [searchQueryAdmin, setSearchQueryAdmin] = useState('');
@@ -59,6 +66,8 @@ export default function ManagerDashboard() {
   const [sortOrderDentisti, setSortOrderDentisti] = useState<'asc' | 'desc'>('asc');
   const [sortFieldScuole, setSortFieldScuole] = useState<'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status'>('contractNumber');
   const [sortOrderScuole, setSortOrderScuole] = useState<'asc' | 'desc'>('asc');
+  const [sortFieldRegistri, setSortFieldRegistri] = useState<'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status'>('name');
+  const [sortOrderRegistri, setSortOrderRegistri] = useState<'asc' | 'desc'>('asc');
 
   const handleSortAdmin = (field: 'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status') => {
     setCurrentPageAdmin(1);
@@ -80,6 +89,16 @@ export default function ManagerDashboard() {
     }
   };
 
+  const handleSortRegistri = (field: 'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status') => {
+    setCurrentPageRegistri(1);
+    if (sortFieldRegistri === field) {
+      setSortOrderRegistri(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortFieldRegistri(field);
+      setSortOrderRegistri('asc');
+    }
+  };
+
   const handleSortDentisti = (field: 'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status') => {
     setCurrentPage(1);
     if (sortFieldDentisti === field) {
@@ -90,9 +109,10 @@ export default function ManagerDashboard() {
     }
   };
 
-  const [printClient, setPrintClient] = useState<ClientContract | AmministratoreContract | null>(null);
+  const [printClient, setPrintClient] = useState<ClientContract | AmministratoreContract | RegistroContract | null>(null);
   const [printDentistiList, setPrintDentistiList] = useState(false);
   const [printAmministratoriList, setPrintAmministratoriList] = useState(false);
+  const [printRegistriList, setPrintRegistriList] = useState(false);
   
   // New Payment Invoice States (Dentisti)
   const [newInvoiceNumber, setNewInvoiceNumber] = useState('');
@@ -116,6 +136,17 @@ export default function ManagerDashboard() {
   
   const [selectedMonthAdmin, setSelectedMonthAdmin] = useState<string>('all');
   const [selectedYearAdmin, setSelectedYearAdmin] = useState<string>('all');
+
+  const [selectedMonthScuole, setSelectedMonthScuole] = useState<string>('all');
+  const [selectedYearScuole, setSelectedYearScuole] = useState<string>('all');
+
+  const [selectedMonthRegistri, setSelectedMonthRegistri] = useState<string>('all');
+  const [selectedYearRegistri, setSelectedYearRegistri] = useState<string>('all');
+  const [selectedServiceTypeRegistri, setSelectedServiceTypeRegistri] = useState<string>('all');
+  const [registroViewMode, setRegistroViewMode] = useState<'lista' | 'calendario'>('lista');
+  const [calendarMonthRegistri, setCalendarMonthRegistri] = useState(() => new Date().getMonth() + 1);
+  const [calendarYearRegistri, setCalendarYearRegistri] = useState(() => new Date().getFullYear());
+  const [calendarSelectedDayRegistri, setCalendarSelectedDayRegistri] = useState<number | null>(null);
 
   const itemsPerPage = 12;
 
@@ -149,6 +180,10 @@ export default function ManagerDashboard() {
     } catch (e) {
       console.warn("Storage quota exceeded, keeping in-memory state:", e);
     }
+
+    const seedRegistri = generateInitialRegistri();
+    setRegistri(seedRegistri);
+    // Dataset HACCP molto grande: non forzare localStorage (quota browser)
   }, []);
 
   const saveDentisti = (newList: ClientContract[]) => {
@@ -163,6 +198,13 @@ export default function ManagerDashboard() {
   const saveScuole = (newList: ScuolaContract[]) => {
     setScuole(newList);
     try { localStorage.setItem('sai_scuole_db_v2', JSON.stringify(newList)); } catch (e) {}
+  };
+
+  const saveRegistri = (newList: RegistroContract[]) => {
+    setRegistri(newList);
+    try { localStorage.setItem('sai_registri_haccp_db_v1', JSON.stringify(newList)); } catch (e) {
+      console.warn('Registri HACCP tenuti in memoria (quota localStorage):', e);
+    }
   };
 
   const saveAmministratori = (newList: AmministratoreContract[]) => {
@@ -346,7 +388,7 @@ export default function ManagerDashboard() {
     return { invoiceText, dueText };
   };
 
-  // General Statistics & MRR Revenue calculations
+  // General Statistics
   const stats = useMemo(() => {
     const total = dentisti.length;
     const attivi = dentisti.filter(c => c.status === 'attivo').length;
@@ -364,17 +406,6 @@ export default function ManagerDashboard() {
       .map(c => c.contractNumber)
       .filter((num): num is number => num !== null);
     const lastContractNumber = validContractNumbers.length > 0 ? Math.max(...validContractNumbers) : 547;
-
-    // Monthly Recurring Revenue (MRR)
-    const activeRevenue = dentisti
-      .filter(c => c.status === 'attivo')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const pendingRevenue = dentisti
-      .filter(c => c.status === 'sospeso' || c.status === 'sollecito')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const totalMRR = activeRevenue + pendingRevenue;
 
     // City distribution top 5
     const cityCounts: Record<string, number> = {};
@@ -397,9 +428,6 @@ export default function ManagerDashboard() {
       nonReperibili,
       scaduti,
       lastContractNumber,
-      activeRevenue,
-      pendingRevenue,
-      totalMRR,
       topCities,
       maxCityCount
     };
@@ -462,6 +490,11 @@ export default function ManagerDashboard() {
     if (selectedStatusFilterScuole !== 'all') {
       result = result.filter(c => c.status === selectedStatusFilterScuole);
     }
+    if (selectedMonthScuole !== 'all' || selectedYearScuole !== 'all') {
+      result = result.filter(d =>
+        matchesMonthYearFilter(getNextDueDate(d.payments, d.billingInterval), selectedMonthScuole, selectedYearScuole)
+      );
+    }
     return [...result].sort((a, b) => {
       const valA = a[sortFieldScuole];
       const valB = b[sortFieldScuole];
@@ -472,7 +505,7 @@ export default function ManagerDashboard() {
       const strB = String(valB || '').toLowerCase();
       return sortOrderScuole === 'asc' ? strA.localeCompare(strB) : strB.localeCompare(strA);
     });
-  }, [scuole, searchQueryScuole, selectedLetterScuole, selectedStatusFilterScuole, sortFieldScuole, sortOrderScuole]);
+  }, [scuole, searchQueryScuole, selectedLetterScuole, selectedStatusFilterScuole, selectedMonthScuole, selectedYearScuole, sortFieldScuole, sortOrderScuole]);
 
   const totalPagesScuole = Math.ceil(filteredScuole.length / itemsPerPage) || 1;
   const paginatedScuole = useMemo(() => {
@@ -497,16 +530,6 @@ export default function ManagerDashboard() {
       .filter((num): num is number => num !== null);
     const lastContractNumber = validContractNumbers.length > 0 ? Math.max(...validContractNumbers) : 5000000;
 
-    const activeRevenue = scuole
-      .filter(c => c.status === 'attivo')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const pendingRevenue = scuole
-      .filter(c => c.status === 'sospeso' || c.status === 'sollecito')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const totalMRR = activeRevenue + pendingRevenue;
-
     const cityCounts: Record<string, number> = {};
     scuole.forEach(c => {
       const location = c.paese || c.city;
@@ -527,9 +550,6 @@ export default function ManagerDashboard() {
       nonReperibili,
       scaduti,
       lastContractNumber,
-      activeRevenue,
-      pendingRevenue,
-      totalMRR,
       topCities,
       maxCityCount
     };
@@ -574,6 +594,176 @@ export default function ManagerDashboard() {
       };
     });
   }, [statsScuole]);
+
+  // --- REGISTRI HACCP LOGIC ---
+  const filteredRegistri = useMemo(() => {
+    let result = [...registri];
+    if (searchQueryRegistri.trim()) {
+      const q = searchQueryRegistri.toLowerCase();
+      result = result.filter(c =>
+        c.name.toLowerCase().includes(q) ||
+        c.email.toLowerCase().includes(q) ||
+        c.city.toLowerCase().includes(q) ||
+        c.paese.toLowerCase().includes(q) ||
+        c.referente.toLowerCase().includes(q) ||
+        c.services.toLowerCase().includes(q) ||
+        String(c.contractNumber || '').includes(q)
+      );
+    }
+    if (selectedLetterRegistri !== 'all') {
+      result = result.filter(c => c.letter.toUpperCase() === selectedLetterRegistri.toUpperCase());
+    }
+    if (selectedStatusFilterRegistri !== 'all') {
+      if (selectedStatusFilterRegistri === 'scaduti') {
+        const todayStr = new Date().toISOString().split('T')[0];
+        result = result.filter(c => {
+          if (c.status !== 'attivo') return false;
+          return c.payments.some(p => (p.status === 'in_attesa' || p.status === 'insoluto') && p.date < todayStr);
+        });
+      } else {
+        result = result.filter(c => c.status === selectedStatusFilterRegistri);
+      }
+    }
+    if (selectedMonthRegistri !== 'all' || selectedYearRegistri !== 'all') {
+      result = result.filter(d =>
+        matchesRegistroMonthYearFilter(d, selectedMonthRegistri, selectedYearRegistri)
+      );
+    }
+    if (selectedServiceTypeRegistri !== 'all') {
+      result = result.filter(d =>
+        getRegistroServiziAttivi(d).some(s => s.tipoId === selectedServiceTypeRegistri)
+      );
+    }
+    return result.sort((a, b) => {
+      const valA = a[sortFieldRegistri];
+      const valB = b[sortFieldRegistri];
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return sortOrderRegistri === 'asc' ? valA - valB : valB - valA;
+      }
+      const strA = String(valA || '').toLowerCase();
+      const strB = String(valB || '').toLowerCase();
+      return sortOrderRegistri === 'asc' ? strA.localeCompare(strB) : strB.localeCompare(strA);
+    });
+  }, [registri, searchQueryRegistri, selectedLetterRegistri, selectedStatusFilterRegistri, selectedMonthRegistri, selectedYearRegistri, selectedServiceTypeRegistri, sortFieldRegistri, sortOrderRegistri]);
+
+  const totalPagesRegistri = Math.ceil(filteredRegistri.length / itemsPerPage) || 1;
+  const paginatedRegistri = useMemo(() => {
+    const start = (currentPageRegistri - 1) * itemsPerPage;
+    return filteredRegistri.slice(start, start + itemsPerPage);
+  }, [filteredRegistri, currentPageRegistri]);
+
+  const statsRegistri = useMemo(() => {
+    const total = registri.length;
+    const attivi = registri.filter(c => c.status === 'attivo').length;
+    const sollecito = registri.filter(c => c.status === 'sollecito').length;
+    const sospesi = registri.filter(c => c.status === 'sospeso').length;
+    const disdetti = registri.filter(c => c.status === 'disdetto').length;
+    const nonReperibili = registri.filter(c => c.status === 'non_reperibile').length;
+    const scaduti = registri.filter(c => {
+      const todayStr = new Date().toISOString().split('T')[0];
+      return c.payments.some(p => p.status === 'in_attesa' && p.date < todayStr);
+    }).length;
+    const validContractNumbers = registri.map(c => c.contractNumber).filter((n): n is number => n !== null);
+    const lastContractNumber = validContractNumbers.length ? Math.max(...validContractNumbers) : 0;
+    const withHaccp = registri.filter(c => getRegistroServiziAttivi(c).some(s => s.tipoId === 'sicurezza_alimentare')).length;
+    const withLegio = registri.filter(c => getRegistroServiziAttivi(c).some(s => s.tipoId === 'legionella')).length;
+    const totalServizi = registri.reduce((sum, c) => sum + getRegistroServiziAttivi(c).length, 0);
+    const serviziInScadenza = registri.reduce((sum, c) => sum + getRegistroServiziAttivi(c).filter(s => getServizioExpiryStatus(s.scadenza) === 'in_scadenza').length, 0);
+    const cityCounts: Record<string, number> = {};
+    registri.forEach(c => {
+      const location = c.city || c.paese || 'Napoli';
+      cityCounts[location] = (cityCounts[location] || 0) + 1;
+    });
+    const topCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    const maxCityCount = topCities.length > 0 ? Math.max(...topCities.map(t => t[1])) : 1;
+    return { total, attivi, sollecito, sospesi, disdetti, nonReperibili, scaduti, lastContractNumber, withHaccp, withLegio, totalServizi, serviziInScadenza, topCities, maxCityCount };
+  }, [registri]);
+
+  const donutSlicesRegistri = useMemo(() => {
+    const statusItems = [
+      { key: 'attivo', label: 'Attivi', count: statsRegistri.attivi, color: '#10B981' },
+      { key: 'sospeso', label: 'In Sospeso', count: statsRegistri.sospesi, color: '#F59E0B' },
+      { key: 'sollecito', label: 'Solleciti', count: statsRegistri.sollecito, color: '#EF4444' },
+      { key: 'disdetto', label: 'Disdetti', count: statsRegistri.disdetti, color: '#6B7280' },
+      { key: 'non_reperibile', label: 'Non Reperibili', count: statsRegistri.nonReperibili, color: '#8B5CF6' },
+    ];
+    const totalCount = statsRegistri.total || 1;
+    let cumulativePercent = 0;
+    return statusItems.map((item) => {
+      const percent = item.count / totalCount;
+      const startPercent = cumulativePercent;
+      cumulativePercent += percent;
+      const getCoordinatesForPercent = (p: number) => {
+        const x = Math.cos(2 * Math.PI * p - Math.PI / 2);
+        const y = Math.sin(2 * Math.PI * p - Math.PI / 2);
+        return [x, y];
+      };
+      const [startX, startY] = getCoordinatesForPercent(startPercent);
+      const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+      const largeArcFlag = percent > 0.5 ? 1 : 0;
+      const r = 40;
+      const pathData = percent === 1
+        ? `M 0 ${-r} A ${r} ${r} 0 1 1 -0.01 ${-r} Z`
+        : `M ${startX * r} ${startY * r} A ${r} ${r} 0 ${largeArcFlag} 1 ${endX * r} ${endY * r}`;
+      return { ...item, pathData, percentStr: (percent * 100).toFixed(1) + '%' };
+    });
+  }, [statsRegistri]);
+
+  const registriFilterSummary = useMemo(() => {
+    const parts: string[] = [];
+    if (searchQueryRegistri.trim()) parts.push(`Ricerca: "${searchQueryRegistri.trim()}"`);
+    if (selectedLetterRegistri !== 'all') parts.push(`Lettera: ${selectedLetterRegistri}`);
+    if (selectedStatusFilterRegistri !== 'all') {
+      const labels: Record<string, string> = { attivo: 'Attivo', sollecito: 'Sollecito', sospeso: 'Sospeso', disdetto: 'Disdetto', scaduti: 'Scaduti', non_reperibile: 'Non reperibile' };
+      parts.push(`Stato: ${labels[selectedStatusFilterRegistri] || selectedStatusFilterRegistri}`);
+    }
+    if (selectedMonthRegistri !== 'all') parts.push(`Mese scadenza servizi: ${MONTH_NAMES[parseInt(selectedMonthRegistri, 10)]}`);
+    if (selectedYearRegistri !== 'all') parts.push(`Anno scadenza servizi: ${selectedYearRegistri}`);
+    if (selectedServiceTypeRegistri !== 'all') {
+      const svc = REGISTRO_SERVICE_CATALOG.find(s => s.id === selectedServiceTypeRegistri);
+      parts.push(`Servizio: ${svc?.label || selectedServiceTypeRegistri}`);
+    }
+    return parts.length ? parts.join(' · ') : 'Nessun filtro attivo — elenco completo';
+  }, [searchQueryRegistri, selectedLetterRegistri, selectedStatusFilterRegistri, selectedMonthRegistri, selectedYearRegistri, selectedServiceTypeRegistri]);
+
+  const registroCalendarEvents = useMemo(
+    () => buildRegistroCalendarEvents(registri, calendarMonthRegistri, calendarYearRegistri),
+    [registri, calendarMonthRegistri, calendarYearRegistri]
+  );
+
+  const registroCalendarDayCounts = useMemo(
+    () => countRegistroCalendarEventsByDay(registroCalendarEvents),
+    [registroCalendarEvents]
+  );
+
+  const registroCalendarEventsForDay = useMemo(() => {
+    if (!calendarSelectedDayRegistri) return registroCalendarEvents;
+    return registroCalendarEvents.filter(e => {
+      const d = new Date(e.scadenza);
+      return d.getDate() === calendarSelectedDayRegistri;
+    });
+  }, [registroCalendarEvents, calendarSelectedDayRegistri]);
+
+  const getRegistroStatusLabel = (c: RegistroContract) => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const isOverdueActive = c.status === 'attivo' && c.payments.some(p => (p.status === 'in_attesa' || p.status === 'insoluto') && p.date < todayStr);
+    if (c.status === 'attivo' && !isOverdueActive) return 'ATTIVO';
+    if (c.status === 'attivo' && isOverdueActive) return 'ATTIVO (SCADUTO)';
+    if (c.status === 'sollecito') return 'SOLLECITO';
+    if (c.status === 'sospeso') return 'SOSPESO';
+    if (c.status === 'disdetto') return 'DISDETTO';
+    if (c.status === 'non_reperibile') return 'NON REPERIBILE';
+    return String(c.status || '').toUpperCase();
+  };
+
+  const getRegistroInvoiceSummary = (c: RegistroContract) => {
+    const lastInvoice = [...c.payments].reverse().find(p => p.invoiceNumber || p.invoiceDate || p.paymentNote);
+    const dueDate = c.payments[c.payments.length - 1]?.date || '';
+    const invoiceText = lastInvoice
+      ? (lastInvoice.invoiceNumber ? `Fatt. N° ${lastInvoice.invoiceNumber} del ${lastInvoice.invoiceDate || 'N/D'}` : (lastInvoice.paymentNote || 'Movimento registrato'))
+      : 'Nessuna fattura';
+    return { invoiceText, dueText: dueDate ? `Scadenza: ${dueDate}` : '' };
+  };
 
   // --- AMMINISTRATORI LOGIC ---
 
@@ -636,7 +826,7 @@ export default function ManagerDashboard() {
     [amministratori]
   );
 
-  // General Statistics & MRR Revenue calculations for Amministratori
+  // General Statistics for Amministratori
   const statsAdmin = useMemo(() => {
     const total = amministratori.length;
     const attivi = amministratori.filter(c => c.status === 'attivo').length;
@@ -654,17 +844,6 @@ export default function ManagerDashboard() {
       .map(c => c.contractNumber)
       .filter((num): num is number => num !== null);
     const lastContractNumber = validContractNumbers.length > 0 ? Math.max(...validContractNumbers) : 547;
-
-    // Monthly Recurring Revenue (MRR)
-    const activeRevenue = amministratori
-      .filter(c => c.status === 'attivo')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const pendingRevenue = amministratori
-      .filter(c => c.status === 'sospeso' || c.status === 'sollecito')
-      .reduce((sum, c) => sum + c.monthlyFee, 0);
-
-    const totalMRR = activeRevenue + pendingRevenue;
 
     // City distribution top 5
     const cityCounts: Record<string, number> = {};
@@ -687,9 +866,6 @@ export default function ManagerDashboard() {
       nonReperibili,
       scaduti,
       lastContractNumber,
-      activeRevenue,
-      pendingRevenue,
-      totalMRR,
       topCities,
       maxCityCount
     };
@@ -978,18 +1154,10 @@ export default function ManagerDashboard() {
             </div>
 
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[1.5rem] p-5 text-white shadow-lg border border-slate-700/50">
-              <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">Registri & Verbali</span>
-              <div className="text-2xl font-black mt-1">0 Registri</div>
+              <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">Database REGISTRI HACCP</span>
+              <div className="text-2xl font-black mt-1">{statsRegistri.total.toLocaleString('it-IT')} Clienti</div>
               <p className="text-[10px] text-slate-400 mt-2 leading-relaxed">
-                Archivio sanificazioni, temperature e interventi ASL
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-amber-900/40 to-slate-900 rounded-[1.5rem] p-5 text-white shadow-lg border border-amber-500/20">
-              <span className="text-[9px] font-black uppercase tracking-widest text-amber-300">Riepilogo Incassi Stimati</span>
-              <div className="text-xl font-black mt-1">€ {stats.totalMRR.toLocaleString('it-IT')} <span className="text-sm font-bold text-slate-400">/ mese</span></div>
-              <p className="text-[10px] text-slate-400 mt-2 leading-relaxed">
-                Dentisti: € {stats.activeRevenue.toLocaleString('it-IT')} · Amm.: € {statsAdmin.activeRevenue.toLocaleString('it-IT')}
+                {statsRegistri.attivi.toLocaleString('it-IT')} attivi · {statsRegistri.sollecito} solleciti
               </p>
             </div>
           </div>
@@ -1041,9 +1209,9 @@ export default function ManagerDashboard() {
                   <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center mb-4 shadow-sm group-hover:scale-105 transition-transform">
                     <BookOpen className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-sm">Registri</h3>
-                  <p className="text-[11px] text-slate-500 mt-1">0 Verbali</p>
-                  <span className="text-[10px] text-amber-600 font-bold mt-3 block">Apri Registro →</span>
+                  <h3 className="font-bold text-slate-900 text-sm">Registri HACCP</h3>
+                  <p className="text-[11px] text-amber-700 font-bold mt-1">{registri.length.toLocaleString('it-IT')} Clienti</p>
+                  <span className="text-[10px] text-amber-600 font-bold mt-3 block">Apri Gestionale →</span>
                 </button>
               </div>
 
@@ -1058,7 +1226,7 @@ export default function ManagerDashboard() {
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white border border-slate-700/50">
                     <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">Dentisti</span>
                     <div className="text-2xl font-black mt-1">{stats.total.toLocaleString('it-IT')}</div>
-                    <p className="text-[10px] text-slate-400 mt-2">{stats.attivi.toLocaleString('it-IT')} attivi · {stats.scaduti} scaduti · MRR € {stats.totalMRR.toLocaleString('it-IT')}</p>
+                    <p className="text-[10px] text-slate-400 mt-2">{stats.attivi.toLocaleString('it-IT')} attivi · {stats.scaduti} scaduti</p>
                   </div>
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white border border-slate-700/50">
                     <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Scuole</span>
@@ -1066,9 +1234,9 @@ export default function ManagerDashboard() {
                     <p className="text-[10px] text-slate-400 mt-2">{statsScuole.attivi} attivi · {statsScuole.sollecito} solleciti</p>
                   </div>
                   <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white border border-slate-700/50">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">Registri</span>
-                    <div className="text-2xl font-black mt-1">0</div>
-                    <p className="text-[10px] text-slate-400 mt-2">Verbali autoclavi e registri ufficiali</p>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-amber-400">Registri HACCP</span>
+                    <div className="text-2xl font-black mt-1">{statsRegistri.total.toLocaleString('it-IT')}</div>
+                    <p className="text-[10px] text-slate-400 mt-2">{statsRegistri.attivi.toLocaleString('it-IT')} attivi · {statsRegistri.sollecito} solleciti · Ultimo N° {statsRegistri.lastContractNumber}</p>
                   </div>
                 </div>
               </div>
@@ -1118,6 +1286,7 @@ export default function ManagerDashboard() {
                           city: 'Napoli',
                           paese: 'Napoli',
                           phone: '081 0000000',
+                          mobile: '',
                           email: 'info@nuovoamministratore.it',
                           monthlyFee: 150,
                           billingInterval: '1 anno',
@@ -1143,8 +1312,8 @@ export default function ManagerDashboard() {
                   </div>
                 </div>
 
-                {/* 4 KPI CARDS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* KPI CARDS */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   
                   {/* KPI 1: Totale Amministratori */}
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
@@ -1180,25 +1349,7 @@ export default function ManagerDashboard() {
                     </span>
                   </div>
 
-                  {/* KPI 3: Entrate Ricorrenti MRR */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entrate Stimate (MRR)</span>
-                        <div className="text-2xl font-black text-slate-900 mt-1">
-                          € {statsAdmin.totalMRR.toLocaleString('it-IT')}
-                        </div>
-                      </div>
-                      <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
-                        <Euro className="w-5 h-5" />
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-emerald-600 font-bold mt-3 block">
-                      Incassato: € {statsAdmin.activeRevenue}
-                    </span>
-                  </div>
-
-                  {/* KPI 4: Solleciti & Insoluti */}
+                  {/* KPI 3: Solleciti & Insoluti */}
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
                     <div className="flex justify-between items-start">
                       <div>
@@ -1611,6 +1762,7 @@ export default function ManagerDashboard() {
                         city: 'Napoli',
                         paese: 'Napoli',
                         phone: '081 0000000',
+                        mobile: '',
                         email: 'scuola@istruzione.it',
                         monthlyFee: 350,
                         billingInterval: '6 mesi',
@@ -1625,7 +1777,7 @@ export default function ManagerDashboard() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
                     <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Totale Plessi</span>
                     <div className="text-3xl font-black text-slate-900 mt-1">{statsScuole.total}</div>
@@ -1636,12 +1788,74 @@ export default function ManagerDashboard() {
                     <div className="mt-1 font-black text-slate-900 font-mono text-[clamp(0.7rem,1.4vw,1.05rem)]">N° {statsScuole.lastContractNumber}</div>
                   </div>
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entrate Stimate (MRR)</span>
-                    <div className="text-2xl font-black text-slate-900 mt-1">€ {statsScuole.totalMRR.toLocaleString('it-IT')}</div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Solleciti / Scaduti</span>
+                    <div className="text-3xl font-black text-red-600 mt-1">{statsScuole.sollecito + statsScuole.scaduti}</div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Solleciti</span>
-                    <div className="text-3xl font-black text-red-600 mt-1">{statsScuole.sollecito}</div>
+                </div>
+
+                {/* CHARTS SECTION */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                  <div className="lg:col-span-3 bg-slate-900 rounded-2xl p-6 text-white shadow-lg space-y-4 border border-slate-800">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4" /> Distribuzione Stati Contrattuali
+                    </h3>
+                    <div className="flex flex-col sm:flex-row items-center justify-around gap-6 pt-2">
+                      <div className="relative w-36 h-36">
+                        <svg viewBox="-50 -50 100 100" className="w-full h-full transform -rotate-90">
+                          {donutSlicesScuole.map((slice) => {
+                            if (slice.count === 0) return null;
+                            return (
+                              <path key={slice.key} d={slice.pathData} fill="none" stroke={slice.color} strokeWidth="12"
+                                className="transition-all duration-300 hover:stroke-[15px] cursor-pointer" />
+                            );
+                          })}
+                          <circle cx="0" cy="0" r="32" fill="#0f172a" />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                          <span className="text-[9px] text-slate-400 font-bold uppercase">Attivi</span>
+                          <span className="text-xl font-black text-white">{statsScuole.attivi}</span>
+                        </div>
+                      </div>
+                      <div className="flex-1 space-y-2 w-full max-w-xs text-xs">
+                        {donutSlicesScuole.map((item) => (
+                          <div
+                            key={item.key}
+                            onClick={() => { setSelectedStatusFilterScuole(selectedStatusFilterScuole === item.key ? 'all' : item.key); setCurrentPageScuole(1); }}
+                            className={`flex items-center justify-between p-2 rounded-xl border cursor-pointer transition-colors ${selectedStatusFilterScuole === item.key ? 'bg-blue-900/50 border-blue-400 text-white font-bold' : 'bg-slate-800/80 hover:bg-slate-800 border-slate-700/50 text-slate-200'}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                              <span className="font-bold">{item.label}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono font-black text-white px-2 py-0.5 rounded bg-slate-900 border border-slate-700">{item.count}</span>
+                              <span className="text-[10px] text-slate-400 font-bold w-10 text-right">{item.percentStr}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-2 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-blue-600" /> Top Comuni / Città
+                    </h3>
+                    <div className="space-y-3 pt-2">
+                      {statsScuole.topCities.map(([cityName, count]) => {
+                        const percentage = (count / statsScuole.maxCityCount) * 100;
+                        return (
+                          <div key={cityName} className="space-y-1">
+                            <div className="flex justify-between items-center text-xs font-bold">
+                              <span className="text-slate-800">{cityName}</span>
+                              <span className="text-blue-700 font-mono">{count} plessi</span>
+                            </div>
+                            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                              <div className="bg-blue-600 h-full rounded-full transition-all duration-500" style={{ width: `${percentage}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
@@ -1680,6 +1894,51 @@ export default function ManagerDashboard() {
                     {alphabet.map(l => (
                       <button key={l} onClick={() => { setSelectedLetterScuole(l); setCurrentPageScuole(1); }} className={`w-7 h-7 rounded-xl text-[10px] font-black ${selectedLetterScuole === l ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-200'}`}>{l}</button>
                     ))}
+                  </div>
+
+                  {/* Month & Year Expiry Filter (Scuole) */}
+                  <div className="flex flex-wrap gap-2 items-center bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider ml-1">Filtra Scadenza:</span>
+                    <select
+                      value={selectedMonthScuole}
+                      onChange={(e) => { setSelectedMonthScuole(e.target.value); setCurrentPageScuole(1); }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-blue-500 shadow-sm"
+                    >
+                      <option value="all">Tutti i Mesi</option>
+                      <option value="1">Gennaio</option>
+                      <option value="2">Febbraio</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Aprile</option>
+                      <option value="5">Maggio</option>
+                      <option value="6">Giugno</option>
+                      <option value="7">Luglio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Settembre</option>
+                      <option value="10">Ottobre</option>
+                      <option value="11">Novembre</option>
+                      <option value="12">Dicembre</option>
+                    </select>
+                    <select
+                      value={selectedYearScuole}
+                      onChange={(e) => { setSelectedYearScuole(e.target.value); setCurrentPageScuole(1); }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-blue-500 shadow-sm"
+                    >
+                      <option value="all">Tutti gli Anni</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                    </select>
+                    {(selectedMonthScuole !== 'all' || selectedYearScuole !== 'all') && (
+                      <button
+                        onClick={() => { setSelectedMonthScuole('all'); setSelectedYearScuole('all'); }}
+                        className="text-xs text-blue-600 font-bold hover:underline ml-auto mr-1"
+                      >
+                        Reset Filtri
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -1774,7 +2033,7 @@ export default function ManagerDashboard() {
                       <span className="px-2.5 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[10px] font-black uppercase tracking-wider">Database DENTISTI</span>
                       <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Gestionale Studi Odontoiatrici ({filteredDentisti.length})</h2>
                     </div>
-                    <p className="text-xs text-slate-500 mt-1">Anagrafica completa, statistiche entrate (MRR), grafici di distribuzione e verbali autoclavi.</p>
+                    <p className="text-xs text-slate-500 mt-1">Anagrafica completa, grafici di distribuzione e verbali autoclavi.</p>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
@@ -1802,6 +2061,7 @@ export default function ManagerDashboard() {
                           city: 'Napoli',
                           paese: 'Napoli',
                           phone: '081 0000000',
+                          mobile: '',
                           email: 'info@nuovostudio.it',
                           monthlyFee: 150,
                           billingInterval: '1 anno',
@@ -1827,8 +2087,8 @@ export default function ManagerDashboard() {
                   </div>
                 </div>
 
-                {/* 4 KPI CARDS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* KPI CARDS */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   
                   {/* KPI 1: Totale Studi */}
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
@@ -1864,25 +2124,7 @@ export default function ManagerDashboard() {
                     </span>
                   </div>
 
-                  {/* KPI 3: Entrate Ricorrenti MRR */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entrate Stimate (MRR)</span>
-                        <div className="text-2xl font-black text-slate-900 mt-1">
-                          € {stats.totalMRR.toLocaleString('it-IT')}
-                        </div>
-                      </div>
-                      <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
-                        <Euro className="w-5 h-5" />
-                      </div>
-                    </div>
-                    <span className="text-[10px] text-emerald-600 font-bold mt-3 block">
-                      Incassato: € {stats.activeRevenue}
-                    </span>
-                  </div>
-
-                  {/* KPI 4: Solleciti & Insoluti */}
+                  {/* KPI 3: Solleciti & Insoluti */}
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
                     <div className="flex justify-between items-start">
                       <div>
@@ -2267,24 +2509,471 @@ export default function ManagerDashboard() {
             </div>
           )}
 
-          {/* TAB: REGISTRI */}
+          {/* TAB: REGISTRI HACCP */}
           {activeTab === 'registri' && (
-            <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm text-slate-800 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-black uppercase tracking-wider">Gestionale V1</span>
-                    <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">Registri Ufficiali & Verbali</h2>
+            <div className="space-y-8">
+              <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm text-slate-800 space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-black uppercase tracking-wider">Database GESTIONE HACCP</span>
+                      <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Registri & Clienti HACCP ({filteredRegistri.length.toLocaleString('it-IT')})</h2>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">Anagrafica completa da Excel: contratti, visite, fatture, pagamenti, legionella e registri.</p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Archivio digitale dei registri di sanificazione, schede temperature, manutenzioni e interventi ASL.</p>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPrintClient(null);
+                        setPrintDentistiList(false);
+                        setPrintAmministratoriList(false);
+                        setPrintRegistriList(true);
+                      }}
+                      className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs flex items-center gap-2 border border-slate-200 transition-all"
+                    >
+                      <Printer className="w-4 h-4" /> Stampa Lista
+                    </button>
+                    <button
+                    onClick={() => {
+                      const today = new Date().toISOString().split('T')[0];
+                      const maxContract = registri.reduce((max, d) => Math.max(max, d.contractNumber || 0), 0);
+                      const nuovoCliente: RegistroContract = {
+                        id: `reg_${Date.now()}`,
+                        name: 'Nuovo Cliente HACCP',
+                        letter: 'N',
+                        contractNumber: maxContract + 1,
+                        referente: '',
+                        phone: '081 0000000',
+                        mobile: '',
+                        email: 'info@cliente.it',
+                        address: 'Napoli',
+                        city: 'Napoli',
+                        paese: 'Napoli',
+                        services: '',
+                        serviziAttivi: [],
+                        sdi: '',
+                        monthlyFee: 200,
+                        billingInterval: '1 anno',
+                        status: 'attivo',
+                        notes: 'Nuovo cliente registrato da pannello.',
+                        payments: [{ id: `pay_${Date.now()}`, date: today, amount: 200, status: 'in_attesa', refertoData: '', consegnaReferti: '' }],
+                        years: [],
+                      };
+                      setSelectedRegistro({
+                        ...nuovoCliente,
+                        serviziAttivi: [createEmptyRegistroServizio(nuovoCliente, 'sicurezza_alimentare')],
+                      });
+                    }}
+                    className="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-600/20 transition-all shrink-0"
+                  >
+                    <Plus className="w-4 h-4" /> Nuovo Cliente Registro
+                  </button>
+                  </div>
                 </div>
-                <button onClick={() => alert("Form in attivazione")} className="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-xs flex items-center gap-2">
-                  <Plus className="w-4 h-4" /> Genera Registro Intervento
-                </button>
-              </div>
-              <div className="border border-slate-200 rounded-2xl p-12 text-center bg-slate-50/50">
-                <BookOpen className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <h3 className="font-bold text-slate-700 text-sm">Nessun registro archiviato</h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Totale Clienti</span>
+                    <div className="text-3xl font-black text-slate-900 mt-1">{statsRegistri.total.toLocaleString('it-IT')}</div>
+                    <span className="text-[10px] text-emerald-600 font-bold mt-3 block">{statsRegistri.attivi.toLocaleString('it-IT')} attivi</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm overflow-hidden">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Ultimo N° Contratto</span>
+                    <div className="mt-1 font-black text-slate-900 font-mono text-[clamp(0.7rem,1.4vw,1.05rem)]">N° {statsRegistri.lastContractNumber}</div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Servizi Monitorati</span>
+                    <div className="text-2xl font-black text-slate-900 mt-1">{statsRegistri.totalServizi.toLocaleString('it-IT')}</div>
+                    <span className="text-[10px] text-slate-500 font-bold mt-2 block">HACCP {statsRegistri.withHaccp} · Legionella {statsRegistri.withLegio} · In scadenza {statsRegistri.serviziInScadenza}</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Solleciti / Scaduti</span>
+                    <div className="text-3xl font-black text-red-600 mt-1">{statsRegistri.sollecito + statsRegistri.scaduti}</div>
+                  </div>
+                </div>
+
+                {/* CHARTS SECTION */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                  <div className="lg:col-span-3 bg-slate-900 rounded-2xl p-6 text-white shadow-lg space-y-4 border border-slate-800">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4" /> Distribuzione Stati Contrattuali
+                    </h3>
+                    <div className="flex flex-col sm:flex-row items-center justify-around gap-6 pt-2">
+                      <div className="relative w-36 h-36">
+                        <svg viewBox="-50 -50 100 100" className="w-full h-full transform -rotate-90">
+                          {donutSlicesRegistri.map((slice) => {
+                            if (slice.count === 0) return null;
+                            return (
+                              <path key={slice.key} d={slice.pathData} fill="none" stroke={slice.color} strokeWidth="12"
+                                className="transition-all duration-300 hover:stroke-[15px] cursor-pointer" />
+                            );
+                          })}
+                          <circle cx="0" cy="0" r="32" fill="#0f172a" />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                          <span className="text-[9px] text-slate-400 font-bold uppercase">Attivi</span>
+                          <span className="text-xl font-black text-white">{statsRegistri.attivi}</span>
+                        </div>
+                      </div>
+                      <div className="flex-1 space-y-2 w-full max-w-xs text-xs">
+                        {donutSlicesRegistri.map((item) => (
+                          <div
+                            key={item.key}
+                            onClick={() => { setSelectedStatusFilterRegistri(selectedStatusFilterRegistri === item.key ? 'all' : item.key); setCurrentPageRegistri(1); }}
+                            className={`flex items-center justify-between p-2 rounded-xl border cursor-pointer transition-colors ${selectedStatusFilterRegistri === item.key ? 'bg-amber-900/50 border-amber-400 text-white font-bold' : 'bg-slate-800/80 hover:bg-slate-800 border-slate-700/50 text-slate-200'}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                              <span className="font-bold">{item.label}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono font-black text-white px-2 py-0.5 rounded bg-slate-900 border border-slate-700">{item.count}</span>
+                              <span className="text-[10px] text-slate-400 font-bold w-10 text-right">{item.percentStr}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-2 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-amber-600" /> Top Comuni / Città
+                    </h3>
+                    <div className="space-y-3 pt-2">
+                      {statsRegistri.topCities.map(([cityName, count]) => {
+                        const percentage = (count / statsRegistri.maxCityCount) * 100;
+                        return (
+                          <div key={cityName} className="space-y-1">
+                            <div className="flex justify-between items-center text-xs font-bold">
+                              <span className="text-slate-800">{cityName}</span>
+                              <span className="text-amber-700 font-mono">{count} cli.</span>
+                            </div>
+                            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                              <div className="bg-amber-600 h-full rounded-full transition-all duration-500" style={{ width: `${percentage}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-4 border-t border-slate-100">
+                  {[
+                    { key: 'all', label: 'Tutti', count: statsRegistri.total, active: selectedStatusFilterRegistri === 'all', on: 'bg-slate-900 text-white border-slate-900', off: 'bg-slate-50 border-slate-200' },
+                    { key: 'attivo', label: 'Attivi', count: statsRegistri.attivi, active: selectedStatusFilterRegistri === 'attivo', on: 'bg-emerald-600 text-white border-emerald-600', off: 'bg-emerald-50/50 border-emerald-100' },
+                    { key: 'sollecito', label: 'Sollecito', count: statsRegistri.sollecito, active: selectedStatusFilterRegistri === 'sollecito', on: 'bg-red-600 text-white border-red-600', off: 'bg-red-50/50 border-red-100' },
+                    { key: 'sospeso', label: 'Sospesi', count: statsRegistri.sospesi, active: selectedStatusFilterRegistri === 'sospeso', on: 'bg-amber-600 text-white border-amber-600', off: 'bg-amber-50/50 border-amber-100' },
+                    { key: 'disdetto', label: 'Disdetti', count: statsRegistri.disdetti, active: selectedStatusFilterRegistri === 'disdetto', on: 'bg-slate-600 text-white border-slate-600', off: 'bg-slate-100 border-slate-200' },
+                    { key: 'scaduti', label: 'Scaduti', count: statsRegistri.scaduti, active: selectedStatusFilterRegistri === 'scaduti', on: 'bg-red-800 text-white border-red-800', off: 'bg-red-50/50 border-red-200' },
+                  ].map(f => (
+                    <button key={f.key} onClick={() => { setSelectedStatusFilterRegistri(f.key); setCurrentPageRegistri(1); }}
+                      className={`p-3 rounded-2xl border text-left transition-all ${f.active ? `${f.on} shadow-md` : `${f.off} hover:bg-slate-100`}`}>
+                      <span className="text-[9px] font-black uppercase tracking-widest block opacity-70">{f.label}</span>
+                      <span className="text-xl font-black">{f.count.toLocaleString('it-IT')}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Vista Lista / Calendario Scadenze Servizi */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setRegistroViewMode('lista')}
+                      className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all ${registroViewMode === 'lista' ? 'bg-amber-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                    >
+                      Elenco Clienti
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRegistroViewMode('calendario');
+                        setCalendarSelectedDayRegistri(null);
+                      }}
+                      className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all flex items-center gap-1.5 ${registroViewMode === 'calendario' ? 'bg-amber-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                    >
+                      <Calendar className="w-3.5 h-3.5" /> Calendario Scadenze
+                    </button>
+                  </div>
+                  {registroViewMode === 'calendario' && (
+                    <span className="text-[10px] text-amber-800 font-bold bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
+                      {registroCalendarEvents.length} scadenze servizi in {MONTH_NAMES[calendarMonthRegistri]} {calendarYearRegistri}
+                    </span>
+                  )}
+                </div>
+
+                {registroViewMode === 'calendario' && (
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div className="xl:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                      <div className="flex items-center justify-between mb-4">
+                        <button type="button" onClick={() => {
+                          let m = calendarMonthRegistri - 1;
+                          let y = calendarYearRegistri;
+                          if (m < 1) { m = 12; y -= 1; }
+                          setCalendarMonthRegistri(m);
+                          setCalendarYearRegistri(y);
+                          setCalendarSelectedDayRegistri(null);
+                        }} className="p-2 rounded-xl border border-slate-200 hover:bg-white"><ChevronLeft className="w-4 h-4" /></button>
+                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+                          {MONTH_NAMES[calendarMonthRegistri]} {calendarYearRegistri}
+                        </h3>
+                        <button type="button" onClick={() => {
+                          let m = calendarMonthRegistri + 1;
+                          let y = calendarYearRegistri;
+                          if (m > 12) { m = 1; y += 1; }
+                          setCalendarMonthRegistri(m);
+                          setCalendarYearRegistri(y);
+                          setCalendarSelectedDayRegistri(null);
+                        }} className="p-2 rounded-xl border border-slate-200 hover:bg-white"><ChevronRight className="w-4 h-4" /></button>
+                      </div>
+                      <div className="grid grid-cols-7 gap-1 mb-1">
+                        {['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'].map(d => (
+                          <div key={d} className="text-[9px] font-black text-slate-400 uppercase text-center py-1">{d}</div>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-7 gap-1">
+                        {(() => {
+                          const daysInMonth = new Date(calendarYearRegistri, calendarMonthRegistri, 0).getDate();
+                          const firstDow = new Date(calendarYearRegistri, calendarMonthRegistri - 1, 1).getDay();
+                          const offset = firstDow === 0 ? 6 : firstDow - 1;
+                          const cells: React.ReactNode[] = [];
+                          for (let i = 0; i < offset; i++) {
+                            cells.push(<div key={`empty-${i}`} className="min-h-[52px]" />);
+                          }
+                          for (let day = 1; day <= daysInMonth; day++) {
+                            const count = registroCalendarDayCounts[day] || 0;
+                            const isSelected = calendarSelectedDayRegistri === day;
+                            cells.push(
+                              <button
+                                key={day}
+                                type="button"
+                                onClick={() => setCalendarSelectedDayRegistri(isSelected ? null : day)}
+                                className={`min-h-[52px] rounded-xl border p-1 text-left transition-all ${
+                                  isSelected ? 'bg-amber-600 text-white border-amber-700 shadow-md' :
+                                  count > 0 ? 'bg-amber-50 border-amber-200 hover:bg-amber-100' :
+                                  'bg-white border-slate-100 hover:bg-slate-50'
+                                }`}
+                              >
+                                <span className={`text-[11px] font-black block ${isSelected ? 'text-white' : 'text-slate-800'}`}>{day}</span>
+                                {count > 0 && (
+                                  <span className={`text-[8px] font-black mt-0.5 block ${isSelected ? 'text-amber-100' : 'text-amber-700'}`}>
+                                    {count} scad.
+                                  </span>
+                                )}
+                              </button>
+                            );
+                          }
+                          return cells;
+                        })()}
+                      </div>
+                    </div>
+                    <div className="xl:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm max-h-[480px] overflow-y-auto">
+                      <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">
+                        {calendarSelectedDayRegistri
+                          ? `Scadenze del ${calendarSelectedDayRegistri} ${MONTH_NAMES[calendarMonthRegistri]} ${calendarYearRegistri}`
+                          : `Tutte le scadenze — ${MONTH_NAMES[calendarMonthRegistri]} ${calendarYearRegistri}`}
+                      </h4>
+                      {registroCalendarEventsForDay.length === 0 ? (
+                        <p className="text-xs text-slate-400 italic py-8 text-center">Nessuna scadenza servizio in questo periodo.</p>
+                      ) : (
+                        <div className="space-y-2">
+                          {registroCalendarEventsForDay.map(ev => {
+                            const color = REGISTRO_SERVICE_CATALOG.find(s => s.id === ev.tipoId)?.color || '#64748b';
+                            const client = registri.find(c => c.id === ev.clientId);
+                            return (
+                              <button
+                                key={ev.id}
+                                type="button"
+                                onClick={() => client && setSelectedRegistro(migrateRegistroServizi(client))}
+                                className={`w-full text-left p-3 rounded-xl border transition-all hover:shadow-md ${
+                                  ev.expiryStatus === 'scaduto' ? 'bg-red-50 border-red-200' :
+                                  ev.expiryStatus === 'in_scadenza' ? 'bg-amber-50 border-amber-200' :
+                                  'bg-slate-50 border-slate-200'
+                                }`}
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  <div className="min-w-0">
+                                    <span className="text-[8px] font-black uppercase px-1.5 py-0.5 rounded text-white inline-block mb-1" style={{ backgroundColor: color }}>{ev.servizioLabel}</span>
+                                    <p className="font-bold text-slate-900 text-xs truncate">{ev.clientName}</p>
+                                    <p className="text-[10px] text-slate-500">{ev.city} · Scad. {ev.scadenza} · € {ev.costo}</p>
+                                  </div>
+                                  <span className="text-[8px] font-black uppercase text-slate-400 shrink-0">Apri →</span>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {registroViewMode === 'lista' && (
+                <>
+                <div className="space-y-3">
+                  <div className="relative">
+                    <input type="text" value={searchQueryRegistri}
+                      onChange={(e) => { setSearchQueryRegistri(e.target.value); setCurrentPageRegistri(1); }}
+                      placeholder="Cerca ditta, referente, contratto, email, servizi (es. Albergo, HACCP, legionella)..."
+                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 pl-11 text-xs text-slate-900 focus:outline-none focus:border-amber-500 font-medium"
+                    />
+                    <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                  </div>
+                  <div className="flex flex-wrap gap-1 bg-slate-50 p-2 rounded-2xl border border-slate-200 justify-center">
+                    <button onClick={() => { setSelectedLetterRegistri('all'); setCurrentPageRegistri(1); }}
+                      className={`px-2.5 py-1 rounded-xl text-[10px] font-black uppercase ${selectedLetterRegistri === 'all' ? 'bg-amber-600 text-white' : 'text-slate-600 hover:bg-slate-200'}`}>TUTTI</button>
+                    {alphabet.map(l => (
+                      <button key={l} onClick={() => { setSelectedLetterRegistri(l); setCurrentPageRegistri(1); }}
+                        className={`w-7 h-7 rounded-xl text-[10px] font-black ${selectedLetterRegistri === l ? 'bg-amber-600 text-white' : 'text-slate-600 hover:bg-slate-200'}`}>{l}</button>
+                    ))}
+                  </div>
+
+                  {/* Month & Year + Service Type Filter (Registri) */}
+                  <div className="flex flex-wrap gap-2 items-center bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider ml-1">Filtra Scadenza Servizi:</span>
+                    <select
+                      value={selectedMonthRegistri}
+                      onChange={(e) => { setSelectedMonthRegistri(e.target.value); setCurrentPageRegistri(1); }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-amber-500 shadow-sm"
+                    >
+                      <option value="all">Tutti i Mesi</option>
+                      <option value="1">Gennaio</option>
+                      <option value="2">Febbraio</option>
+                      <option value="3">Marzo</option>
+                      <option value="4">Aprile</option>
+                      <option value="5">Maggio</option>
+                      <option value="6">Giugno</option>
+                      <option value="7">Luglio</option>
+                      <option value="8">Agosto</option>
+                      <option value="9">Settembre</option>
+                      <option value="10">Ottobre</option>
+                      <option value="11">Novembre</option>
+                      <option value="12">Dicembre</option>
+                    </select>
+                    <select
+                      value={selectedYearRegistri}
+                      onChange={(e) => { setSelectedYearRegistri(e.target.value); setCurrentPageRegistri(1); }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-amber-500 shadow-sm"
+                    >
+                      <option value="all">Tutti gli Anni</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                    </select>
+                    <select
+                      value={selectedServiceTypeRegistri}
+                      onChange={(e) => { setSelectedServiceTypeRegistri(e.target.value); setCurrentPageRegistri(1); }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-amber-500 shadow-sm min-w-[180px]"
+                    >
+                      <option value="all">Tutti i Servizi</option>
+                      {REGISTRO_SERVICE_CATALOG.map(s => (
+                        <option key={s.id} value={s.id}>{s.label}</option>
+                      ))}
+                    </select>
+                    {(selectedMonthRegistri !== 'all' || selectedYearRegistri !== 'all' || selectedServiceTypeRegistri !== 'all') && (
+                      <button
+                        onClick={() => { setSelectedMonthRegistri('all'); setSelectedYearRegistri('all'); setSelectedServiceTypeRegistri('all'); }}
+                        className="text-xs text-amber-700 font-bold hover:underline ml-auto mr-1"
+                      >
+                        Reset Filtri
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                  <table className="w-full table-fixed text-left border-collapse">
+                    <colgroup>
+                      <col className="w-[24%]" /><col className="w-[14%]" /><col className="w-[10%]" /><col className="w-[16%]" /><col className="w-[18%]" /><col className="w-[10%]" /><col className="w-[8%]" />
+                    </colgroup>
+                    <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase">
+                      <tr>
+                        <th onClick={() => handleSortRegistri('name')} className="px-2 py-2.5 cursor-pointer hover:bg-amber-100/50 text-amber-900 text-left">Cliente / Ditta {sortFieldRegistri === 'name' ? (sortOrderRegistri === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th onClick={() => handleSortRegistri('paese')} className="px-2 py-2.5 cursor-pointer hover:bg-amber-100/50 text-amber-900 text-left">Comune {sortFieldRegistri === 'paese' ? (sortOrderRegistri === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th onClick={() => handleSortRegistri('contractNumber')} className="px-2 py-2.5 cursor-pointer hover:bg-amber-100/50 text-amber-900 text-left">Contratto {sortFieldRegistri === 'contractNumber' ? (sortOrderRegistri === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th className="px-2 py-2.5 text-left">Servizi</th>
+                        <th className="px-2 py-2.5 text-left">Fattura / Scadenza</th>
+                        <th onClick={() => handleSortRegistri('status')} className="px-2 py-2.5 cursor-pointer hover:bg-amber-100/50 text-amber-900 text-left">Stato {sortFieldRegistri === 'status' ? (sortOrderRegistri === 'asc' ? '▲' : '▼') : '↕'}</th>
+                        <th className="px-2 py-2.5 text-center">Scheda</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-[11px] divide-y divide-slate-100">
+                      {paginatedRegistri.map(c => {
+                        const todayStr = new Date().toISOString().split('T')[0];
+                        const isOverdueActive = c.status === 'attivo' && c.payments.some(p => (p.status === 'in_attesa' || p.status === 'insoluto') && p.date < todayStr);
+                        const lastInvoice = [...c.payments].reverse().find(p => p.invoiceNumber || p.invoiceDate || p.paymentNote);
+                        const dueDate = c.payments[c.payments.length - 1]?.date || '';
+                        return (
+                          <tr key={c.id} className={`transition-colors ${isOverdueActive ? 'bg-red-50/90 border-l-4 border-red-500 font-bold' : 'hover:bg-amber-50/30'}`}>
+                            <td className="px-2 py-2 font-bold text-slate-900 align-top">
+                              <span className="line-clamp-2 break-words leading-snug" title={c.name}>{c.name}</span>
+                              {c.referente && <span className="block text-[9px] text-slate-400 font-medium mt-0.5 line-clamp-1">{c.referente}</span>}
+                            </td>
+                            <td className="px-2 py-2 text-slate-600 align-top"><span className="line-clamp-2 break-words">{c.city}</span></td>
+                            <td className="px-2 py-2 font-mono font-bold align-top whitespace-nowrap">{c.contractNumber ? `N° ${c.contractNumber}` : 'N/D'}</td>
+                            <td className="px-2 py-2 align-top">
+                              <div className="flex flex-wrap gap-1">
+                                {getRegistroServiziAttivi(c).length > 0 ? (
+                                  getRegistroServiziAttivi(c).slice(0, 3).map(s => (
+                                    <span key={s.id} className="inline-block px-1 py-0.5 rounded text-[8px] font-black uppercase tracking-wide text-white"
+                                      style={{ backgroundColor: REGISTRO_SERVICE_CATALOG.find(x => x.id === s.tipoId)?.color || '#64748b' }}
+                                      title={`Scadenza: ${s.scadenza}`}>
+                                      {getRegistroServiceShort(s.tipoId as RegistroServiceTypeId)}
+                                    </span>
+                                  ))
+                                ) : (
+                                  <span className="text-[10px] text-slate-400 italic">{c.services || '—'}</span>
+                                )}
+                                {getRegistroServiziAttivi(c).length > 3 && (
+                                  <span className="text-[8px] text-slate-500 font-bold">+{getRegistroServiziAttivi(c).length - 3}</span>
+                                )}
+                              </div>
+                              {getNextServizioScadenza(c) && (
+                                <span className="text-[9px] text-amber-700 font-bold mt-0.5 block">Pross. scad. {getNextServizioScadenza(c)}</span>
+                              )}
+                            </td>
+                            <td className="px-2 py-2 align-top min-w-0">
+                              <div className="font-mono text-[10px] font-bold leading-snug">
+                                {lastInvoice ? (
+                                  <>{lastInvoice.invoiceNumber ? `Fatt. ${lastInvoice.invoiceNumber}` : 'Movimento'}<br /><span className="text-slate-500 font-sans">{lastInvoice.invoiceDate || lastInvoice.date}</span></>
+                                ) : <span className="text-slate-400 italic font-sans">Nessuna fattura</span>}
+                              </div>
+                              {dueDate && <span className="text-[9px] text-slate-500">Scad. {dueDate}</span>}
+                            </td>
+                            <td className="px-2 py-2 align-top">
+                              {c.status === 'attivo' && !isOverdueActive && <span className="inline-block px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[9px] font-black">ATTIVO</span>}
+                              {c.status === 'attivo' && isOverdueActive && <span className="inline-block px-1.5 py-0.5 bg-red-200 text-red-900 rounded text-[9px] font-black">SCADUTO</span>}
+                              {c.status === 'sollecito' && <span className="inline-block px-1.5 py-0.5 bg-red-100 text-red-800 rounded text-[9px] font-black">SOLLECITO</span>}
+                              {c.status === 'sospeso' && <span className="inline-block px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[9px] font-black">SOSPESO</span>}
+                              {c.status === 'disdetto' && <span className="inline-block px-1.5 py-0.5 bg-slate-200 text-slate-700 rounded text-[9px] font-black">DISDETTO</span>}
+                            </td>
+                            <td className="px-1 py-2 text-center align-top">
+                              <button onClick={() => setSelectedRegistro({ ...migrateRegistroServizi(c) })}
+                                className="px-1.5 py-1 font-bold rounded-md text-[9px] border bg-amber-50 hover:bg-amber-600 hover:text-white text-amber-800 border-amber-200">
+                                Apri
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-xs text-slate-500 font-medium">Pagina {currentPageRegistri} di {totalPagesRegistri} ({filteredRegistri.length.toLocaleString('it-IT')} clienti)</span>
+                  <div className="flex gap-2">
+                    <button disabled={currentPageRegistri === 1} onClick={() => setCurrentPageRegistri(p => Math.max(p - 1, 1))} className="p-2 rounded-xl border border-slate-200 disabled:opacity-30"><ChevronLeft className="w-4 h-4" /></button>
+                    <button disabled={currentPageRegistri === totalPagesRegistri} onClick={() => setCurrentPageRegistri(p => Math.min(p + 1, totalPagesRegistri))} className="p-2 rounded-xl border border-slate-200 disabled:opacity-30"><ChevronRight className="w-4 h-4" /></button>
+                  </div>
+                </div>
+                </>
+                )}
               </div>
             </div>
           )}
@@ -2365,6 +3054,10 @@ export default function ManagerDashboard() {
                     const updated = scuole.filter(s => s.id !== clientToDelete.id);
                     saveScuole(updated);
                     setSelectedScuola(null);
+                  } else if (registri.some(s => s.id === clientToDelete.id)) {
+                    const updated = registri.filter(s => s.id !== clientToDelete.id);
+                    saveRegistri(updated);
+                    setSelectedRegistro(null);
                   } else {
                     const updated = dentisti.filter(d => d.id !== clientToDelete.id);
                     saveDentisti(updated);
@@ -2376,152 +3069,6 @@ export default function ManagerDashboard() {
               >
                 Sì, Elimina Definitivamente
               </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-    
-      {/* MODALE STAMPA VERBALE A4 VERTICALE */}
-      {printClient && (
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center z-[70] p-4 overflow-y-auto">
-          <div className="w-full max-w-4xl flex flex-col items-center">
-            {/* ACTION BAR (NO PRINT) */}
-            <div className="no-print w-full max-w-[210mm] bg-slate-900 text-white rounded-t-2xl p-4 flex justify-between items-center shadow-xl">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
-                <span className="text-xs font-black uppercase tracking-wider">Anteprima Verbale A4 (Verticale)</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => window.print()}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl text-xs flex items-center gap-2 shadow-lg transition-all cursor-pointer"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                  Stampa / Salva PDF
-                </button>
-                <button 
-                  onClick={() => setPrintClient(null)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition-all cursor-pointer"
-                >
-                  Chiudi
-                </button>
-              </div>
-            </div>
-
-            {/* FOGLIO A4 STAMPABILE */}
-            <div 
-              id="printable-a4-document"
-              className="bg-white text-slate-900 w-full max-w-[210mm] min-h-[297mm] p-10 shadow-2xl border border-slate-200 flex flex-col justify-between font-sans text-xs text-left"
-            >
-              <div>
-                {/* TESTATA LOGO E DOCUMENTO */}
-                <div className="flex justify-between items-start border-b-2 border-slate-900 pb-5 mb-6">
-                  <div>
-                    <h1 className="text-2xl font-black tracking-tight text-slate-900 uppercase">SAI NAPOLI WEB</h1>
-                    <p className="text-[10px] font-bold text-slate-500 tracking-wider uppercase mt-0.5">Servizi Ambientali & Igiene - Registri Autoclavi & Verbali</p>
-                    <p className="text-[10px] text-slate-400">Via Napoli 100, 80100 Napoli (NA) | Tel: 081 0000000 | info@sainapoli.it</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-black text-purple-700 uppercase tracking-wider">VERBALE DI VERIFICA</div>
-                    <div className="text-xs font-mono font-bold text-slate-800 mt-1">N° Contratto: #{printClient.contractNumber || 'N/D'}</div>
-                    <div className="text-[10px] text-slate-500 font-medium">Data Emisione: {new Date().toLocaleDateString('it-IT')}</div>
-                  </div>
-                </div>
-
-                {/* SCHEDA ANAGRAFICA CLIENTE */}
-                <div className="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                  <h3 className="font-black text-xs uppercase tracking-wider text-purple-900 mb-3 border-b border-slate-200 pb-1">Dati Anagrafici Cliente / Studio</h3>
-                  <div className="grid grid-cols-2 gap-y-2 gap-x-6">
-                    <div><strong className="text-slate-500">Ragione Sociale:</strong> <span className="font-bold text-slate-900">{printClient.name}</span></div>
-                    <div><strong className="text-slate-500">Stato Contratto:</strong> <span className="font-bold uppercase text-purple-700">{printClient.status}</span></div>
-                    <div><strong className="text-slate-500">Comune / Città:</strong> <span className="font-bold text-slate-900">{printClient.paese} ({printClient.city})</span></div>
-                    <div><strong className="text-slate-500">Telefono Studio:</strong> <span className="font-bold text-slate-900">{printClient.phone}</span></div>
-                    <div><strong className="text-slate-500">Email Ufficiale:</strong> <span className="font-bold text-slate-900">{printClient.email}</span></div>
-                    <div><strong className="text-slate-500">Canone / Rinnovo:</strong> <span className="font-bold text-slate-900">€{printClient.monthlyFee} / {printClient.billingInterval}</span></div>
-                    {('nCampioni' in printClient) && printClient.nCampioni && (
-                      <div className="col-span-2"><strong className="text-slate-500">N° Campioni Registrati:</strong> <span className="font-bold text-blue-700">{printClient.nCampioni}</span></div>
-                    )}
-                  </div>
-                </div>
-
-                {/* RIEPILOGO SCADENZARIO PAGAMENTI & FATTURE */}
-                <div className="mb-6">
-                  <h3 className="font-black text-xs uppercase tracking-wider text-slate-900 mb-2">Storico Scadenzario Pagamenti & Fatturazione</h3>
-                  <table className="w-full border-collapse text-left text-[11px] border border-slate-300">
-                    <thead className="bg-slate-100 font-bold text-slate-700 uppercase text-[9px]">
-                      <tr>
-                        <th className="border border-slate-300 p-2">Data Scadenza</th>
-                        <th className="border border-slate-300 p-2">Importo Rata</th>
-                        <th className="border border-slate-300 p-2">N° Fattura</th>
-                        <th className="border border-slate-300 p-2">Data Fattura</th>
-                                                <th className="border border-slate-300 p-2">Stato Pagamento</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {printClient.payments.map((p, idx) => (
-                        <tr key={idx} className="border-b border-slate-200">
-                          <td className="border border-slate-300 p-2 font-mono font-bold">{p.date}</td>
-                          <td className="border border-slate-300 p-2 font-bold">€{p.amount}</td>
-                          <td className="border border-slate-300 p-2 font-mono">{p.invoiceNumber || '-'}</td>
-                          <td className="border border-slate-300 p-2 font-mono">{p.invoiceDate || '-'}</td>
-                                                    <td className="border border-slate-300 p-2 uppercase font-black">{p.status}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* SEZIONE REFERTI SE DISPONIBILE */}
-                {printClient.referti && printClient.referti.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="font-black text-xs uppercase tracking-wider text-slate-900 mb-2">Registro Consegna Referti Ufficiali</h3>
-                    <table className="w-full border-collapse text-left text-[11px] border border-slate-300">
-                      <thead className="bg-slate-100 font-bold text-slate-700 uppercase text-[9px]">
-                        <tr>
-                          <th className="border border-slate-300 p-2">Data Consegna</th>
-                          <th className="border border-slate-300 p-2">Metodo</th>
-                          <th className="border border-slate-300 p-2">Indirizzo / Note</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {printClient.referti.map((r, idx) => (
-                          <tr key={idx} className="border-b border-slate-200">
-                            <td className="border border-slate-300 p-2 font-mono font-bold">{r.dataConsegna}</td>
-                            <td className="border border-slate-300 p-2 uppercase font-bold">{r.metodoConsegna}</td>
-                            <td className="border border-slate-300 p-2">{r.emailConsegna || 'Rilasciato a mano'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-
-                {/* NOTE DI SERVIZIO */}
-                {printClient.notes && (
-                  <div className="mb-6 bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <h4 className="font-bold text-[10px] uppercase text-slate-400 mb-1">Note di Servizio & Registri</h4>
-                    <p className="text-xs text-slate-800 leading-relaxed whitespace-pre-wrap">{printClient.notes}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* PIÈ DI PAGINA E FIRME */}
-              <div className="pt-8 border-t-2 border-slate-900 mt-6">
-                <div className="grid grid-cols-2 gap-12 text-center text-xs">
-                  <div>
-                    <p className="font-bold text-slate-700 mb-12">Firma del Tecnico / Operatore SAI</p>
-                    <div className="border-b border-slate-400 w-3/4 mx-auto"></div>
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-700 mb-12">Timbro e Firma per Accettazione Cliente</p>
-                    <div className="border-b border-slate-400 w-3/4 mx-auto"></div>
-                  </div>
-                </div>
-                <div className="text-center text-[9px] text-slate-400 mt-8">
-                  Documento generato da SAI NAPOLI WEB - Gestionale Amministratori & Dentisti | Pagina 1 di 1 (A4 Verticale)
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -2639,6 +3186,16 @@ export default function ManagerDashboard() {
                         type="text" 
                         value={selectedAmministratore.phone}
                         onChange={(e) => setSelectedAmministratore({ ...selectedAmministratore, phone: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Cellulare</label>
+                      <input 
+                        type="text" 
+                        value={selectedAmministratore.mobile || ''}
+                        onChange={(e) => setSelectedAmministratore({ ...selectedAmministratore, mobile: e.target.value })}
                         className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-500"
                       />
                     </div>
@@ -2860,6 +3417,415 @@ export default function ManagerDashboard() {
         </div>
       )}
 
+      {selectedRegistro && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2.5rem] max-w-[96vw] xl:max-w-[1450px] w-full p-6 md:p-8 shadow-2xl border border-slate-100 flex flex-col text-left max-h-[94vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">Scheda Registro HACCP</span>
+                <h3 className="text-xl font-black text-slate-900 mt-1">{selectedRegistro.name}</h3>
+                <p className="text-xs text-slate-500 font-medium">Anagrafica, servizi attivi con scadenze, calendario rinnovi, fatture e referti.</p>
+              </div>
+              <button onClick={() => setSelectedRegistro(null)} className="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const normalized = normalizeRegistroOnSave(selectedRegistro);
+              const exists = registri.some(d => d.id === normalized.id);
+              const updatedList = exists
+                ? registri.map(d => d.id === normalized.id ? normalized : d)
+                : [normalized, ...registri];
+              saveRegistri(updatedList);
+              setSelectedRegistro(null);
+            }} className="space-y-6 text-xs text-slate-700">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-5 space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Ditta / Cliente</label>
+                      <input type="text" value={selectedRegistro.name} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, name: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" required />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Referente</label>
+                      <input type="text" value={selectedRegistro.referente} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, referente: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">N° Contratto</label>
+                      <input type="number" value={selectedRegistro.contractNumber || ''} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, contractNumber: e.target.value ? parseInt(e.target.value) : null })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold font-mono text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Indirizzo</label>
+                      <input type="text" value={selectedRegistro.address} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, address: e.target.value, paese: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Città</label>
+                      <input type="text" value={selectedRegistro.city} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, city: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Telefono</label>
+                      <input type="text" value={selectedRegistro.phone} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, phone: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Cellulare</label>
+                      <input type="text" value={selectedRegistro.mobile || ''} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, mobile: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Email</label>
+                      <input type="email" value={selectedRegistro.email} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, email: e.target.value })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Stato Cliente</label>
+                      <select value={selectedRegistro.status} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, status: e.target.value as RegistroContract['status'] })}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500">
+                        <option value="attivo">ATTIVO</option>
+                        <option value="sollecito">SOLLECITO</option>
+                        <option value="sospeso">SOSPESO</option>
+                        <option value="disdetto">DISDETTO</option>
+                        <option value="non_reperibile">NON REPERIBILE</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-900 mb-1 uppercase text-[10px] tracking-wider text-slate-400 block">Note Generali Cliente</label>
+                    <textarea rows={3} value={selectedRegistro.notes} onChange={(e) => setSelectedRegistro({ ...selectedRegistro, notes: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-500" />
+                  </div>
+
+                  {/* Riepilogo servizi assegnati — lettura rapida in anagrafica */}
+                  <div className="bg-gradient-to-br from-amber-50 to-white border border-amber-200 rounded-2xl p-4 shadow-sm">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <h4 className="font-black uppercase text-[10px] tracking-wider text-amber-800">Servizi Assegnati</h4>
+                      {(selectedRegistro.serviziAttivi || []).length > 0 && (
+                        <span className="text-[9px] font-bold text-amber-700 bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                          Prossima scadenza: {getNextServizioScadenza(selectedRegistro) || '—'}
+                        </span>
+                      )}
+                    </div>
+                    {(selectedRegistro.serviziAttivi || []).length === 0 ? (
+                      <p className="text-[10px] text-slate-500 italic">Nessun servizio programmato. Aggiungine uno a destra o usa i pulsanti rapidi.</p>
+                    ) : (
+                      <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
+                        {(selectedRegistro.serviziAttivi || []).map(s => {
+                          const catalogItem = REGISTRO_SERVICE_CATALOG.find(c => c.id === s.tipoId);
+                          const exp = getServizioExpiryStatus(s.scadenza);
+                          return (
+                            <div
+                              key={s.id}
+                              className={`rounded-xl border px-3 py-2 ${
+                                exp === 'scaduto' ? 'bg-red-50 border-red-200' :
+                                exp === 'in_scadenza' ? 'bg-amber-50 border-amber-200' :
+                                'bg-white border-slate-200'
+                              }`}
+                            >
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0">
+                                  <span className="text-[8px] font-black uppercase px-1.5 py-0.5 rounded text-white inline-block mb-1" style={{ backgroundColor: catalogItem?.color || '#64748b' }}>
+                                    {catalogItem?.shortLabel || s.tipoId}
+                                  </span>
+                                  <p className="text-[10px] font-bold text-slate-800 truncate">{catalogItem?.label}</p>
+                                </div>
+                                <span className={`text-[8px] font-black uppercase shrink-0 ${
+                                  exp === 'scaduto' ? 'text-red-700' : exp === 'in_scadenza' ? 'text-amber-700' : 'text-emerald-700'
+                                }`}>
+                                  {exp === 'scaduto' ? 'Scaduto' : exp === 'in_scadenza' ? 'In scadenza' : 'Ok'}
+                                </span>
+                              </div>
+                              <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 mt-1.5 text-[9px] text-slate-600">
+                                <span><strong className="text-slate-400">Scadenza:</strong> {s.scadenza || '—'}</span>
+                                <span><strong className="text-slate-400">Costo:</strong> € {s.costo}</span>
+                                <span><strong className="text-slate-400">Controllo:</strong> {s.frequenzaControllo}</span>
+                                <span><strong className="text-slate-400">Pagamento:</strong> {s.modalitaPagamento}</span>
+                                {s.dataVisita && <span className="col-span-2"><strong className="text-slate-400">Ultima visita:</strong> {s.dataVisita}</span>}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="lg:col-span-7 space-y-5">
+                  {/* SERVIZI ATTIVI — scadenze e controlli (separati dalle fatture) */}
+                  <div>
+                    <div className="flex flex-wrap justify-between items-center gap-2 mb-3">
+                      <div>
+                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Servizi Attivi & Scadenze Rinnovo</h4>
+                        <p className="text-[9px] text-slate-500 mt-0.5">Programma qui ogni servizio con scadenza, costo e frequenza. Salva la scheda per memorizzare. Le fatture restano nello scadenzario sotto.</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const nuovo = createEmptyRegistroServizio(selectedRegistro);
+                          setSelectedRegistro({
+                            ...selectedRegistro,
+                            serviziAttivi: [...(selectedRegistro.serviziAttivi || []), nuovo],
+                          });
+                        }}
+                        className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-[10px] flex items-center gap-1 shadow-sm"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Aggiungi Servizio
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      <span className="text-[9px] font-black uppercase text-slate-400 self-center mr-1">Aggiungi rapido:</span>
+                      {(['sicurezza_alimentare', 'legionella', 'acque', 'sicurezza_lavoro', 'gdpr', 'autoclavi_dentisti'] as RegistroServiceTypeId[]).map(tipoId => {
+                        const item = REGISTRO_SERVICE_CATALOG.find(c => c.id === tipoId);
+                        return (
+                          <button
+                            key={tipoId}
+                            type="button"
+                            onClick={() => {
+                              const nuovo = createEmptyRegistroServizio(selectedRegistro, tipoId);
+                              setSelectedRegistro({
+                                ...selectedRegistro,
+                                serviziAttivi: [...(selectedRegistro.serviziAttivi || []), nuovo],
+                              });
+                            }}
+                            className="px-2 py-1 rounded-lg text-[9px] font-black uppercase text-white shadow-sm hover:opacity-90 transition-opacity"
+                            style={{ backgroundColor: item?.color || '#64748b' }}
+                          >
+                            + {item?.shortLabel}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="border border-amber-200 rounded-xl overflow-hidden bg-amber-50/20 max-h-[280px] overflow-y-auto">
+                      <table className="w-full table-fixed text-left border-collapse">
+                        <colgroup>
+                          <col className="w-[22%]" />
+                          <col className="w-[11%]" />
+                          <col className="w-[9%]" />
+                          <col className="w-[11%]" />
+                          <col className="w-[13%]" />
+                          <col className="w-[11%]" />
+                          <col className="w-[15%]" />
+                          <col className="w-[8%]" />
+                        </colgroup>
+                        <thead className="bg-amber-50 text-[8px] font-black text-amber-900 uppercase sticky top-0">
+                          <tr>
+                            <th className="px-1 py-1.5">Servizio</th>
+                            <th className="px-1 py-1.5">Scadenza</th>
+                            <th className="px-1 py-1.5">Costo €</th>
+                            <th className="px-1 py-1.5">Frequenza</th>
+                            <th className="px-1 py-1.5">Pagamento</th>
+                            <th className="px-1 py-1.5">Data Visita</th>
+                            <th className="px-1 py-1.5">Note</th>
+                            <th className="px-1 py-1.5"></th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-amber-100/80 bg-white">
+                          {(selectedRegistro.serviziAttivi || []).length === 0 && (
+                            <tr>
+                              <td colSpan={8} className="px-3 py-6 text-center text-slate-400 italic text-[10px]">
+                                Nessun servizio assegnato. Clicca &quot;Aggiungi Servizio&quot; per monitorare scadenze e rinnovi.
+                              </td>
+                            </tr>
+                          )}
+                          {(selectedRegistro.serviziAttivi || []).map((s, index) => {
+                            const exp = getServizioExpiryStatus(s.scadenza);
+                            const catalogItem = REGISTRO_SERVICE_CATALOG.find(c => c.id === s.tipoId);
+                            return (
+                              <tr key={s.id} className={exp === 'scaduto' ? 'bg-red-50/80' : exp === 'in_scadenza' ? 'bg-amber-50/60' : ''}>
+                                <td className="px-1 py-1 align-top">
+                                  <select
+                                    value={s.tipoId}
+                                    onChange={(e) => {
+                                      const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                      updated[index] = { ...updated[index], tipoId: e.target.value as RegistroServiceTypeId };
+                                      setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                    }}
+                                    className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-bold bg-white focus:outline-none focus:border-amber-500"
+                                    style={{ borderLeftWidth: 3, borderLeftColor: catalogItem?.color || '#64748b' }}
+                                  >
+                                    {REGISTRO_SERVICE_CATALOG.map(opt => (
+                                      <option key={opt.id} value={opt.id}>{opt.label}</option>
+                                    ))}
+                                  </select>
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <input type="date" value={s.scadenza || ''} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], scadenza: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-mono font-bold" />
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <input type="number" value={s.costo} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], costo: parseFloat(e.target.value) || 0 };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-bold" />
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <select value={s.frequenzaControllo} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], frequenzaControllo: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-0.5 py-1 text-[8px] font-bold bg-white">
+                                    {REGISTRO_FREQUENZE_CONTROLLO.map(f => <option key={f} value={f}>{f}</option>)}
+                                  </select>
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <select value={s.modalitaPagamento} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], modalitaPagamento: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-0.5 py-1 text-[8px] font-bold bg-white">
+                                    {REGISTRO_MODALITA_PAGAMENTO.map(m => <option key={m} value={m}>{m}</option>)}
+                                  </select>
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <input type="date" value={s.dataVisita || ''} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], dataVisita: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-mono" />
+                                </td>
+                                <td className="px-1 py-1 align-top">
+                                  <input type="text" value={s.note || ''} placeholder="Note..." onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], note: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px]" />
+                                </td>
+                                <td className="px-1 py-1 align-top text-center">
+                                  <button type="button" onClick={() => {
+                                    const updated = (selectedRegistro.serviziAttivi || []).filter((_, i) => i !== index);
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="p-1 text-slate-400 hover:text-red-600 rounded" title="Rimuovi servizio">✕</button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Scadenzario Pagamenti & Fatture</h4>
+                    <span className="text-[10px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-md">Cronologia Fatture</span>
+                  </div>
+                  <div className="border border-slate-200 rounded-xl overflow-hidden max-h-[320px] overflow-y-auto">
+                    <table className="w-full table-fixed text-left border-collapse">
+                      <colgroup>
+                        <col className="w-[13%]" /><col className="w-[10%]" /><col className="w-[24%]" /><col className="w-[24%]" /><col className="w-[29%]" />
+                      </colgroup>
+                      <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase sticky top-0">
+                        <tr>
+                          <th className="px-1.5 py-2">Scadenza</th>
+                          <th className="px-1.5 py-2">Importo</th>
+                          <th className="px-1.5 py-2">Fattura (N° / Data)</th>
+                          <th className="px-1.5 py-2">Consegna Referti</th>
+                          <th className="px-1.5 py-2">Stato</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {selectedRegistro.payments.map((p, index) => (
+                          <tr key={p.id || index} className="hover:bg-slate-50/50">
+                            <td className="px-1 py-1.5 align-top">
+                              <input type="date" value={p.date || ''} onChange={(e) => {
+                                const updated = [...selectedRegistro.payments];
+                                updated[index] = { ...updated[index], date: e.target.value };
+                                setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                              }} className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-mono font-bold text-[10px]" />
+                            </td>
+                            <td className="px-1 py-1.5 align-top">
+                              <input type="number" value={p.amount} onChange={(e) => {
+                                const updated = [...selectedRegistro.payments];
+                                updated[index] = { ...updated[index], amount: parseFloat(e.target.value) || 0 };
+                                setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                              }} className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-bold text-[10px]" />
+                            </td>
+                            <td className="px-1 py-1.5 align-top">
+                              <div className="flex items-center gap-1 min-w-0">
+                                <input type="text" placeholder="N°" value={p.invoiceNumber || ''} onChange={(e) => {
+                                  const updated = [...selectedRegistro.payments];
+                                  updated[index] = { ...updated[index], invoiceNumber: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                                }} className="w-[38%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] font-mono" />
+                                <input type="date" value={p.invoiceDate || ''} onChange={(e) => {
+                                  const updated = [...selectedRegistro.payments];
+                                  updated[index] = { ...updated[index], invoiceDate: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                                }} className="w-[62%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px]" />
+                              </div>
+                              {p.paymentNote && <p className="text-[8px] text-slate-400 mt-0.5 line-clamp-2" title={p.paymentNote}>{p.paymentNote}</p>}
+                            </td>
+                            <td className="px-1 py-1.5 align-top">
+                              <div className="flex flex-col gap-1">
+                                <input type="date" value={p.refertoData || ''} onChange={(e) => {
+                                  const updated = [...selectedRegistro.payments];
+                                  updated[index] = { ...updated[index], refertoData: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                                }} className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] font-mono" title="Data consegna referti" />
+                                <input type="text" placeholder="Consegna" value={p.consegnaReferti || ''} onChange={(e) => {
+                                  const updated = [...selectedRegistro.payments];
+                                  updated[index] = { ...updated[index], consegnaReferti: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
+                                }} className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px]" />
+                              </div>
+                            </td>
+                            <td className="px-1 py-1.5 align-top">
+                              <select value={p.status} onChange={(e) => {
+                                const newStatus = e.target.value as RegistroPayment['status'];
+                                const updated = [...selectedRegistro.payments];
+                                updated[index] = { ...updated[index], status: newStatus };
+                                setSelectedRegistro({
+                                  ...selectedRegistro,
+                                  payments: updated,
+                                  status: newStatus === 'pagato' ? 'attivo' : (newStatus === 'disdetto' ? 'disdetto' : (newStatus === 'sospeso' ? 'sospeso' : selectedRegistro.status))
+                                });
+                              }} className={`w-full min-w-0 border rounded-md px-1 py-1 font-black text-[10px] ${
+                                p.status === 'pagato' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' :
+                                p.status === 'in_attesa' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                                p.status === 'insoluto' ? 'bg-red-100 text-red-900 border-red-300' :
+                                p.status === 'sospeso' ? 'bg-orange-100 text-orange-900 border-orange-300' :
+                                'bg-slate-200 text-slate-800 border-slate-300'
+                              }`}>
+                                <option value="pagato">PAGATO</option>
+                                <option value="in_attesa">IN ATTESA</option>
+                                <option value="insoluto">INSOLUTO</option>
+                                <option value="sospeso">SOSPESO</option>
+                                <option value="disdetto">DISDETTO</option>
+                              </select>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <button type="button" onClick={() => setClientToDelete({ id: selectedRegistro.id, name: selectedRegistro.name, isAdmin: false })}
+                  className="px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-xl text-xs border border-red-200">Elimina Scheda</button>
+                <div className="flex gap-3">
+                  <button type="button"
+                    onClick={() => { setPrintDentistiList(false); setPrintAmministratoriList(false); setPrintRegistriList(false); setPrintClient(selectedRegistro); }}
+                    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl flex items-center gap-2 text-xs">
+                    <Printer className="w-4 h-4" /> Stampa Anagrafica
+                  </button>
+                  <button type="button" onClick={() => setSelectedRegistro(null)} className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs">Chiudi</button>
+                  <button type="submit" className="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs shadow-md shadow-amber-600/20">Salva Modifiche</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {selectedScuola && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-[2.5rem] max-w-[96vw] xl:max-w-[1450px] w-full p-6 md:p-8 shadow-2xl border border-slate-100 flex flex-col text-left max-h-[94vh] overflow-y-auto">
@@ -3025,6 +3991,16 @@ export default function ManagerDashboard() {
                     type="text" 
                     value={selectedScuola.phone}
                     onChange={(e) => setSelectedScuola({ ...selectedScuola, phone: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Cellulare</label>
+                  <input 
+                    type="text" 
+                    value={selectedScuola.mobile || ''}
+                    onChange={(e) => setSelectedScuola({ ...selectedScuola, mobile: e.target.value })}
                     className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
@@ -3463,6 +4439,16 @@ export default function ManagerDashboard() {
                 </div>
 
                 <div>
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Cellulare</label>
+                  <input 
+                    type="text" 
+                    value={selectedDentista.mobile || ''}
+                    onChange={(e) => setSelectedDentista({ ...selectedDentista, mobile: e.target.value })}
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+
+                <div>
                   <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">Email Contatto</label>
                   <input 
                     type="email" 
@@ -3768,10 +4754,16 @@ export default function ManagerDashboard() {
                     <div><strong className="text-slate-500">Stato Contratto:</strong> <span className="font-bold uppercase text-purple-700">{printClient.status}</span></div>
                     <div><strong className="text-slate-500">Comune / Città:</strong> <span className="font-bold text-slate-900">{printClient.paese} ({printClient.city})</span></div>
                     <div><strong className="text-slate-500">Telefono Studio:</strong> <span className="font-bold text-slate-900">{printClient.phone}</span></div>
+                    {printClient.mobile && (
+                      <div><strong className="text-slate-500">Cellulare:</strong> <span className="font-bold text-slate-900">{printClient.mobile}</span></div>
+                    )}
                     <div><strong className="text-slate-500">Email Ufficiale:</strong> <span className="font-bold text-slate-900">{printClient.email}</span></div>
                     <div><strong className="text-slate-500">Canone / Rinnovo:</strong> <span className="font-bold text-slate-900">€{printClient.monthlyFee} / {printClient.billingInterval}</span></div>
                     {('nCampioni' in printClient) && printClient.nCampioni && (
                       <div className="col-span-2"><strong className="text-slate-500">N° Campioni Registrati:</strong> <span className="font-bold text-blue-700">{printClient.nCampioni}</span></div>
+                    )}
+                    {('services' in printClient) && printClient.services && (
+                      <div className="col-span-2"><strong className="text-slate-500">Servizi:</strong> <span className="font-bold text-amber-700">{printClient.services}</span></div>
                     )}
                   </div>
                 </div>
@@ -3804,7 +4796,7 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* SEZIONE REFERTI SE DISPONIBILE */}
-                {printClient.referti && printClient.referti.length > 0 && (
+                {('referti' in printClient) && Array.isArray(printClient.referti) && printClient.referti.length > 0 && (
                   <div className="mb-6">
                     <h3 className="font-black text-xs uppercase tracking-wider text-slate-900 mb-2">Registro Consegna Referti Ufficiali</h3>
                     <table className="w-full border-collapse text-left text-[11px] border border-slate-300">
@@ -4044,6 +5036,84 @@ export default function ManagerDashboard() {
                 <p className="text-center text-slate-500 italic py-8">Nessun amministratore corrisponde ai filtri selezionati.</p>
               )}
 
+              <div className="mt-auto pt-6 border-t border-slate-200 text-[9px] text-slate-400 text-center">
+                Documento generato da S.A.I. Manager — {new Date().toLocaleString('it-IT')}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODALE STAMPA ELENCO REGISTRI HACCP A4 */}
+      {printRegistriList && (
+        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex flex-col items-center justify-start z-[100] p-3 sm:p-6 overflow-y-auto">
+          <div className="w-full max-w-[210mm] flex flex-col my-auto">
+            <div className="no-print sticky top-0 z-[101] w-full bg-slate-900 text-white rounded-t-2xl p-4 flex flex-wrap justify-between items-center shadow-2xl border-b border-slate-800 gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="text-xs font-black uppercase tracking-wider text-slate-100">Anteprima Elenco Registri HACCP A4</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button type="button" onClick={() => window.print()}
+                  className="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs flex items-center gap-2 shadow-lg transition-all cursor-pointer">
+                  <Printer className="w-4 h-4" /> Stampa / Salva PDF
+                </button>
+                <button type="button" onClick={() => setPrintRegistriList(false)}
+                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs transition-all cursor-pointer border border-slate-700">
+                  Chiudi Anteprima
+                </button>
+              </div>
+            </div>
+            <div id="printable-a4-document" className="bg-white text-slate-900 w-full min-h-[297mm] p-8 sm:p-10 shadow-2xl rounded-b-2xl border border-slate-200 flex flex-col font-sans text-xs text-left">
+              <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4 mb-5">
+                <div>
+                  <h1 className="text-2xl font-black tracking-tight text-slate-900 uppercase">SAI NAPOLI WEB</h1>
+                  <p className="text-[10px] font-bold text-slate-500 tracking-wider uppercase mt-0.5">Servizi Ambientali & Igiene - Gestione HACCP & Legionella</p>
+                  <p className="text-[10px] text-slate-400">Via Napoli 100, 80100 Napoli (NA) | Tel: 081 0000000 | info@sainapoli.it</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-black text-amber-700 uppercase tracking-wider">Elenco Clienti Registri</div>
+                  <div className="text-[10px] text-slate-500 font-medium mt-1">Data stampa: {new Date().toLocaleDateString('it-IT')}</div>
+                  <div className="text-[10px] font-bold text-slate-700 mt-1">{filteredRegistri.length.toLocaleString('it-IT')} clienti in elenco</div>
+                </div>
+              </div>
+              <div className="mb-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <p className="text-[10px] font-black uppercase tracking-wider text-amber-900 mb-1">Filtri applicati</p>
+                <p className="text-[11px] text-slate-700 leading-relaxed">{registriFilterSummary}</p>
+              </div>
+              <table className="w-full border-collapse text-left text-[10px] border border-slate-300">
+                <thead className="bg-slate-100 font-bold text-slate-700 uppercase text-[9px]">
+                  <tr>
+                    <th className="border border-slate-300 p-2 w-[22%]">Cliente / Ditta</th>
+                    <th className="border border-slate-300 p-2 w-[14%]">Comune</th>
+                    <th className="border border-slate-300 p-2 w-[10%]">Contratto N°</th>
+                    <th className="border border-slate-300 p-2 w-[16%]">Servizi</th>
+                    <th className="border border-slate-300 p-2 w-[22%]">Ultima Fattura & Scadenza</th>
+                    <th className="border border-slate-300 p-2 w-[16%]">Stato</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredRegistri.map((c) => {
+                    const { invoiceText, dueText } = getRegistroInvoiceSummary(c);
+                    return (
+                      <tr key={c.id} className="border-b border-slate-200 align-top">
+                        <td className="border border-slate-300 p-2 font-bold text-slate-900 leading-snug break-words">{c.name}</td>
+                        <td className="border border-slate-300 p-2 text-slate-700 leading-snug break-words">{c.city}</td>
+                        <td className="border border-slate-300 p-2 font-mono font-bold whitespace-nowrap">{c.contractNumber ? `N° ${c.contractNumber}` : 'N/D'}</td>
+                        <td className="border border-slate-300 p-2 text-slate-700 leading-snug break-words">{c.services || '—'}</td>
+                        <td className="border border-slate-300 p-2 leading-snug">
+                          <div className="font-mono font-bold text-slate-900">{invoiceText}</div>
+                          {dueText && <div className="text-[9px] text-slate-500 mt-0.5">{dueText}</div>}
+                        </td>
+                        <td className="border border-slate-300 p-2 font-black uppercase text-[9px] leading-snug">{getRegistroStatusLabel(c)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {filteredRegistri.length === 0 && (
+                <p className="text-center text-slate-500 italic py-8">Nessun cliente corrisponde ai filtri selezionati.</p>
+              )}
               <div className="mt-auto pt-6 border-t border-slate-200 text-[9px] text-slate-400 text-center">
                 Documento generato da S.A.I. Manager — {new Date().toLocaleString('it-IT')}
               </div>

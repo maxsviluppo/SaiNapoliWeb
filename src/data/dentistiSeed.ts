@@ -28,6 +28,7 @@ export interface ClientContract {
   city: string;
   paese: string;
   phone: string;
+  mobile?: string;
   email: string;
   monthlyFee: number;
   billingInterval: string;

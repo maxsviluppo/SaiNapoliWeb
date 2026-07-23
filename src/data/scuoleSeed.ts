@@ -17,6 +17,7 @@ export interface ScuolaContract {
   paese: string;
   city: string;
   phone: string;
+  mobile?: string;
   email: string;
   contractNumber: number | null;
   billingInterval: string;

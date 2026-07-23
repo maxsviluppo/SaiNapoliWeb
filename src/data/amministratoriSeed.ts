@@ -20,6 +20,7 @@ export interface AmministratoreContract {
   city: string;
   paese: string;
   phone: string;
+  mobile?: string;
   email: string;
   condominiums: string[];
   monthlyFee: number;
