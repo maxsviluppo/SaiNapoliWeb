@@ -97,7 +97,12 @@ export default function ManagerDashboard() {
     }
 
     if (selectedStatusFilter !== 'all') {
-      result = result.filter(c => c.status === selectedStatusFilter);
+      if (selectedStatusFilter === 'scaduti') {
+        const todayStr = new Date().toISOString().split('T')[0];
+        result = result.filter(c => c.payments.some(p => p.status === 'in_attesa' && p.date < todayStr));
+      } else {
+        result = result.filter(c => c.status === selectedStatusFilter);
+      }
     }
 
     return result;
@@ -118,6 +123,10 @@ export default function ManagerDashboard() {
     const sospesi = dentisti.filter(c => c.status === 'sospeso').length;
     const disdetti = dentisti.filter(c => c.status === 'disdetto').length;
     const nonReperibili = dentisti.filter(c => c.status === 'non_reperibile').length;
+    const scaduti = dentisti.filter(c => {
+      const todayStr = new Date().toISOString().split('T')[0];
+      return c.payments.some(p => p.status === 'in_attesa' && p.date < todayStr);
+    }).length;
 
     // Last contract number
     const validContractNumbers = dentisti
@@ -155,6 +164,7 @@ export default function ManagerDashboard() {
       sospesi,
       disdetti,
       nonReperibili,
+      scaduti,
       lastContractNumber,
       activeRevenue,
       pendingRevenue,
@@ -687,7 +697,7 @@ export default function ManagerDashboard() {
                 </div>
 
                 {/* KPI STATUS FILTER BUTTONS (FILTRI RAPIDI PRIMA DELLA LISTA DATI) */}
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-4 border-t border-slate-100">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-4 border-t border-slate-100">
                   <button 
                     onClick={() => { setSelectedStatusFilter('all'); setCurrentPage(1); }}
                     className={`p-3 rounded-2xl border text-left transition-all ${selectedStatusFilter === 'all' ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
@@ -726,6 +736,14 @@ export default function ManagerDashboard() {
                   >
                     <span className="text-[9px] font-black uppercase tracking-widest block opacity-70">Disdetti</span>
                     <span className="text-xl font-black">{stats.disdetti}</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { setSelectedStatusFilter('scaduti'); setCurrentPage(1); }}
+                    className={`p-3 rounded-2xl border text-left transition-all ${selectedStatusFilter === 'scaduti' ? 'bg-red-800 text-white border-red-800 shadow-md' : 'bg-red-50/50 border-red-200 hover:bg-red-100 text-red-900'}`}
+                  >
+                    <span className="text-[9px] font-black uppercase tracking-widest block opacity-70">Scaduti</span>
+                    <span className="text-xl font-black">{stats.scaduti}</span>
                   </button>
                 </div>
 
