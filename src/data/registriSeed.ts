@@ -14,6 +14,8 @@ export interface RegistroPayment {
   paymentNote?: string;
   refertoData?: string;
   consegnaReferti?: string;
+  /** Collegamento al servizio attivo (rinnovo archiviato) */
+  servizioId?: string;
 }
 
 export type RegistroServiceTypeId =
@@ -76,6 +78,13 @@ export interface RegistroServizioAttivo {
   dataVisita: string;
   note: string;
   status: 'attivo' | 'in_scadenza' | 'scaduto' | 'sospeso' | 'disdetto';
+  /** Fattura e pagamento del rinnovo corrente */
+  numeroFattura?: string;
+  dataFattura?: string;
+  dataPagamento?: string;
+  statoPagamento?: RegistroPayment['status'];
+  refertoData?: string;
+  consegnaReferti?: string;
 }
 
 export interface RegistroContract {
@@ -282,7 +291,67 @@ export function createEmptyRegistroServizio(
     dataVisita: '',
     note: '',
     status: 'attivo',
+    numeroFattura: '',
+    dataFattura: '',
+    dataPagamento: '',
+    statoPagamento: 'in_attesa',
+    refertoData: '',
+    consegnaReferti: '',
   };
+}
+
+export function archiviaRinnovoServizio(
+  c: RegistroContract,
+  servizioIndex: number,
+): RegistroContract {
+  const servizi = [...(c.serviziAttivi || [])];
+  const s = servizi[servizioIndex];
+  if (!s) return c;
+
+  const payment: RegistroPayment = {
+    id: `pay_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    date: s.dataPagamento || s.scadenza || new Date().toISOString().split('T')[0],
+    amount: s.costo,
+    status: s.statoPagamento || 'pagato',
+    invoiceNumber: s.numeroFattura || null,
+    invoiceDate: s.dataFattura || null,
+    paymentNote: `${getRegistroServiceShort(s.tipoId)} · ${s.modalitaPagamento}`,
+    refertoData: s.refertoData || '',
+    consegnaReferti: s.consegnaReferti || '',
+    servizioId: s.id,
+    visitDate: s.dataVisita || null,
+  };
+
+  const nuovaScadenza = addIntervalToDate(s.scadenza || payment.date, s.frequenzaControllo || '1 anno');
+
+  servizi[servizioIndex] = {
+    ...s,
+    scadenza: nuovaScadenza,
+    numeroFattura: '',
+    dataFattura: '',
+    dataPagamento: '',
+    statoPagamento: 'in_attesa',
+    refertoData: '',
+    consegnaReferti: '',
+    status: 'attivo',
+  };
+
+  return {
+    ...c,
+    serviziAttivi: servizi,
+    payments: [...c.payments, payment],
+  };
+}
+
+export function getPagamentiStoricoServizio(
+  c: RegistroContract,
+  servizioId: string,
+): RegistroPayment[] {
+  return c.payments.filter(p => p.servizioId === servizioId);
+}
+
+export function getPagamentiGenerali(c: RegistroContract): RegistroPayment[] {
+  return c.payments.filter(p => !p.servizioId);
 }
 
 export interface RegistroCalendarEvent {

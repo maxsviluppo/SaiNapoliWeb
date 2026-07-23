@@ -11,7 +11,9 @@ import {
 import { generateInitialDentisti, ClientContract, Payment, hasOverduePayment, addIntervalToDate, getExpiryStatus, getNextDueDate, matchesMonthYearFilter } from '../../data/dentistiSeed';
 import { generateInitialAmministratori, AmministratoreContract } from '../../data/amministratoriSeed';
 import { generateInitialScuole, ScuolaContract } from '../../data/scuoleSeed';
-import { generateInitialRegistri, RegistroContract, RegistroPayment, RegistroServizioAttivo, RegistroServiceTypeId, REGISTRO_SERVICE_CATALOG, REGISTRO_MODALITA_PAGAMENTO, REGISTRO_FREQUENZE_CONTROLLO, getRegistroServiziAttivi, getRegistroServiceShort, getRegistroServiceLabel, getNextServizioScadenza, getServizioExpiryStatus, matchesRegistroMonthYearFilter, createEmptyRegistroServizio, normalizeRegistroOnSave, migrateRegistroServizi, buildRegistroCalendarEvents, countRegistroCalendarEventsByDay } from '../../data/registriSeed';
+import { generateInitialRegistri, RegistroContract, RegistroPayment, RegistroServizioAttivo, RegistroServiceTypeId, REGISTRO_SERVICE_CATALOG, REGISTRO_MODALITA_PAGAMENTO, REGISTRO_FREQUENZE_CONTROLLO, getRegistroServiziAttivi, getRegistroServiceShort, getRegistroServiceLabel, getNextServizioScadenza, getServizioExpiryStatus, matchesRegistroMonthYearFilter, createEmptyRegistroServizio, normalizeRegistroOnSave, migrateRegistroServizi, buildRegistroCalendarEvents, countRegistroCalendarEventsByDay, archiviaRinnovoServizio, getPagamentiStoricoServizio, getPagamentiGenerali } from '../../data/registriSeed';
+import ManagerScadenzeCalendar from '../../components/ManagerScadenzeCalendar';
+import { buildPaymentCalendarEvents } from '../../lib/managerCalendarUtils';
 
 type ManagerTab = 'dashboard' | 'amministratori' | 'scuole' | 'dentisti' | 'registri';
 
@@ -57,6 +59,22 @@ export default function ManagerDashboard() {
 
   const [paymentToDelete, setPaymentToDelete] = useState<{isAdmin: boolean, index: number} | null>(null);
   const [clientToDelete, setClientToDelete] = useState<{ id: string, name: string, isAdmin: boolean } | null>(null);
+  const [registroServizioToDelete, setRegistroServizioToDelete] = useState<{ index: number; label: string } | null>(null);
+
+  const [adminViewMode, setAdminViewMode] = useState<'lista' | 'calendario'>('lista');
+  const [calendarMonthAdmin, setCalendarMonthAdmin] = useState(() => new Date().getMonth() + 1);
+  const [calendarYearAdmin, setCalendarYearAdmin] = useState(() => new Date().getFullYear());
+  const [calendarSelectedDayAdmin, setCalendarSelectedDayAdmin] = useState<number | null>(null);
+
+  const [scuoleViewMode, setScuoleViewMode] = useState<'lista' | 'calendario'>('lista');
+  const [calendarMonthScuole, setCalendarMonthScuole] = useState(() => new Date().getMonth() + 1);
+  const [calendarYearScuole, setCalendarYearScuole] = useState(() => new Date().getFullYear());
+  const [calendarSelectedDayScuole, setCalendarSelectedDayScuole] = useState<number | null>(null);
+
+  const [dentistiViewMode, setDentistiViewMode] = useState<'lista' | 'calendario'>('lista');
+  const [calendarMonthDentisti, setCalendarMonthDentisti] = useState(() => new Date().getMonth() + 1);
+  const [calendarYearDentisti, setCalendarYearDentisti] = useState(() => new Date().getFullYear());
+  const [calendarSelectedDayDentisti, setCalendarSelectedDayDentisti] = useState<number | null>(null);
   // Sorting State for Amministratori
   const [sortFieldAdmin, setSortFieldAdmin] = useState<'name' | 'paese' | 'contractNumber' | 'monthlyFee' | 'status'>('contractNumber');
   const [sortOrderAdmin, setSortOrderAdmin] = useState<'asc' | 'desc'>('asc');
@@ -743,6 +761,21 @@ export default function ManagerDashboard() {
       return d.getDate() === calendarSelectedDayRegistri;
     });
   }, [registroCalendarEvents, calendarSelectedDayRegistri]);
+
+  const adminCalendarEvents = useMemo(
+    () => buildPaymentCalendarEvents(amministratori, calendarMonthAdmin, calendarYearAdmin, '#9333ea', 'Scadenza amministratore'),
+    [amministratori, calendarMonthAdmin, calendarYearAdmin],
+  );
+
+  const scuoleCalendarEvents = useMemo(
+    () => buildPaymentCalendarEvents(scuole, calendarMonthScuole, calendarYearScuole, '#2563eb', 'Scadenza scuola'),
+    [scuole, calendarMonthScuole, calendarYearScuole],
+  );
+
+  const dentistiCalendarEvents = useMemo(
+    () => buildPaymentCalendarEvents(dentisti, calendarMonthDentisti, calendarYearDentisti, '#9333ea', 'Scadenza dentista'),
+    [dentisti, calendarMonthDentisti, calendarYearDentisti],
+  );
 
   const getRegistroStatusLabel = (c: RegistroContract) => {
     const todayStr = new Date().toISOString().split('T')[0];
@@ -1504,6 +1537,36 @@ export default function ManagerDashboard() {
                   </button>
                 </div>
 
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                  <button type="button" onClick={() => setAdminViewMode('lista')}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all ${adminViewMode === 'lista' ? 'bg-purple-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    Elenco Clienti
+                  </button>
+                  <button type="button" onClick={() => { setAdminViewMode('calendario'); setCalendarSelectedDayAdmin(null); }}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all flex items-center gap-1.5 ${adminViewMode === 'calendario' ? 'bg-purple-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    <Calendar className="w-3.5 h-3.5" /> Calendario Scadenze
+                  </button>
+                </div>
+
+                {adminViewMode === 'calendario' && (
+                  <ManagerScadenzeCalendar
+                    theme="purple"
+                    month={calendarMonthAdmin}
+                    year={calendarYearAdmin}
+                    monthNames={MONTH_NAMES}
+                    events={adminCalendarEvents}
+                    selectedDay={calendarSelectedDayAdmin}
+                    onMonthChange={(m, y) => { setCalendarMonthAdmin(m); setCalendarYearAdmin(y); }}
+                    onSelectDay={setCalendarSelectedDayAdmin}
+                    onOpenClient={(id) => {
+                      const c = amministratori.find(a => a.id === id);
+                      if (c) setSelectedAmministratore({ ...c });
+                    }}
+                  />
+                )}
+
+                {adminViewMode === 'lista' && (
+                <>
                 {/* SEARCH & ALPHABET FILTER */}
                 <div className="space-y-3">
                   <div className="relative">
@@ -1731,6 +1794,8 @@ export default function ManagerDashboard() {
                     </button>
                   </div>
                 </div>
+                </>
+                )}
 
               </div>
             </div>
@@ -1878,6 +1943,36 @@ export default function ManagerDashboard() {
                   ))}
                 </div>
 
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                  <button type="button" onClick={() => setScuoleViewMode('lista')}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all ${scuoleViewMode === 'lista' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    Elenco Plessi
+                  </button>
+                  <button type="button" onClick={() => { setScuoleViewMode('calendario'); setCalendarSelectedDayScuole(null); }}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all flex items-center gap-1.5 ${scuoleViewMode === 'calendario' ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    <Calendar className="w-3.5 h-3.5" /> Calendario Scadenze
+                  </button>
+                </div>
+
+                {scuoleViewMode === 'calendario' && (
+                  <ManagerScadenzeCalendar
+                    theme="blue"
+                    month={calendarMonthScuole}
+                    year={calendarYearScuole}
+                    monthNames={MONTH_NAMES}
+                    events={scuoleCalendarEvents}
+                    selectedDay={calendarSelectedDayScuole}
+                    onMonthChange={(m, y) => { setCalendarMonthScuole(m); setCalendarYearScuole(y); }}
+                    onSelectDay={setCalendarSelectedDayScuole}
+                    onOpenClient={(id) => {
+                      const c = scuole.find(s => s.id === id);
+                      if (c) setSelectedScuola({ ...c });
+                    }}
+                  />
+                )}
+
+                {scuoleViewMode === 'lista' && (
+                <>
                 <div className="space-y-3">
                   <div className="relative">
                     <input
@@ -2015,6 +2110,8 @@ export default function ManagerDashboard() {
                     <button disabled={currentPageScuole === totalPagesScuole} onClick={() => setCurrentPageScuole(p => Math.min(p + 1, totalPagesScuole))} className="p-2 rounded-xl border border-slate-200 disabled:opacity-30"><ChevronRight className="w-4 h-4" /></button>
                   </div>
                 </div>
+                </>
+                )}
               </div>
             </div>
           )}
@@ -2279,6 +2376,36 @@ export default function ManagerDashboard() {
                   </button>
                 </div>
 
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                  <button type="button" onClick={() => setDentistiViewMode('lista')}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all ${dentistiViewMode === 'lista' ? 'bg-purple-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    Elenco Studi
+                  </button>
+                  <button type="button" onClick={() => { setDentistiViewMode('calendario'); setCalendarSelectedDayDentisti(null); }}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide transition-all flex items-center gap-1.5 ${dentistiViewMode === 'calendario' ? 'bg-purple-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    <Calendar className="w-3.5 h-3.5" /> Calendario Scadenze
+                  </button>
+                </div>
+
+                {dentistiViewMode === 'calendario' && (
+                  <ManagerScadenzeCalendar
+                    theme="purple"
+                    month={calendarMonthDentisti}
+                    year={calendarYearDentisti}
+                    monthNames={MONTH_NAMES}
+                    events={dentistiCalendarEvents}
+                    selectedDay={calendarSelectedDayDentisti}
+                    onMonthChange={(m, y) => { setCalendarMonthDentisti(m); setCalendarYearDentisti(y); }}
+                    onSelectDay={setCalendarSelectedDayDentisti}
+                    onOpenClient={(id) => {
+                      const c = dentisti.find(d => d.id === id);
+                      if (c) setSelectedDentista({ ...c });
+                    }}
+                  />
+                )}
+
+                {dentistiViewMode === 'lista' && (
+                <>
                 {/* SEARCH & ALPHABET FILTER */}
                 <div className="space-y-3">
                   <div className="relative">
@@ -2504,6 +2631,8 @@ export default function ManagerDashboard() {
                     </button>
                   </div>
                 </div>
+                </>
+                )}
 
               </div>
             </div>
@@ -3074,6 +3203,38 @@ export default function ManagerDashboard() {
         </div>
       )}
 
+      {/* MODALE ELIMINAZIONE SERVIZIO REGISTRO */}
+      {registroServizioToDelete && selectedRegistro && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-left">
+            <div className="flex items-center gap-3 text-red-600 mb-3">
+              <div className="w-10 h-10 rounded-2xl bg-red-100 flex items-center justify-center">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <h3 className="font-black text-lg text-slate-900">Elimina Servizio</h3>
+            </div>
+            <p className="text-slate-600 text-xs leading-relaxed mb-6">
+              Confermi l&apos;eliminazione del servizio <strong className="text-slate-900">{registroServizioToDelete.label}</strong> da <strong className="text-slate-900">{selectedRegistro.name}</strong>?
+              I rinnovi già archiviati restano nello storico pagamenti.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button type="button" onClick={() => setRegistroServizioToDelete(null)}
+                className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs">
+                Annulla
+              </button>
+              <button type="button" onClick={() => {
+                const updated = (selectedRegistro.serviziAttivi || []).filter((_, i) => i !== registroServizioToDelete.index);
+                setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                setRegistroServizioToDelete(null);
+              }}
+                className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold text-xs shadow-md shadow-red-500/20">
+                Sì, Elimina Servizio
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </main>
 
       {/* DETAIL & EDIT MODAL FOR DENTISTA STUDIO */}
@@ -3544,6 +3705,7 @@ export default function ManagerDashboard() {
                                 <span><strong className="text-slate-400">Costo:</strong> € {s.costo}</span>
                                 <span><strong className="text-slate-400">Controllo:</strong> {s.frequenzaControllo}</span>
                                 <span><strong className="text-slate-400">Pagamento:</strong> {s.modalitaPagamento}</span>
+                                {s.numeroFattura && <span className="col-span-2"><strong className="text-slate-400">Fattura:</strong> N° {s.numeroFattura} {s.dataFattura ? `del ${s.dataFattura}` : ''}</span>}
                                 {s.dataVisita && <span className="col-span-2"><strong className="text-slate-400">Ultima visita:</strong> {s.dataVisita}</span>}
                               </div>
                             </div>
@@ -3559,8 +3721,8 @@ export default function ManagerDashboard() {
                   <div>
                     <div className="flex flex-wrap justify-between items-center gap-2 mb-3">
                       <div>
-                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Servizi Attivi & Scadenze Rinnovo</h4>
-                        <p className="text-[9px] text-slate-500 mt-0.5">Programma qui ogni servizio con scadenza, costo e frequenza. Salva la scheda per memorizzare. Le fatture restano nello scadenzario sotto.</p>
+                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Servizi, Scadenze & Fatture Rinnovo</h4>
+                        <p className="text-[9px] text-slate-500 mt-0.5">Ogni servizio ha scadenza e dati fattura/pagamento collegati. Quando incassi, compila e archivia il rinnovo.</p>
                       </div>
                       <button
                         type="button"
@@ -3578,7 +3740,7 @@ export default function ManagerDashboard() {
                     </div>
                     <div className="flex flex-wrap gap-1.5 mb-3">
                       <span className="text-[9px] font-black uppercase text-slate-400 self-center mr-1">Aggiungi rapido:</span>
-                      {(['sicurezza_alimentare', 'legionella', 'acque', 'sicurezza_lavoro', 'gdpr', 'autoclavi_dentisti'] as RegistroServiceTypeId[]).map(tipoId => {
+                      {(['sicurezza_alimentare', 'legionella', 'acque', 'acque_piscine', 'gas_radon', 'sicurezza_lavoro', 'gdpr', 'autoclavi_dentisti'] as RegistroServiceTypeId[]).map(tipoId => {
                         const item = REGISTRO_SERVICE_CATALOG.find(c => c.id === tipoId);
                         return (
                           <button
@@ -3599,212 +3761,221 @@ export default function ManagerDashboard() {
                         );
                       })}
                     </div>
-                    <div className="border border-amber-200 rounded-xl overflow-hidden bg-amber-50/20 max-h-[280px] overflow-y-auto">
-                      <table className="w-full table-fixed text-left border-collapse">
-                        <colgroup>
-                          <col className="w-[22%]" />
-                          <col className="w-[11%]" />
-                          <col className="w-[9%]" />
-                          <col className="w-[11%]" />
-                          <col className="w-[13%]" />
-                          <col className="w-[11%]" />
-                          <col className="w-[15%]" />
-                          <col className="w-[8%]" />
-                        </colgroup>
-                        <thead className="bg-amber-50 text-[8px] font-black text-amber-900 uppercase sticky top-0">
-                          <tr>
-                            <th className="px-1 py-1.5">Servizio</th>
-                            <th className="px-1 py-1.5">Scadenza</th>
-                            <th className="px-1 py-1.5">Costo €</th>
-                            <th className="px-1 py-1.5">Frequenza</th>
-                            <th className="px-1 py-1.5">Pagamento</th>
-                            <th className="px-1 py-1.5">Data Visita</th>
-                            <th className="px-1 py-1.5">Note</th>
-                            <th className="px-1 py-1.5"></th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-amber-100/80 bg-white">
-                          {(selectedRegistro.serviziAttivi || []).length === 0 && (
-                            <tr>
-                              <td colSpan={8} className="px-3 py-6 text-center text-slate-400 italic text-[10px]">
-                                Nessun servizio assegnato. Clicca &quot;Aggiungi Servizio&quot; per monitorare scadenze e rinnovi.
-                              </td>
-                            </tr>
-                          )}
-                          {(selectedRegistro.serviziAttivi || []).map((s, index) => {
-                            const exp = getServizioExpiryStatus(s.scadenza);
-                            const catalogItem = REGISTRO_SERVICE_CATALOG.find(c => c.id === s.tipoId);
-                            return (
-                              <tr key={s.id} className={exp === 'scaduto' ? 'bg-red-50/80' : exp === 'in_scadenza' ? 'bg-amber-50/60' : ''}>
-                                <td className="px-1 py-1 align-top">
-                                  <select
-                                    value={s.tipoId}
-                                    onChange={(e) => {
-                                      const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                      updated[index] = { ...updated[index], tipoId: e.target.value as RegistroServiceTypeId };
-                                      setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                    }}
-                                    className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-bold bg-white focus:outline-none focus:border-amber-500"
-                                    style={{ borderLeftWidth: 3, borderLeftColor: catalogItem?.color || '#64748b' }}
-                                  >
-                                    {REGISTRO_SERVICE_CATALOG.map(opt => (
-                                      <option key={opt.id} value={opt.id}>{opt.label}</option>
-                                    ))}
-                                  </select>
-                                </td>
-                                <td className="px-1 py-1 align-top">
-                                  <input type="date" value={s.scadenza || ''} onChange={(e) => {
+                    <div className="space-y-3 max-h-[520px] overflow-y-auto pr-1">
+                      {(selectedRegistro.serviziAttivi || []).length === 0 && (
+                        <p className="text-[10px] text-slate-400 italic text-center py-8 border border-dashed border-amber-200 rounded-xl">
+                          Nessun servizio assegnato. Usa Aggiungi Servizio o i pulsanti rapidi.
+                        </p>
+                      )}
+                      {(selectedRegistro.serviziAttivi || []).map((s, index) => {
+                        const exp = getServizioExpiryStatus(s.scadenza);
+                        const catalogItem = REGISTRO_SERVICE_CATALOG.find(c => c.id === s.tipoId);
+                        const storico = getPagamentiStoricoServizio(selectedRegistro, s.id);
+                        return (
+                          <div
+                            key={s.id}
+                            className={`rounded-2xl border p-4 space-y-3 ${
+                              exp === 'scaduto' ? 'bg-red-50/60 border-red-200' :
+                              exp === 'in_scadenza' ? 'bg-amber-50/50 border-amber-200' :
+                              'bg-white border-amber-200'
+                            }`}
+                          >
+                            <div className="flex flex-wrap items-start justify-between gap-2">
+                              <div className="flex items-center gap-2 min-w-0 flex-1">
+                                <span className="w-1.5 h-8 rounded-full shrink-0" style={{ backgroundColor: catalogItem?.color || '#64748b' }} />
+                                <select
+                                  value={s.tipoId}
+                                  onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                    updated[index] = { ...updated[index], scadenza: e.target.value };
+                                    updated[index] = { ...updated[index], tipoId: e.target.value as RegistroServiceTypeId };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-mono font-bold" />
-                                </td>
-                                <td className="px-1 py-1 align-top">
-                                  <input type="number" value={s.costo} onChange={(e) => {
+                                  }}
+                                  className="flex-1 min-w-[140px] border border-slate-200 rounded-xl px-2 py-1.5 text-[10px] font-bold bg-white focus:outline-none focus:border-amber-500"
+                                >
+                                  {REGISTRO_SERVICE_CATALOG.map(opt => (
+                                    <option key={opt.id} value={opt.id}>{opt.label}</option>
+                                  ))}
+                                </select>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setRegistroServizioToDelete({ index, label: catalogItem?.shortLabel || 'Servizio' })}
+                                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                                title="Elimina servizio"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                              <div className="sm:col-span-1 lg:col-span-2">
+                                <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Scadenza servizio</label>
+                                <input type="date" value={s.scadenza || ''} onChange={(e) => {
+                                  const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                  updated[index] = { ...updated[index], scadenza: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                }} className="w-full min-w-[118px] border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono font-bold" />
+                              </div>
+                              <div>
+                                <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Costo €</label>
+                                <input type="number" value={s.costo} onChange={(e) => {
+                                  const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                  updated[index] = { ...updated[index], costo: parseFloat(e.target.value) || 0 };
+                                  setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                }} className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-bold" />
+                              </div>
+                              <div>
+                                <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Frequenza</label>
+                                <select value={s.frequenzaControllo} onChange={(e) => {
+                                  const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                  updated[index] = { ...updated[index], frequenzaControllo: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                }} className="w-full border border-slate-200 rounded-lg px-1 py-1.5 text-[9px] font-bold bg-white">
+                                  {REGISTRO_FREQUENZE_CONTROLLO.map(f => <option key={f} value={f}>{f}</option>)}
+                                </select>
+                              </div>
+                              <div>
+                                <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Data visita</label>
+                                <input type="date" value={s.dataVisita || ''} onChange={(e) => {
+                                  const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                  updated[index] = { ...updated[index], dataVisita: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                }} className="w-full min-w-[118px] border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono" />
+                              </div>
+                              <div className="sm:col-span-2">
+                                <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Note servizio</label>
+                                <input type="text" value={s.note || ''} placeholder="Note..." onChange={(e) => {
+                                  const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                  updated[index] = { ...updated[index], note: e.target.value };
+                                  setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                }} className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-[10px]" />
+                              </div>
+                            </div>
+
+                            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+                              <p className="text-[8px] font-black uppercase text-slate-500 tracking-wider">Fattura & Pagamento rinnovo corrente</p>
+                              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">N° Fattura</label>
+                                  <input type="text" value={s.numeroFattura || ''} onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                    updated[index] = { ...updated[index], costo: parseFloat(e.target.value) || 0 };
+                                    updated[index] = { ...updated[index], numeroFattura: e.target.value };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-bold" />
-                                </td>
-                                <td className="px-1 py-1 align-top">
-                                  <select value={s.frequenzaControllo} onChange={(e) => {
+                                  }} className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono font-bold" />
+                                </div>
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Data fattura</label>
+                                  <input type="date" value={s.dataFattura || ''} onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                    updated[index] = { ...updated[index], frequenzaControllo: e.target.value };
+                                    updated[index] = { ...updated[index], dataFattura: e.target.value };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-0.5 py-1 text-[8px] font-bold bg-white">
-                                    {REGISTRO_FREQUENZE_CONTROLLO.map(f => <option key={f} value={f}>{f}</option>)}
-                                  </select>
-                                </td>
-                                <td className="px-1 py-1 align-top">
+                                  }} className="w-full min-w-[118px] border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono" />
+                                </div>
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Data pagamento</label>
+                                  <input type="date" value={s.dataPagamento || ''} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], dataPagamento: e.target.value };
+                                    setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
+                                  }} className="w-full min-w-[118px] border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono" />
+                                </div>
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Metodo</label>
                                   <select value={s.modalitaPagamento} onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
                                     updated[index] = { ...updated[index], modalitaPagamento: e.target.value };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-0.5 py-1 text-[8px] font-bold bg-white">
+                                  }} className="w-full border border-slate-200 rounded-lg px-1 py-1.5 text-[9px] font-bold bg-white">
                                     {REGISTRO_MODALITA_PAGAMENTO.map(m => <option key={m} value={m}>{m}</option>)}
                                   </select>
-                                </td>
-                                <td className="px-1 py-1 align-top">
-                                  <input type="date" value={s.dataVisita || ''} onChange={(e) => {
+                                </div>
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Stato pagamento</label>
+                                  <select value={s.statoPagamento || 'in_attesa'} onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                    updated[index] = { ...updated[index], dataVisita: e.target.value };
+                                    updated[index] = { ...updated[index], statoPagamento: e.target.value as RegistroPayment['status'] };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px] font-mono" />
-                                </td>
-                                <td className="px-1 py-1 align-top">
-                                  <input type="text" value={s.note || ''} placeholder="Note..." onChange={(e) => {
+                                  }} className={`w-full border rounded-lg px-1 py-1.5 text-[9px] font-black ${
+                                    s.statoPagamento === 'pagato' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' :
+                                    s.statoPagamento === 'insoluto' ? 'bg-red-100 text-red-900 border-red-300' :
+                                    'bg-amber-100 text-amber-900 border-amber-300'
+                                  }`}>
+                                    <option value="pagato">PAGATO</option>
+                                    <option value="in_attesa">IN ATTESA</option>
+                                    <option value="insoluto">INSOLUTO</option>
+                                    <option value="sospeso">SOSPESO</option>
+                                    <option value="disdetto">DISDETTO</option>
+                                  </select>
+                                </div>
+                                <div className="flex items-end">
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedRegistro(archiviaRinnovoServizio(selectedRegistro, index))}
+                                    className="w-full px-2 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-[9px] shadow-sm"
+                                  >
+                                    Archivia rinnovo
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Data referti</label>
+                                  <input type="date" value={s.refertoData || ''} onChange={(e) => {
                                     const updated = [...(selectedRegistro.serviziAttivi || [])];
-                                    updated[index] = { ...updated[index], note: e.target.value };
+                                    updated[index] = { ...updated[index], refertoData: e.target.value };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="w-full min-w-0 border border-slate-200 rounded-md px-1 py-1 text-[9px]" />
-                                </td>
-                                <td className="px-1 py-1 align-top text-center">
-                                  <button type="button" onClick={() => {
-                                    const updated = (selectedRegistro.serviziAttivi || []).filter((_, i) => i !== index);
+                                  }} className="w-full min-w-[118px] border border-slate-200 rounded-lg px-2 py-1.5 text-[10px] font-mono" />
+                                </div>
+                                <div>
+                                  <label className="text-[8px] font-black uppercase text-slate-400 block mb-0.5">Consegna referti</label>
+                                  <input type="text" value={s.consegnaReferti || ''} onChange={(e) => {
+                                    const updated = [...(selectedRegistro.serviziAttivi || [])];
+                                    updated[index] = { ...updated[index], consegnaReferti: e.target.value };
                                     setSelectedRegistro({ ...selectedRegistro, serviziAttivi: updated });
-                                  }} className="p-1 text-slate-400 hover:text-red-600 rounded" title="Rimuovi servizio">✕</button>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
+                                  }} className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-[10px]" />
+                                </div>
+                              </div>
+                              {storico.length > 0 && (
+                                <p className="text-[9px] text-slate-500">
+                                  Storico archiviato: {storico.length} rinnovo/i — ultimo Fatt. {storico[storico.length - 1].invoiceNumber || 'N/D'} del {storico[storico.length - 1].invoiceDate || storico[storico.length - 1].date}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Scadenzario Pagamenti & Fatture</h4>
-                    <span className="text-[10px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-md">Cronologia Fatture</span>
-                  </div>
-                  <div className="border border-slate-200 rounded-xl overflow-hidden max-h-[320px] overflow-y-auto">
-                    <table className="w-full table-fixed text-left border-collapse">
-                      <colgroup>
-                        <col className="w-[13%]" /><col className="w-[10%]" /><col className="w-[24%]" /><col className="w-[24%]" /><col className="w-[29%]" />
-                      </colgroup>
-                      <thead className="bg-slate-50 text-[9px] font-black text-slate-400 uppercase sticky top-0">
-                        <tr>
-                          <th className="px-1.5 py-2">Scadenza</th>
-                          <th className="px-1.5 py-2">Importo</th>
-                          <th className="px-1.5 py-2">Fattura (N° / Data)</th>
-                          <th className="px-1.5 py-2">Consegna Referti</th>
-                          <th className="px-1.5 py-2">Stato</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {selectedRegistro.payments.map((p, index) => (
-                          <tr key={p.id || index} className="hover:bg-slate-50/50">
-                            <td className="px-1 py-1.5 align-top">
-                              <input type="date" value={p.date || ''} onChange={(e) => {
-                                const updated = [...selectedRegistro.payments];
-                                updated[index] = { ...updated[index], date: e.target.value };
-                                setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                              }} className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-mono font-bold text-[10px]" />
-                            </td>
-                            <td className="px-1 py-1.5 align-top">
-                              <input type="number" value={p.amount} onChange={(e) => {
-                                const updated = [...selectedRegistro.payments];
-                                updated[index] = { ...updated[index], amount: parseFloat(e.target.value) || 0 };
-                                setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                              }} className="w-full min-w-0 bg-white border border-slate-200 rounded-md px-1 py-1 font-bold text-[10px]" />
-                            </td>
-                            <td className="px-1 py-1.5 align-top">
-                              <div className="flex items-center gap-1 min-w-0">
-                                <input type="text" placeholder="N°" value={p.invoiceNumber || ''} onChange={(e) => {
-                                  const updated = [...selectedRegistro.payments];
-                                  updated[index] = { ...updated[index], invoiceNumber: e.target.value };
-                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                                }} className="w-[38%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] font-mono" />
-                                <input type="date" value={p.invoiceDate || ''} onChange={(e) => {
-                                  const updated = [...selectedRegistro.payments];
-                                  updated[index] = { ...updated[index], invoiceDate: e.target.value };
-                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                                }} className="w-[62%] min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px]" />
-                              </div>
-                              {p.paymentNote && <p className="text-[8px] text-slate-400 mt-0.5 line-clamp-2" title={p.paymentNote}>{p.paymentNote}</p>}
-                            </td>
-                            <td className="px-1 py-1.5 align-top">
-                              <div className="flex flex-col gap-1">
-                                <input type="date" value={p.refertoData || ''} onChange={(e) => {
-                                  const updated = [...selectedRegistro.payments];
-                                  updated[index] = { ...updated[index], refertoData: e.target.value };
-                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                                }} className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px] font-mono" title="Data consegna referti" />
-                                <input type="text" placeholder="Consegna" value={p.consegnaReferti || ''} onChange={(e) => {
-                                  const updated = [...selectedRegistro.payments];
-                                  updated[index] = { ...updated[index], consegnaReferti: e.target.value };
-                                  setSelectedRegistro({ ...selectedRegistro, payments: updated });
-                                }} className="w-full min-w-0 px-1 py-1 border border-slate-200 rounded-md text-[10px]" />
-                              </div>
-                            </td>
-                            <td className="px-1 py-1.5 align-top">
-                              <select value={p.status} onChange={(e) => {
-                                const newStatus = e.target.value as RegistroPayment['status'];
-                                const updated = [...selectedRegistro.payments];
-                                updated[index] = { ...updated[index], status: newStatus };
-                                setSelectedRegistro({
-                                  ...selectedRegistro,
-                                  payments: updated,
-                                  status: newStatus === 'pagato' ? 'attivo' : (newStatus === 'disdetto' ? 'disdetto' : (newStatus === 'sospeso' ? 'sospeso' : selectedRegistro.status))
-                                });
-                              }} className={`w-full min-w-0 border rounded-md px-1 py-1 font-black text-[10px] ${
-                                p.status === 'pagato' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' :
-                                p.status === 'in_attesa' ? 'bg-amber-100 text-amber-900 border-amber-300' :
-                                p.status === 'insoluto' ? 'bg-red-100 text-red-900 border-red-300' :
-                                p.status === 'sospeso' ? 'bg-orange-100 text-orange-900 border-orange-300' :
-                                'bg-slate-200 text-slate-800 border-slate-300'
-                              }`}>
-                                <option value="pagato">PAGATO</option>
-                                <option value="in_attesa">IN ATTESA</option>
-                                <option value="insoluto">INSOLUTO</option>
-                                <option value="sospeso">SOSPESO</option>
-                                <option value="disdetto">DISDETTO</option>
-                              </select>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  {getPagamentiGenerali(selectedRegistro).length > 0 && (
+                    <>
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-bold text-slate-900 uppercase text-[10px] tracking-wider text-slate-400">Movimenti generali (non associati a servizio)</h4>
+                      </div>
+                      <div className="border border-slate-200 rounded-xl overflow-hidden max-h-[200px] overflow-y-auto">
+                        <table className="w-full text-left border-collapse text-[10px]">
+                          <thead className="bg-slate-50 text-[8px] font-black text-slate-400 uppercase">
+                            <tr>
+                              <th className="px-2 py-1.5">Data</th>
+                              <th className="px-2 py-1.5">Importo</th>
+                              <th className="px-2 py-1.5">Fattura</th>
+                              <th className="px-2 py-1.5">Stato</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100">
+                            {getPagamentiGenerali(selectedRegistro).map((p, i) => (
+                              <tr key={p.id || i}>
+                                <td className="px-2 py-1 font-mono">{p.date}</td>
+                                <td className="px-2 py-1 font-bold">€ {p.amount}</td>
+                                <td className="px-2 py-1">{p.invoiceNumber ? `N° ${p.invoiceNumber}` : '—'} {p.invoiceDate ? `(${p.invoiceDate})` : ''}</td>
+                                <td className="px-2 py-1 uppercase font-black text-[9px]">{p.status}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
