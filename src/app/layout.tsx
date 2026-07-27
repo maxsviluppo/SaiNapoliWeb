@@ -14,12 +14,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const GOOGLE_SITE_VERIFICATION = "8fec1MeX5pm7KOyNuAOcOL3tL3HuuWwmjUpGJncCph4";
+
 export async function generateMetadata(): Promise<Metadata> {
   let title = "S.A.I. - Salute, Ambiente, Igiene | Sicurezza sul Lavoro e HACCP Napoli";
   let description = "Da oltre 20 anni leader a Napoli nella consulenza per la Sicurezza sul Lavoro (D.Lgs. 81/08), Sicurezza Alimentare (HACCP), Analisi Legionella, Gas Radon e Formazione Professionale Certificata.";
   let keywords = "Sicurezza sul lavoro Napoli, HACCP Napoli, Consulenza sicurezza aziendale, Legionella Napoli, Radon Campania, Corsi di formazione sicurezza";
   let favicon = "/logo.png";
-  let googleSearchConsole = "";
+  let googleSearchConsole = GOOGLE_SITE_VERIFICATION;
 
   try {
     const locales = await getLocales();
@@ -46,9 +48,9 @@ export async function generateMetadata(): Promise<Metadata> {
       shortcut: favicon,
       apple: favicon,
     },
-    verification: googleSearchConsole ? {
-      google: googleSearchConsole,
-    } : undefined,
+    verification: {
+      google: googleSearchConsole || GOOGLE_SITE_VERIFICATION,
+    },
   };
 }
 

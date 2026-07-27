@@ -189,7 +189,7 @@ export default function ManagerDashboard() {
     const seedAdmin = generateInitialAmministratori();
     setAmministratori(seedAdmin);
     try {
-      localStorage.setItem('sai_amministratori_db', JSON.stringify(seedAdmin));
+      localStorage.setItem('sai_amministratori_db_v3', JSON.stringify(seedAdmin));
     } catch (e) {
       console.warn("Storage quota exceeded, keeping in-memory state:", e);
     }
@@ -237,7 +237,7 @@ export default function ManagerDashboard() {
   const saveAmministratori = (newList: AmministratoreContract[]) => {
     setAmministratori(newList);
     try {
-      localStorage.setItem('sai_amministratori_db', JSON.stringify(newList));
+      localStorage.setItem('sai_amministratori_db_v3', JSON.stringify(newList));
     } catch (e) {
       console.warn("Could not save to localStorage due to quota:", e);
     }
@@ -3252,7 +3252,7 @@ export default function ManagerDashboard() {
                     const updated = amministratori.filter(a => a.id !== clientToDelete.id);
                     setAmministratori(updated);
                     setSelectedAmministratore(null);
-                    try { localStorage.setItem('sai_amministratori_db', JSON.stringify(updated)); } catch(e){}
+                    try { localStorage.setItem('sai_amministratori_db_v3', JSON.stringify(updated)); } catch(e){}
                   } else if (scuole.some(s => s.id === clientToDelete.id)) {
                     const updated = scuole.filter(s => s.id !== clientToDelete.id);
                     saveScuole(updated);
@@ -3343,7 +3343,7 @@ export default function ManagerDashboard() {
                 }
                 setAmministratori(updatedList);
                 setSelectedAmministratore(null);
-                try { localStorage.setItem('sai_amministratori_db', JSON.stringify(updatedList)); } catch(err){}
+                try { localStorage.setItem('sai_amministratori_db_v3', JSON.stringify(updatedList)); } catch(err){}
               }} 
               className="space-y-6 text-xs text-slate-700"
             >
