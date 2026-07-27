@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 const GOOGLE_SITE_VERIFICATION = "8fec1MeX5pm7KOyNuAOcOL3tL3HuuWwmjUpGJncCph4";
+const GOOGLE_ANALYTICS_ID = "G-FKN8P5LF8L";
 
 export async function generateMetadata(): Promise<Metadata> {
   let title = "S.A.I. - Salute, Ambiente, Igiene | Sicurezza sul Lavoro e HACCP Napoli";
@@ -63,11 +64,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locales = await getLocales();
-  
-  let googleAnalyticsId = "";
-  if (locales.seo?.integrations?.google_analytics) {
-    googleAnalyticsId = locales.seo.integrations.google_analytics;
-  }
+
+  // Production GA measurement ID (hardcoded so CMS/locales cannot override)
+  const googleAnalyticsId = GOOGLE_ANALYTICS_ID;
 
   // Schema.org structured data (JSON-LD) for Search Engines & LLMs
   const companyName = locales.azienda?.name || "S.A.I. s.r.l.";
