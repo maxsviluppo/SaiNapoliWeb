@@ -120,10 +120,14 @@ export function normalizeCondominium(raw: string | Condominium, index = 0): Cond
   };
 }
 
-export function normalizeAmministratore(admin: AmministratoreContract): AmministratoreContract {
+export interface RawAmministratoreContract extends Omit<AmministratoreContract, 'condominiums'> {
+  condominiums: (string | Condominium)[];
+}
+
+export function normalizeAmministratore(admin: RawAmministratoreContract): AmministratoreContract {
   return {
     ...admin,
-    condominiums: (admin.condominiums || []).map((c, i) => normalizeCondominium(c as string | Condominium, i)),
+    condominiums: (admin.condominiums || []).map((c, i) => normalizeCondominium(c, i)),
   };
 }
 
@@ -132,5 +136,5 @@ export function getCondominiumDisplayName(cond: Condominium | string): string {
 }
 
 export function generateInitialAmministratori(): AmministratoreContract[] {
-  return (excelMasterAmministratori as AmministratoreContract[]).map(normalizeAmministratore);
+  return (excelMasterAmministratori as RawAmministratoreContract[]).map(normalizeAmministratore);
 }
