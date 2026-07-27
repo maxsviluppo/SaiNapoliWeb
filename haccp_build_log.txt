@@ -1,0 +1,16 @@
+Opening workbook (large file, may take ~1-2 min)...
+Sheets: 1255
+  ... 200 clienti elaborati
+  ... 400 clienti elaborati
+  ... 600 clienti elaborati
+  ... 800 clienti elaborati
+  ... 1000 clienti elaborati
+  ... 1200 clienti elaborati
+Total clients: 1253
+Traceback (most recent call last):
+  File "C:\Users\Max\Downloads\A Codici Main\sainapoliweb-main\buildRegistriHaccpExcelSeed.py", line 397, in <module>
+    print(f'Saved \u2192 {OUTPATH}')
+  File "C:\Users\Max\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 6: character maps to <undefined>

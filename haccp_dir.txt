@@ -1,0 +1,8 @@
+
+    Directory: C:\Users\Max\Downloads\data base sai\data base sai
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          23/07/2026    15:08           7545 GESTIONE - HACCP.CSV
+-a---          23/07/2026    15:08       21820416 GESTIONE - HACCP.xls
+

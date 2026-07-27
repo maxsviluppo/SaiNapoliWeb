@@ -1,0 +1,1256 @@
+SHEETS 1255
+  0 | A casa del principe                                | rows=   62 cols= 12
+  1 | A Pazziella                                        | rows=   28 cols= 12
+  2 | A' Tarantella                                      | rows=   28 cols= 12
+  3 | A' tazzulella e cafÞ                               | rows=   25 cols= 12
+  4 | A.C. Boxe Posillipo                                | rows=   27 cols= 11
+  5 | ACV di Cusitore Antonio                            | rows=   27 cols= 12
+  6 | A.F.F.C. GROUP                                     | rows=   48 cols= 12
+  7 | Abbruzzese Roberta                                 | rows=   32 cols= 12
+  8 | AGF Immobiliare                                    | rows=   29 cols= 12
+  9 | A un passo dal castello                            | rows=   29 cols= 12
+ 10 | AGN Costruzioni                                    | rows=   21 cols= 12
+ 11 | AC Medical                                         | rows=   65 cols= 12
+ 12 | Adas beb and dream                                 | rows=   28 cols= 11
+ 13 | Advanced Accomodation                              | rows=   28 cols= 12
+ 14 | APD Virtus Partenopea                              | rows=   29 cols= 12
+ 15 | Acqua Campania                                     | rows=   26 cols= 12
+ 16 | AD srl                                             | rows=   33 cols= 12
+ 17 | Addu mamma                                         | rows=   35 cols= 12
+ 18 | Aermas                                             | rows=   27 cols= 12
+ 19 | Affittacamere 108                                  | rows=   28 cols= 12
+ 20 | Affittacamere Antichi Orefici                      | rows=   30 cols= 12
+ 21 | Affittacamere b&b I Maestri                        | rows=   30 cols= 12
+ 22 | Affittacamere Casetta Florio                       | rows=   25 cols= 12
+ 23 | Affittacamere Centro Storico                       | rows=   28 cols= 12
+ 24 | Affittacamere cuorenapoletano                      | rows=   47 cols= 12
+ 25 | Affittacamere Dream & Fly                          | rows=   25 cols= 12
+ 26 | Affittacamere Finicelli Daniela                    | rows=   25 cols= 12
+ 27 | Affittacamere Florestine                           | rows=   52 cols= 12
+ 28 | Affittacamere friends&family                       | rows=   37 cols= 11
+ 29 | Affittacamere Fondaco Olivella                     | rows=   58 cols= 12
+ 30 | Affittacamere La strada parlata                    | rows=   52 cols= 12
+ 31 | Affittacamere Napoli Binario 1                     | rows=   32 cols= 12
+ 32 | Affittacamere Napoli Regina                        | rows=   28 cols= 12
+ 33 | Affittacamere New Gallery                          | rows=   51 cols= 12
+ 34 | Affittacamere Partenope's home                     | rows=   47 cols= 12
+ 35 | Affittacamere Red Queen Naples                     | rows=   64 cols= 12
+ 36 | Affittacamere San Paolo rooms                      | rows=   46 cols= 12
+ 37 | Affittacamere sweet dreams                         | rows=   50 cols= 12
+ 38 | Agathon                                            | rows=   20 cols= 11
+ 39 | Al quarto piano                                    | rows=   27 cols= 12
+ 40 | Albaneon                                           | rows=   99 cols= 12
+ 41 | Albergo del golfo                                  | rows=  188 cols= 12
+ 42 | Albergo Duomo                                      | rows=   28 cols= 11
+ 43 | Albergo Oasi                                       | rows=   60 cols= 12
+ 44 | Albero Guglielmo                                   | rows=   28 cols= 11
+ 45 | Ale Naples holiday                                 | rows=   28 cols= 12
+ 46 | Alessia sas                                        | rows=   74 cols= 12
+ 47 | Alex bar                                           | rows=   28 cols= 11
+ 48 | Aldo Mastellone                                    | rows=   29 cols= 12
+ 49 | Alg Power                                          | rows=   25 cols= 11
+ 50 | Alimentari Amir                                    | rows=   62 cols= 12
+ 51 | Alimentari cr                                      | rows=   88 cols= 12
+ 52 | Alimentari Da. Pa                                  | rows=   24 cols= 12
+ 53 | Alimentari Spina                                   | rows=  126 cols= 12
+ 54 | Al Montefaito                                      | rows=   83 cols= 12
+ 55 | All for one                                        | rows=   27 cols= 12
+ 56 | Alloggio del Conte                                 | rows=   59 cols= 11
+ 57 | Alpivida Home                                      | rows=   26 cols= 12
+ 58 | Amadomus                                           | rows=  101 cols= 12
+ 59 | Amarathunga Arachchilage                           | rows=   25 cols= 12
+ 60 | Amato bar                                          | rows=   47 cols= 12
+ 61 | Ambrosca dott                                      | rows=   30 cols= 12
+ 62 | Amm. Di Franco                                     | rows=   32 cols= 12
+ 63 | Ammendola Deborah                                  | rows=   29 cols= 12
+ 64 | Amoroso dal 1876                                   | rows=   43 cols= 12
+ 65 | Anna Rosa estetica femminile                       | rows=   35 cols= 11
+ 66 | Annas' Family                                      | rows=   29 cols= 12
+ 67 | Anna's Family Terrace                              | rows=   42 cols= 12
+ 68 | Anima & core                                       | rows=   38 cols= 12
+ 69 | Antica Caffetteria del Carmine                     | rows=   31 cols= 12
+ 70 | Antica pescheria Raffaele                          | rows=  121 cols= 12
+ 71 | Antica pizzeria del Borgo                          | rows=  140 cols= 12
+ 72 | Antica pizzeria Michele                            | rows=  160 cols= 12
+ 73 | Antico CaffÞ Moro                                  | rows=   87 cols= 12
+ 74 | Antica macelleria Iavarone                         | rows=   63 cols= 12
+ 75 | Antico palazzo Salsi                               | rows=   25 cols= 12
+ 76 | Antonucci Martina                                  | rows=   30 cols= 12
+ 77 | Antuoni Massimo                                    | rows=   24 cols= 12
+ 78 | Apparthenope                                       | rows=   29 cols= 12
+ 79 | Antichi ristoratori partenopei                     | rows=   87 cols= 12
+ 80 | Arc en ciel                                        | rows=   26 cols= 12
+ 81 | Archetto B&B                                       | rows=   33 cols= 12
+ 82 | Arco Group                                         | rows=   27 cols= 12
+ 83 | Aris snc                                           | rows=   43 cols= 12
+ 84 | Armonicamente                                      | rows=   44 cols= 12
+ 85 | Ascensori Sacel                                    | rows=   40 cols= 12
+ 86 | ASD Ardor                                          | rows=   40 cols= 12
+ 87 | ASD Corpore                                        | rows=   26 cols= 12
+ 88 | ASD EGOFIT NAPOLI                                  | rows=   34 cols= 12
+ 89 | ASD GAME TIME                                      | rows=   77 cols= 12
+ 90 | ASD Stand up                                       | rows=   30 cols= 12
+ 91 | Ass. Cosmopolita Gotham                            | rows=   30 cols= 12
+ 92 | Ass. Cult. Un amore di famiglia                    | rows=   46 cols= 12
+ 93 | Ass. Eduardo Vitali                                | rows=   26 cols= 11
+ 94 | Assistenza anziani                                 | rows=   29 cols= 12
+ 95 | Associazione Arteteca                              | rows=   82 cols= 12
+ 96 | Associazione La Villetta                           | rows=   28 cols= 12
+ 97 | Assumma Vignola                                    | rows=   32 cols= 12
+ 98 | Astamar group                                      | rows=  142 cols= 12
+ 99 | Atelier Ines                                       | rows=   33 cols= 12
+100 | Atlas                                              | rows=   85 cols= 12
+101 | Auricchio s.a.s.                                   | rows=   36 cols= 12
+102 | Autoservizi Grimaldi                               | rows=   66 cols= 12
+103 | Aversa 03                                          | rows=   54 cols= 12
+104 | Azstock                                            | rows=   47 cols= 12
+105 | Bs Stategy                                         | rows=   29 cols= 12
+106 | B&B 323 Cilea Apartment                            | rows=   26 cols= 11
+107 | B&B 248 Sardo                                      | rows=   41 cols= 12
+108 | B&B A due passi                                    | rows=   26 cols= 12
+109 | B&B Agora mura greche                              | rows=   36 cols= 12
+110 | B&B Amare Napoli                                   | rows=   28 cols= 12
+111 | B&B Ambra                                          | rows=   42 cols= 12
+112 | B&B Annunziata                                     | rows=   75 cols= 12
+113 | B&B Anticaglia                                     | rows=   60 cols= 12
+114 | B&B Bella Napoli                                   | rows=   31 cols= 11
+115 | B&B Benvenuto a Napoli                             | rows=   28 cols= 12
+116 | B&B Bethel Napoli                                  | rows=   28 cols= 12
+117 | B&B Borrelli                                       | rows=   29 cols= 12
+118 | B&B Calenda suite                                  | rows=   31 cols= 12
+119 | B&B Cameo                                          | rows=   69 cols= 12
+120 | B&B Capriati Daniela                               | rows=   60 cols= 12
+121 | B&B Carolina                                       | rows=   26 cols= 12
+122 | B&B Casa Capaldo                                   | rows=   50 cols= 12
+123 | B&B Casa Marga                                     | rows=   26 cols= 12
+124 | B&B Casa Nolana                                    | rows=   35 cols= 11
+125 | B&B Central Station                                | rows=   84 cols= 12
+126 | B&B Civico 364                                     | rows=   89 cols= 12
+127 | B&B Clelia's room                                  | rows=   34 cols= 12
+128 | B&B D'Angelo Enrico                                | rows=   59 cols= 12
+129 | B&B da Angela                                      | rows=   24 cols= 12
+130 | B&B da Gianluca                                    | rows=   28 cols= 12
+131 | B&B de Charme                                      | rows=   80 cols= 11
+132 | B&B Delia rooms                                    | rows=   70 cols= 12
+133 | B&B Dimora Costantino                              | rows=   61 cols= 12
+134 | B&B Dimora Ruggiero                                | rows=   59 cols= 12
+135 | B&B Di Palo Luigi                                  | rows=   33 cols= 11
+136 | B&B Domus Aurea                                    | rows=   33 cols= 11
+137 | B&B Fiumara                                        | rows=   61 cols= 12
+138 | B&B Franca                                         | rows=   27 cols= 12
+139 | B&B Frankie                                        | rows=   32 cols= 12
+140 | B&B I Borboni                                      | rows=   39 cols= 12
+141 | B&B I Guantai                                      | rows=   28 cols= 12
+142 | B&B Il faro di serapide                            | rows=   92 cols= 12
+143 | B&B il golfo di Pulcinella                         | rows=   29 cols= 12
+144 | B&B Imparato                                       | rows=   29 cols= 12
+145 | B&B La bella napoli                                | rows=   37 cols= 12
+146 | B&B la Canzanella                                  | rows=   82 cols= 12
+147 | B&B La collina di Capodimonte                      | rows=   41 cols= 12
+148 | B&B La Minosa                                      | rows=   31 cols= 12
+149 | B&B La perla del golfo                             | rows=   21 cols= 11
+150 | B&B la torretta                                    | rows=   41 cols= 12
+151 | B&B le chiavi di casa                              | rows=   87 cols= 12
+152 | B&B Le ortensie                                    | rows=   24 cols= 12
+153 | B&B Le rondini                                     | rows=   38 cols= 12
+154 | B&B Lombardi Luxury Home                           | rows=   55 cols= 12
+155 | b&b Montesanto                                     | rows=   84 cols= 12
+156 | B&B Mimmu                                          | rows=   26 cols= 12
+157 | B&B Museum                                         | rows=   65 cols= 12
+158 | B&B Music art                                      | rows=   50 cols= 12
+159 | B&B Napoli citta                                   | rows=   24 cols= 12
+160 | B&B Napul'Þ                                        | rows=   69 cols= 12
+161 | B&B Napoli urban suite                             | rows=   25 cols= 12
+162 | B&B Napoli d'amare                                 | rows=   81 cols= 12
+163 | B&B Napoli storica                                 | rows=   24 cols= 12
+164 | B&B Napoli viva                                    | rows=   83 cols= 12
+165 | B&B Nasiesta                                       | rows=   78 cols= 12
+166 | B&B Neapolis center                                | rows=   29 cols= 12
+167 | B&B Nilo 26                                        | rows=   26 cols= 12
+168 | B&B Palazzo Ruffo                                  | rows=   55 cols= 12
+169 | B&B piazza Dante                                   | rows=   38 cols= 12
+170 | B&B Plebiscito home                                | rows=   42 cols= 12
+171 | B&B Punto stella                                   | rows=   25 cols= 12
+172 | B&B Pupetta                                        | rows=   28 cols= 12
+173 | B&B San Ferdinando Napoli                          | rows=   28 cols= 12
+174 | B&B Sarracino relais                               | rows=   30 cols= 12
+175 | B&B Similia                                        | rows=   29 cols= 12
+176 | B&B suite Bellini                                  | rows=   25 cols= 12
+177 | B&B Stella Diana                                   | rows=   52 cols= 12
+178 | B&B Regina Elena                                   | rows=   64 cols= 12
+179 | B&B Royal Dante                                    | rows=   83 cols= 12
+180 | B&B Romeo                                          | rows=   30 cols= 12
+181 | B&B Rosaroll                                       | rows=   48 cols= 12
+182 | B&B Ta-49                                          | rows=   32 cols= 12
+183 | B&B Terrazza Carlo Terzo                           | rows=   26 cols= 12
+184 | B&b Trasite                                        | rows=   28 cols= 12
+185 | B&B via Duomo                                      | rows=   62 cols= 12
+186 | B&B Vico Grande                                    | rows=   36 cols= 12
+187 | B&B Vico Milano                                    | rows=   42 cols= 12
+188 | B&B Villanova                                      | rows=   26 cols= 12
+189 | B&G sas                                            | rows=   51 cols= 12
+190 | Baby Looney Tunes                                  | rows=   42 cols= 12
+191 | Balzano                                            | rows=   25 cols= 12
+192 | Bayaya Rooms                                       | rows=   26 cols= 12
+193 | Barbearia di Manco                                 | rows=   32 cols= 12
+194 | Bar al Per¨                                        | rows=   23 cols= 12
+195 | Bar Alexander                                      | rows=   51 cols= 12
+196 | Bar Angela                                         | rows=   25 cols= 11
+197 | Bar Baciomorso                                     | rows=   39 cols= 12
+198 | Bar David                                          | rows=   28 cols= 11
+199 | Bar Emilia                                         | rows=   43 cols= 12
+200 | Bar Eredi Angelone                                 | rows=   29 cols= 11
+201 | Bar F.lli Fusco                                    | rows=   55 cols= 12
+202 | Foglio2                                            | rows=    0 cols=  0
+203 | Bar Gianni                                         | rows=   31 cols= 12
+204 | Bar il decumano superiore                          | rows=   35 cols= 12
+205 | Bar Italia                                         | rows=  124 cols= 12
+206 | Bar Jessica                                        | rows=   26 cols= 11
+207 | Bar Mocambo                                        | rows=   26 cols= 12
+208 | Bar Night                                          | rows=  132 cols= 12
+209 | Bar Rist. Pizz. da Ettore                          | rows=   27 cols= 12
+210 | Bar romano 2019 srl                                | rows=   51 cols= 12
+211 | Bar ristorante Franco                              | rows=  100 cols= 12
+212 | Bar Romaniello                                     | rows=   30 cols= 11
+213 | Bar San Giorgio                                    | rows=   77 cols= 12
+214 | Bar Santa Lucia                                    | rows=   72 cols= 12
+215 | Biancados                                          | rows=  112 cols= 12
+216 | Big Bread                                          | rows=   52 cols= 12
+217 | Bella Napoli                                       | rows=   39 cols= 12
+218 | Bella suite                                        | rows=   27 cols= 11
+219 | Bellavista Relais                                  | rows=   46 cols= 12
+220 | Bello Burzo Mario                                  | rows=   36 cols= 12
+221 | Benincasa room                                     | rows=   28 cols= 12
+222 | Bennato Lauro Raffaele                             | rows=   25 cols= 12
+223 | Bibendum                                           | rows=   44 cols= 12
+224 | Bio bar                                            | rows=   27 cols= 11
+225 | Biomedical Safety                                  | rows=   25 cols= 12
+226 | Bonny cafe                                         | rows=   29 cols= 12
+227 | Boundless housing                                  | rows=   80 cols= 12
+228 | Bovio Suite                                        | rows=  143 cols= 12
+229 | Brondoloni Manuela                                 | rows=   27 cols= 12
+230 | Bruner Valerio                                     | rows=   39 cols= 12
+231 | Bruzzano Vincenzo                                  | rows=   29 cols= 12
+232 | Busiello Vincenzo                                  | rows=   29 cols= 12
+233 | C.M.A. SAS                                         | rows=   41 cols= 12
+234 | C.N.O.                                             | rows=  108 cols= 12
+235 | C.A.A.T.S.                                         | rows=   26 cols= 12
+236 | C.R. Graphique                                     | rows=   29 cols= 12
+237 | CaffÞ 900                                          | rows=   55 cols= 12
+238 | CaffÞ Beverello Atlantis                           | rows=   43 cols= 12
+239 | CaffÞ d'arte                                       | rows=   25 cols= 12
+240 | CaffÞ Donn'Anna                                    | rows=   31 cols= 12
+241 | CaffÞ e gourmet                                    | rows=   23 cols= 11
+242 | Cafferia                                           | rows=   30 cols= 12
+243 | Caffetteria cuore nero                             | rows=   34 cols= 12
+244 | Caffetteria Garibaldi                              | rows=   47 cols= 12
+245 | Caffetteria Luise                                  | rows=   27 cols= 11
+246 | Caffetteria Marcy & More                           | rows=   26 cols= 12
+247 | Caffetteria Nardi                                  | rows=   37 cols= 12
+248 | Caffetteria Riccardi                               | rows=  109 cols= 12
+249 | Caf Hotel                                          | rows=  136 cols= 12
+250 | Cala la pasta                                      | rows=   25 cols= 12
+251 | Camminare insieme                                  | rows=   28 cols= 12
+252 | Campanelli Vito                                    | rows=   30 cols= 12
+253 | Cantieri Navali Posillipo                          | rows=   32 cols= 12
+254 | Cantina 84                                         | rows=   39 cols= 12
+255 | Cantine Paolo di Maro                              | rows=   61 cols= 12
+256 | Capasso Carmine                                    | rows=   43 cols= 12
+257 | Capital                                            | rows=   50 cols= 12
+258 | Capogrosso Paola                                   | rows=   27 cols= 11
+259 | Capuana 15                                         | rows=   31 cols= 12
+260 | Cantina del Gallo                                  | rows=   75 cols= 12
+261 | Capuozzo systems                                   | rows=   51 cols= 12
+262 | Carafa Rooms                                       | rows=   29 cols= 12
+263 | Caratteristica napoli spagnola                     | rows=   30 cols= 12
+264 | Caravaggio sporting                                | rows=  200 cols= 12
+265 | Cardionova                                         | rows=   27 cols= 12
+266 | Cardone costruzioni                                | rows=   63 cols= 12
+267 | Carmignola Raffaele                                | rows=   28 cols= 12
+268 | Carni ciccone srl                                  | rows=   36 cols= 12
+269 | Carratu Domenico                                   | rows=   77 cols= 12
+270 | Casablanca                                         | rows=   51 cols= 12
+271 | Casa Annina                                        | rows=   25 cols= 12
+272 | Casa azzurra                                       | rows=   29 cols= 12
+273 | Casa Daroca Manzo                                  | rows=   32 cols= 12
+274 | Casa frangi‗                                       | rows=   24 cols= 11
+275 | Casa Barina                                        | rows=   29 cols= 11
+276 | Casa Cosmedin                                      | rows=   50 cols= 12
+277 | Casa Dega                                          | rows=   24 cols= 12
+278 | Casa Del Balzo                                     | rows=   43 cols= 12
+279 | Casa del sole a mergellina                         | rows=   51 cols= 12
+280 | Casa Diletta                                       | rows=   25 cols= 11
+281 | Casa del Girasole                                  | rows=  107 cols= 11
+282 | casa de vivo                                       | rows=   28 cols= 11
+283 | Casa dolce casa Spaccanapoli                       | rows=   28 cols= 12
+284 | Casa e arte                                        | rows=   36 cols= 12
+285 | Casa Franci                                        | rows=   27 cols= 12
+286 | Ferdinando Art House (2)                           | rows=   27 cols= 12
+287 | Casa Imperatore                                    | rows=   28 cols= 12
+288 | Casa Liu                                           | rows=   29 cols= 12
+289 | Casa Maura                                         | rows=  103 cols= 12
+290 | Casa Mia                                           | rows=   28 cols= 12
+291 | Casa Minu                                          | rows=   25 cols= 12
+292 | Casa Montes Figueroa                               | rows=   37 cols= 12
+293 | Casa Napoletana                                    | rows=   63 cols= 12
+294 | Casa Sammarco                                      | rows=   29 cols= 12
+295 | Casa sassolini                                     | rows=   67 cols= 12
+296 | Casa Susy                                          | rows=   28 cols= 12
+297 | Casa Vacanza 3 Regine                              | rows=   44 cols= 12
+298 | Casa Vacanza Alvi Palmieri                         | rows=   29 cols= 12
+299 | Casa vacanza Ambo su Napoli                        | rows=   75 cols= 11
+300 | Casa Vacanza Cadrifa                               | rows=   41 cols= 12
+301 | Casa Vacanza Cariati                               | rows=   96 cols= 12
+302 | Casa Vacanza Capuozzo home                         | rows=   49 cols= 12
+303 | Casa vacanza Cattedrale Duomo                      | rows=   81 cols= 12
+304 | Casa vacanza Daily relax                           | rows=   27 cols= 12
+305 | Casa vacanza Domus Sanfelice                       | rows=   60 cols= 12
+306 | Casa vacanza Donnare                               | rows=   80 cols= 12
+307 | Casa Vacanza Dimora Toledo                         | rows=   26 cols= 12
+308 | Casa vacanza Fiore                                 | rows=   50 cols= 12
+309 | Casa vacanza Fra                                   | rows=   32 cols= 12
+310 | Casa vacanza Gli scavi al Duomo                    | rows=   26 cols= 12
+311 | Casa vacanza Janara                                | rows=   25 cols= 12
+312 | Casa vacanza il Marchese                           | rows=   48 cols= 12
+313 | Casa Vacanza In arte Toto                          | rows=   25 cols= 12
+314 | Casa vacanza Interno 22                            | rows=   70 cols= 12
+315 | Casa vacanza L'arco dei Borboni                    | rows=   41 cols= 12
+316 | Casa Vacanza La Dimora                             | rows=   29 cols= 12
+317 | Casa vacanza Le cupole                             | rows=   25 cols= 11
+318 | Casa vacanza Le Lemosine                           | rows=   40 cols= 12
+319 | Casa vacanza Monte Quartieri                       | rows=   74 cols= 12
+320 | Casa Vacanza Napoli forever                        | rows=   50 cols= 12
+321 | Casa Vacanza Ottieri                               | rows=   27 cols= 12
+322 | Casa vacanza Perone Daniela                        | rows=   28 cols= 12
+323 | Casa vacanza Serenity home                         | rows=   25 cols= 11
+324 | Casa vacanza Street House                          | rows=   59 cols= 12
+325 | Casa vacanza Vieni da me                           | rows=   72 cols= 12
+326 | Casa vacanze Blu Vesuvio                           | rows=   39 cols= 12
+327 | casa vacanze cinquesanti comfor                    | rows=   27 cols= 12
+328 | Casa Vacanze Clara                                 | rows=   36 cols= 12
+329 | Casa vacanze Dante                                 | rows=   27 cols= 12
+330 | Casa Vacanze Faccia Gialla                         | rows=   38 cols= 12
+331 | Casa vacanze Fiorito                               | rows=   71 cols= 12
+332 | Casa Vacanze il rifugio di pulc                    | rows=   25 cols= 12
+333 | Casa Vacanze Ippolito                              | rows=   25 cols= 12
+334 | Casa Vacanze Luisa                                 | rows=   28 cols= 12
+335 | Casa vacanze Luli house                            | rows=   58 cols= 12
+336 | Casa vacanze Mastrocola                            | rows=   46 cols= 12
+337 | Casa Vacanze MYB                                   | rows=   30 cols= 12
+338 | Casa vacanze Mira museo                            | rows=   22 cols= 12
+339 | Casa vacanza Nonna Filumena                        | rows=   24 cols= 11
+340 | Casa vacanze Napoli a Chiaia                       | rows=   85 cols= 12
+341 | Casa vacanze Oggi e domani                         | rows=   81 cols= 12
+342 | Casa vacanze Pica                                  | rows=   27 cols= 11
+343 | Casa vacanze paradiso                              | rows=   26 cols= 12
+344 | Casa vacanze Pizzofalcone                          | rows=   72 cols= 12
+345 | Casa vacanze Poerio                                | rows=   29 cols= 11
+346 | Casa vacanze Rosmary                               | rows=   27 cols= 12
+347 | Casa vacanze Sirena                                | rows=   51 cols= 12
+348 | Casa Vacanze Titta's House                         | rows=   25 cols= 12
+349 | Casa vacanze Trimarchi house                       | rows=   81 cols= 12
+350 | Casa Vacanze Trinita                               | rows=   30 cols= 12
+351 | Casa Vacanze Vico20napoli                          | rows=   70 cols= 12
+352 | Caseificio De Martino                              | rows=   41 cols= 12
+353 | Caserma Minucci                                    | rows=   30 cols= 12
+354 | Casalina 2                                         | rows=   30 cols= 12
+355 | Castel dell'ovo                                    | rows=   27 cols= 12
+356 | Castagnola Enrico                                  | rows=   24 cols= 12
+357 | Catania one                                        | rows=   27 cols= 12
+358 | Cautiero dott.                                     | rows=   94 cols= 12
+359 | C.C.A.P.                                           | rows=   69 cols= 12
+360 | centro cerasuolo                                   | rows=   34 cols= 12
+361 | Ce.di.s.                                           | rows=   92 cols= 12
+362 | Celiento Dario                                     | rows=   47 cols= 12
+363 | Centrale del CaffÞ                                 | rows=   25 cols= 11
+364 | Cento Brecce                                       | rows=   34 cols= 12
+365 | Centro Decumani                                    | rows=   33 cols= 12
+366 | Centro estetico soul beauty                        | rows=   51 cols= 12
+367 | Centro estetico Susy                               | rows=   29 cols= 12
+368 | Centro Fuorigrotta                                 | rows=  137 cols= 12
+369 | Cervasio Giuseppina                                | rows=   28 cols= 12
+370 | Cnst crew s.r.l.                                   | rows=   25 cols= 12
+371 | Centro estetico Campanile                          | rows=   49 cols= 12
+372 | Centro Minerva                                     | rows=  200 cols= 33
+373 | Centro pol. Napoli                                 | rows=   71 cols= 12
+374 | Centro studi scoliosi                              | rows=  110 cols= 12
+375 | Cer pesca                                          | rows=  105 cols= 12
+376 | Certifica managment                                | rows=   26 cols= 12
+377 | Cestari Maria                                      | rows=   31 cols= 12
+378 | Chalet de la ville                                 | rows=   43 cols= 12
+379 | Cheri Maison                                       | rows=   29 cols= 12
+380 | Chiaramente                                        | rows=   30 cols= 12
+381 | Chiaia sea front Luxury                            | rows=   28 cols= 12
+382 | Chiaia sweet                                       | rows=   32 cols= 12
+383 | Chiaia trentatre                                   | rows=   28 cols= 12
+384 | 13 Chicchi                                         | rows=   64 cols= 12
+385 | Chicken's food                                     | rows=   24 cols= 12
+386 | Chiesa evan pentecostale                           | rows=   25 cols= 11
+387 | Cioccolateria Le dolcezze di Mi                    | rows=   24 cols= 12
+388 | Chirchiano Massimiliano                            | rows=   37 cols= 12
+389 | Cignarale Fiorella                                 | rows=   33 cols= 12
+390 | Circolo Relax                                      | rows=  118 cols= 11
+391 | Civico Vesuvio                                     | rows=   28 cols= 12
+392 | Claia srl                                          | rows=   37 cols= 12
+393 | Club House                                         | rows=   49 cols= 12
+394 | Coccorico di Messere Salvatore                     | rows=   27 cols= 12
+395 | Cocozza Giorgio                                    | rows=   65 cols= 12
+396 | Co.de.far                                          | rows=  123 cols= 12
+397 | CO.GE.IM                                           | rows=   49 cols= 11
+398 | Coffee Bra                                         | rows=   32 cols= 12
+399 | Colori e Sapori                                    | rows=   27 cols= 12
+400 | Colmayer food                                      | rows=   27 cols= 12
+401 | Comune di Pozzuoli                                 | rows=   42 cols= 12
+402 | Cond. p.zza Vanvitelli                             | rows=   30 cols= 12
+403 | Cond. Parco de Cegli                               | rows=   26 cols= 12
+404 | Cond. Polif. Torri                                 | rows=  101 cols= 12
+405 | Cond. Via Carlo De Marco                           | rows=   31 cols= 12
+406 | Congregazione delle suore di S.                    | rows=   81 cols= 12
+407 | Coop soc onlus Fuoriclasse                         | rows=   30 cols= 12
+408 | Coppola Anna                                       | rows=   39 cols= 12
+409 | Coppone Gaetano                                    | rows=   43 cols= 12
+410 | Costa Giuseppina                                   | rows=   96 cols= 12
+411 | Costagliola Group                                  | rows=   25 cols= 11
+412 | Costruzione generali Balsamo                       | rows=   22 cols= 12
+413 | C.P. cementi                                       | rows=  119 cols= 12
+414 | Cosmico case                                       | rows=   28 cols= 12
+415 | Culture Residence                                  | rows=   28 cols= 11
+416 | Cuore urbano Montesanto                            | rows=   29 cols= 12
+417 | Costantinipoli 104                                 | rows=  147 cols= 12
+418 | CV Apartment                                       | rows=   29 cols= 12
+419 | Cosmico case (2)                                   | rows=   28 cols= 12
+420 | DGM Impianti                                       | rows=   60 cols= 12
+421 | D'afflitto Suites                                  | rows=   27 cols= 12
+422 | D'Amico Diego                                      | rows=   28 cols= 12
+423 | D'Andrea Francesco                                 | rows=   91 cols= 12
+424 | D'Elia Francesco                                   | rows=   27 cols= 12
+425 | Daca Luxury rooms                                  | rows=   42 cols= 12
+426 | Dada suite                                         | rows=   66 cols= 11
+427 | Dalo sas                                           | rows=   44 cols= 12
+428 | Da MasÞ                                            | rows=   24 cols= 12
+429 | Da sogno a realtÓ                                  | rows=   28 cols= 12
+430 | Dami.an                                            | rows=   43 cols= 12
+431 | Daniel CaffÞ                                       | rows=   34 cols= 12
+432 | Dario Picciafoco                                   | rows=   39 cols= 12
+433 | Darshana foods                                     | rows=   86 cols= 12
+434 | Delizia del palato                                 | rows=   25 cols= 12
+435 | Della Rocca Antonio                                | rows=   29 cols= 11
+436 | Demo srl                                           | rows=   76 cols= 12
+437 | De Martino Carmine                                 | rows=   41 cols= 12
+438 | De Simone sas                                      | rows=   64 cols= 12
+439 | Dieci tre                                          | rows=   29 cols= 12
+440 | DI.MA. srl                                         | rows=   62 cols= 12
+441 | Dimitrulla                                         | rows=   67 cols= 11
+442 | Dimora Centrale Home                               | rows=   39 cols= 12
+443 | Dimora Felix                                       | rows=   56 cols= 12
+444 | Dimora San Francesco                               | rows=   27 cols= 12
+445 | Diciesse                                           | rows=   25 cols= 11
+446 | Distributore dolciario                             | rows=  112 cols= 12
+447 | Ditta Adinolfi veronica                            | rows=   26 cols= 12
+448 | Ditta individuale Brunelli                         | rows=   26 cols= 12
+449 | Ditta Ranaldi                                      | rows=   85 cols= 12
+450 | DMR Group                                          | rows=  119 cols= 12
+451 | Dolcezze siciliane                                 | rows=   47 cols= 11
+452 | Domus Ars san Gregorio                             | rows=   31 cols= 12
+453 | Domus Dante al balconcino                          | rows=   28 cols= 12
+454 | Domus Partenopea                                   | rows=   30 cols= 11
+455 | Domus Partenopea Schilizzi                         | rows=   48 cols= 12
+456 | Domus Relais posillipo                             | rows=   52 cols= 12
+457 | Domus Tufacee Museum                               | rows=   31 cols= 12
+458 | Don Pietro                                         | rows=   31 cols= 12
+459 | Dott. Buonomo Marco                                | rows=   26 cols= 12
+460 | Dott.ssa Ornella Ragosta                           | rows=   28 cols= 12
+461 | Dott.ssa Giuliano Silvia                           | rows=   15 cols= 12
+462 | Dott.Cosimo Andretta                               | rows=   26 cols= 12
+463 | Dott. Dario Cosimo                                 | rows=   96 cols= 12
+464 | Dueeffe                                            | rows=   29 cols= 12
+465 | Easy Naples                                        | rows=   49 cols= 12
+466 | Easyway technology                                 | rows=   85 cols= 12
+467 | Ecah sas                                           | rows=   54 cols= 12
+468 | Eccellenze Italiane                                | rows=   35 cols= 12
+469 | Eccole                                             | rows=   26 cols= 12
+470 | Eclectic apartment                                 | rows=   29 cols= 12
+471 | Ecocleaner                                         | rows=   66 cols= 12
+472 | Ecotecmed                                          | rows=  189 cols= 12
+473 | Edifica Properties                                 | rows=   26 cols= 12
+474 | Edomea                                             | rows=   93 cols= 12
+475 | Elba srls                                          | rows=  119 cols= 12
+476 | Ellebi Hotels                                      | rows=  142 cols= 12
+477 | Elle Pi rooms                                      | rows=   40 cols= 12
+478 | EN. CB. SRL                                        | rows=   46 cols= 12
+479 | Enoteca Barbato                                    | rows=   27 cols= 12
+480 | Enomarket                                          | rows=   76 cols= 12
+481 | Enoteca Partenopea                                 | rows=   53 cols= 12
+482 | Enval                                              | rows=   28 cols= 11
+483 | Erboristeria Officinale                            | rows=   28 cols= 12
+484 | Erboristeria La Papaverina                         | rows=   43 cols= 12
+485 | Erboristeria Regina dei Prati                      | rows=   32 cols= 12
+486 | Erreerre food                                      | rows=   35 cols= 12
+487 | Esente Fabio                                       | rows=   48 cols= 12
+488 | Esposito Amalia                                    | rows=   48 cols= 12
+489 | Esse Enne srl                                      | rows=   29 cols= 12
+490 | Estetica Scarlatti                                 | rows=   43 cols= 11
+491 | Europa 90                                          | rows=  161 cols= 11
+492 | F&F srl                                            | rows=   29 cols= 12
+493 | F&J Bianco                                         | rows=   26 cols= 12
+494 | FKT                                                | rows=  110 cols= 17
+495 | FalcomatÓ srl                                      | rows=   91 cols= 12
+496 | Fama progress                                      | rows=   88 cols= 12
+497 | Family minimarket                                  | rows=   47 cols= 12
+498 | Farina Alessandro via Toledo                       | rows=   88 cols= 12
+499 | Farmastar srl                                      | rows=   28 cols= 12
+500 | Farm.Dott.Buonomo Antonio                          | rows=   28 cols= 12
+501 | Farma GF                                           | rows=   52 cols= 12
+502 | Farmacia De Biasi                                  | rows=   84 cols= 12
+503 | Farmacia Garibaldi                                 | rows=   28 cols= 12
+504 | Farmacia Helvethia                                 | rows=  130 cols= 12
+505 | Farmacia Picardi                                   | rows=   38 cols= 11
+506 | Fashion Cathedral apartment                        | rows=   44 cols= 12
+507 | Fashon food                                        | rows=   26 cols= 12
+508 | Fashon Wok                                         | rows=   28 cols= 12
+509 | Fava di cacao                                      | rows=   66 cols= 12
+510 | Fazia Francesca                                    | rows=   29 cols= 12
+511 | Fazzari                                            | rows=   62 cols= 12
+512 | F.C. Teleservice                                   | rows=   35 cols= 12
+513 | FDM easy homes                                     | rows=   28 cols= 12
+514 | Fe. Pa.                                            | rows=   49 cols= 12
+515 | Ferdinando Art House                               | rows=   43 cols= 12
+516 | Ferraiuolo Anna                                    | rows=   40 cols= 12
+517 | Festante                                           | rows=  268 cols= 15
+518 | Figli di Partenope                                 | rows=   32 cols= 12
+519 | Fiorenzano                                         | rows=   87 cols= 12
+520 | First                                              | rows=   50 cols= 12
+521 | Fish Exp                                           | rows=   24 cols= 12
+522 | Fiumara Salvatore                                  | rows=   84 cols= 12
+523 | Flatsecret                                         | rows=   31 cols= 12
+524 | Foma service                                       | rows=   28 cols= 12
+525 | Fond. Casa dello scugnizzo                         | rows=   29 cols= 12
+526 | Fond. S.M. della misericordia                      | rows=   32 cols= 12
+527 | Fondazione Trianon Viviani                         | rows=   27 cols= 12
+528 | Fonoteca Culture lab                               | rows=   27 cols= 11
+529 | Fonzone Caccese Davide                             | rows=   29 cols= 12
+530 | Fonzone Caccese dott                               | rows=   39 cols= 12
+531 | Food and coffe                                     | rows=   27 cols= 12
+532 | Foqus fondazione                                   | rows=   26 cols= 12
+533 | Forte Flat                                         | rows=   41 cols= 12
+534 | Franco Mariano                                     | rows=   30 cols= 12
+535 | Francos                                            | rows=   89 cols= 12
+536 | Frank De Vivo Tatoo studio                         | rows=   27 cols= 12
+537 | Fratelli Pork                                      | rows=   26 cols= 12
+538 | Fruscia                                            | rows=   43 cols= 12
+539 | Food and coffee                                    | rows=   27 cols= 12
+540 | Fruttaldo Giuseppe                                 | rows=   27 cols= 12
+541 | Form due punto zero srls                           | rows=   46 cols= 12
+542 | Fredda idea                                        | rows=   48 cols= 12
+543 | Free Time ASD                                      | rows=   30 cols= 12
+544 | Freedom hotel                                      | rows=  168 cols= 12
+545 | Freschi Sapori                                     | rows=   64 cols= 12
+546 | Friends                                            | rows=   29 cols= 12
+547 | Friggi friggi                                      | rows=  103 cols= 12
+548 | FLOORING                                           | rows=   28 cols= 12
+549 | Frage                                              | rows=   80 cols= 12
+550 | Frutta e dintorni                                  | rows=   48 cols= 12
+551 | Frutta e verdura                                   | rows=  101 cols= 12
+552 | Frutta e Verdura da Angelo                         | rows=   34 cols= 12
+553 | Frutta e verdura Gennaro & figl                    | rows=   26 cols= 12
+554 | Frutta e verdura Marra Egidio                      | rows=   28 cols= 12
+555 | Fucile Dora                                        | rows=   69 cols= 12
+556 | Full Face Academy                                  | rows=   43 cols= 12
+557 | Furgone Fiat Iveco                                 | rows=   28 cols= 12
+558 | Futurama club                                      | rows=   58 cols= 12
+559 | FV Studios Riviera                                 | rows=   41 cols= 12
+560 | G. House Naples                                    | rows=   28 cols= 12
+561 | GBL edil impianti                                  | rows=   24 cols= 12
+562 | GDM SRL                                            | rows=   42 cols= 12
+563 | G&G sas                                            | rows=   25 cols= 12
+564 | G&S sas                                            | rows=   52 cols= 12
+565 | Gabriele 124 by enoteca Parteno                    | rows=   48 cols= 12
+566 | Gaia srl                                           | rows=   51 cols= 12
+567 | Gallone                                            | rows=   36 cols= 12
+568 | Game's Queen                                       | rows=   24 cols= 12
+569 | Ganos                                              | rows=   33 cols= 12
+570 | Garden hotel                                       | rows=   35 cols= 12
+571 | Garibaldi Guest House                              | rows=   32 cols= 12
+572 | Garibaldi Rooms                                    | rows=   53 cols= 12
+573 | Garibaldi Station Rooms                            | rows=   29 cols= 12
+574 | GC Commerce                                        | rows=   44 cols= 12
+575 | G.E.F. Hotels                                      | rows=   65 cols= 11
+576 | GE. AL.                                            | rows=   58 cols= 12
+577 | GE.CA.                                             | rows=   49 cols= 12
+578 | GE.ME.ARP                                          | rows=   39 cols= 12
+579 | Gelateria Della Scimmia                            | rows=   25 cols= 12
+580 | Gelateria Polo Nord                                | rows=   93 cols= 12
+581 | Gemma srls                                         | rows=   31 cols= 12
+582 | General Shipchandler                               | rows=   71 cols= 12
+583 | Gestione ed eventi Napoli                          | rows=  109 cols= 12
+584 | Giandomenico Emanuele dott                         | rows=   26 cols= 12
+585 | Giardino Eden                                      | rows=   34 cols= 12
+586 | Gigameta                                           | rows=   40 cols= 12
+587 | Giorgetti Mauro                                    | rows=   32 cols= 12
+588 | Giovannone srl                                     | rows=   60 cols= 11
+589 | Global Hosting                                     | rows=   45 cols= 12
+590 | GIVA srl                                           | rows=   31 cols= 12
+591 | Globus supermercati                                | rows=   24 cols= 12
+592 | Gloves Room's                                      | rows=   27 cols= 12
+593 | Gourmet srl                                        | rows=   59 cols= 12
+594 | Gocce Naples srls                                  | rows=   84 cols= 12
+595 | Gramsci                                            | rows=   25 cols= 11
+596 | Gran bar dei Pellegrini                            | rows=   24 cols= 11
+597 | Gran CaffÞ Capitol                                 | rows=   72 cols= 12
+598 | Gran CaffÞ Parlato                                 | rows=   71 cols= 12
+599 | Gran CaffÞ Vigilante                               | rows=   35 cols= 12
+600 | Gran Gusto                                         | rows=   39 cols= 12
+601 | GRAN GUSTO MENSA                                   | rows=   28 cols= 12
+602 | Grand hotel Europa                                 | rows=   26 cols= 12
+603 | Green Bet                                          | rows=   51 cols= 12
+604 | Greenwind                                          | rows=   40 cols= 12
+605 | Guest Þ                                            | rows=   29 cols= 12
+606 | Guest House Partenope                              | rows=   29 cols= 12
+607 | Guida Carmela                                      | rows=   28 cols= 12
+608 | Guida Ferdinando                                   | rows=   40 cols= 12
+609 | GU.MA FOOD                                         | rows=   37 cols= 12
+610 | Gusto Napoletano                                   | rows=   48 cols= 12
+611 | Happy bar                                          | rows=   28 cols= 12
+612 | Happiness srl                                      | rows=   97 cols= 12
+613 | Hair salon                                         | rows=   28 cols= 12
+614 | Helianthus                                         | rows=  121 cols= 12
+615 | Hickory Contact                                    | rows=   27 cols= 12
+616 | Holiday house                                      | rows=   27 cols= 12
+617 | Home suite home                                    | rows=   34 cols= 12
+618 | Home sweet home                                    | rows=   70 cols= 12
+619 | Hostaria La Campanella                             | rows=   45 cols= 12
+620 | Hostels of naples                                  | rows=  141 cols= 12
+621 | HOSTEL OF THE SUN                                  | rows=   64 cols= 12
+622 | Hotel Cine Holiday                                 | rows=   54 cols= 12
+623 | Hotel Colombo                                      | rows=  146 cols= 12
+624 | Hotel Correra                                      | rows=   24 cols= 11
+625 | Hotel Diamond                                      | rows=   26 cols= 11
+626 | Hotel Excelsior                                    | rows=   40 cols= 12
+627 | Hotel Forum                                        | rows=  120 cols= 12
+628 | Hotel HR srl                                       | rows=   55 cols= 11
+629 | Hotel Ideal                                        | rows=   87 cols= 12
+630 | Hotel Iris                                         | rows=   27 cols= 11
+631 | Hotel La Pace                                      | rows=   86 cols= 12
+632 | hotel Mignon                                       | rows=   73 cols= 11
+633 | Hotel Naples                                       | rows=  105 cols= 12
+634 | Hotel Nunu                                         | rows=  131 cols= 12
+635 | Hotel Nuovo Rebecchino                             | rows=   74 cols= 12
+636 | Hotel Orsa Maggiore                                | rows=   30 cols= 12
+637 | Hotel Palazzo Fiorentina                           | rows=   89 cols= 12
+638 | Hotel Plaza                                        | rows=  152 cols= 12
+639 | Hotel Poker                                        | rows=   30 cols= 11
+640 | Hotel Rex                                          | rows=   24 cols= 11
+641 | Hotel S. Eligio                                    | rows=   69 cols= 12
+642 | Hotel S. Francesco al monte                        | rows=   69 cols= 12
+643 | Hotel Serius                                       | rows=   71 cols= 12
+644 | Hotel Siri                                         | rows=   28 cols= 12
+645 | Hotel Viola                                        | rows=   25 cols= 12
+646 | Hotel Viola di Viola                               | rows=   34 cols= 12
+647 | HR SRL - MFC SRLS                                  | rows=  131 cols= 12
+648 | HSN di Landi Mario                                 | rows=   47 cols= 11
+649 | I parrucchieri man&woman                           | rows=   25 cols= 12
+650 | I Rooms                                            | rows=   55 cols= 12
+651 | La casa di Luca (2)                                | rows=   27 cols= 12
+652 | I Tre Archi sas                                    | rows=   40 cols= 12
+653 | Ianuale Francesco                                  | rows=   27 cols= 12
+654 | Idea srl                                           | rows=   28 cols= 12
+655 | Ideal Studio Flat                                  | rows=   32 cols= 12
+656 | Idrofer                                            | rows=   26 cols= 12
+657 | Il Bisteccaio                                      | rows=   40 cols= 12
+658 | Il Borghetto                                       | rows=   29 cols= 12
+659 | Il Buongustaio                                     | rows=   25 cols= 12
+660 | Il caffe Marino                                    | rows=   32 cols= 12
+661 | Il posticino tranquillo                            | rows=   30 cols= 12
+662 | Il sorriso B&B                                     | rows=   53 cols= 12
+663 | Immgest                                            | rows=   22 cols= 12
+664 | Impresa edile Di Meo                               | rows=   29 cols= 12
+665 | Impresa Sociale                                    | rows=   93 cols= 12
+666 | Improta trasporti                                  | rows=   80 cols= 11
+667 | Il Concerto del gusto                              | rows=   52 cols= 12
+668 | Il Divino                                          | rows=   83 cols= 12
+669 | Il fiore all'occhiello                             | rows=   29 cols= 12
+670 | Il fiore d'oro                                     | rows=   54 cols= 12
+671 | Il Melina CafÞ                                     | rows=   39 cols= 12
+672 | Il Miracolo                                        | rows=   27 cols= 12
+673 | Il peperoncino birichino                           | rows=   32 cols= 12
+674 | Il Risparmione                                     | rows=   26 cols= 12
+675 | Il tempio della bellezza                           | rows=   42 cols= 12
+676 | Il Tiramisu                                        | rows=   39 cols= 12
+677 | Incoming Naples                                    | rows=   68 cols= 12
+678 | Insolito                                           | rows=   48 cols= 12
+679 | Il Peschereccio                                    | rows=   62 cols= 12
+680 | Il Tredici                                         | rows=  105 cols= 12
+681 | Incarnato Antonio                                  | rows=   41 cols= 12
+682 | Incoronato Eduardo                                 | rows=   27 cols= 12
+683 | Increasing Home Garibaldi                          | rows=   33 cols= 12
+684 | Indian Market                                      | rows=   25 cols= 11
+685 | INfinity CafÞ                                      | rows=   25 cols= 11
+686 | Infinito srl                                       | rows=   25 cols= 12
+687 | Inkomics cafe                                      | rows=   81 cols= 12
+688 | Innovalab                                          | rows=   33 cols= 12
+689 | Ippolito Mario                                     | rows=   30 cols= 12
+690 | I.R.G. srl                                         | rows=   84 cols= 12
+691 | I Sapori di Napoli                                 | rows=   58 cols= 12
+692 | I Sedili di Napoli                                 | rows=  105 cols= 12
+693 | I Tesori di Napoli - CM Service                    | rows=   29 cols= 12
+694 | I Tetti di Napoli                                  | rows=   29 cols= 12
+695 | I tre cavalieri a Chiaia                           | rows=   27 cols= 12
+696 | I Vesuvi                                           | rows=   79 cols= 12
+697 | Isola di Atlantide                                 | rows=   42 cols= 12
+698 | Istituto delle Meraviglie                          | rows=  121 cols= 11
+699 | Italia Grand Tour                                  | rows=   28 cols= 12
+700 | Ittica Sansone                                     | rows=   37 cols= 12
+701 | Izzo Alessandro                                    | rows=  101 cols= 12
+702 | Jamm Ja                                            | rows=   60 cols= 12
+703 | J Food                                             | rows=   42 cols= 12
+704 | Jordan Home                                        | rows=   34 cols= 11
+705 | K-oge                                              | rows=  125 cols= 12
+706 | Karacciolo                                         | rows=   32 cols= 12
+707 | Kerom 16                                           | rows=   39 cols= 12
+708 | King Fruit                                         | rows=   25 cols= 11
+709 | Klarc srls                                         | rows=   26 cols= 12
+710 | Laboratorio I.M.D.                                 | rows=   22 cols= 12
+711 | L'Altra Ristorazione                               | rows=   24 cols= 12
+712 | L'Angolo della frutta secca                        | rows=   71 cols= 12
+713 | L' Arcata a Montesanto                             | rows=   95 cols= 11
+714 | L' infedele                                        | rows=   24 cols= 11
+715 | L'orto in tavola                                   | rows=   90 cols= 12
+716 | La Banda degli onesti                              | rows=   26 cols= 12
+717 | La Bella vita                                      | rows=   53 cols= 12
+718 | La Boutique del benessere                          | rows=   51 cols= 12
+719 | La Boutique della frutta                           | rows=   31 cols= 12
+720 | La Brasiliana                                      | rows=  112 cols= 12
+721 | La Bufalina                                        | rows=   28 cols= 12
+722 | La Cantina dei Mille                               | rows=   68 cols= 12
+723 | La caratteristica Napoli                           | rows=   49 cols= 12
+724 | La casa cinquesanti                                | rows=   77 cols= 12
+725 | La Casa del Gigante                                | rows=   29 cols= 12
+726 | La casa dell'arte                                  | rows=   52 cols= 12
+727 | La casa del Presepe                                | rows=   33 cols= 12
+728 | La Casa di Kia                                     | rows=   31 cols= 12
+729 | La casa di Luca                                    | rows=   26 cols= 12
+730 | La casa al centro storico                          | rows=   29 cols= 12
+731 | Le Camerelle 48                                    | rows=   67 cols= 12
+732 | La casa di Ade                                     | rows=   48 cols= 12
+733 | La casa di Ale a Chiaia                            | rows=   39 cols= 12
+734 | La casa di Ily                                     | rows=   40 cols= 12
+735 | La casa sui tetti                                  | rows=   29 cols= 12
+736 | La casa tra i musei                                | rows=   26 cols= 12
+737 | La Ciliegina                                       | rows=   30 cols= 12
+738 | La citta' partenopea                               | rows=   27 cols= 12
+739 | La Delizia                                         | rows=   31 cols= 12
+740 | La Dimora di Antonietta                            | rows=   27 cols= 12
+741 | La Dimora di Pulcinella                            | rows=   30 cols= 12
+742 | La dimora di Venere                                | rows=   29 cols= 11
+743 | La Focaccia                                        | rows=   52 cols= 12
+744 | La Glaciale                                        | rows=   28 cols= 12
+745 | La moto srl                                        | rows=   85 cols= 12
+746 | La Mongolfiera                                     | rows=   27 cols= 12
+747 | La Nuova bufalata                                  | rows=   24 cols= 12
+748 | La Petite Riviera di Chiaia                        | rows=   28 cols= 12
+749 | La Piazzetta R&R                                   | rows=   28 cols= 12
+750 | La Piermeglio House                                | rows=   26 cols= 12
+751 | La Preziosa apartment 1                            | rows=   82 cols= 12
+752 | La preziosa apartment                              | rows=   85 cols= 12
+753 | Ladaila                                            | rows=   75 cols= 12
+754 | La Raviolina                                       | rows=   23 cols= 12
+755 | La Siesta                                          | rows=   44 cols= 12
+756 | La Tana di Partenope                               | rows=   25 cols= 12
+757 | La Tana libera tutti                               | rows=  121 cols= 12
+758 | La Taverna di bacco                                | rows=   22 cols= 12
+759 | La Tavernetta                                      | rows=   40 cols= 12
+760 | La vera bellezza                                   | rows=   29 cols= 12
+761 | La Veli                                            | rows=   22 cols= 12
+762 | Laboratori Italiani Riuniti                        | rows=   51 cols= 12
+763 | Le figlie di Iorio                                 | rows=  103 cols= 12
+764 | Le radici di Parthenope                            | rows=   27 cols= 12
+765 | Lega navale italiana                               | rows=   25 cols= 12
+766 | La pasta fresca                                    | rows=   63 cols= 12
+767 | Lease medica                                       | rows=   28 cols= 12
+768 | Le follie Partenopee                               | rows=   40 cols= 12
+769 | Le Nonne                                           | rows=   28 cols= 12
+770 | Le Stanze di Angela                                | rows=   31 cols= 12
+771 | Le Stanze in centro                                | rows=   30 cols= 12
+772 | Le Stelle                                          | rows=   27 cols= 12
+773 | Le terrazze dimore napoletane                      | rows=   31 cols= 12
+774 | Le Tre B                                           | rows=   27 cols= 12
+775 | Leon Caravita suites                               | rows=   29 cols= 12
+776 | Leonardo                                           | rows=   47 cols= 12
+777 | Leone sas                                          | rows=   48 cols= 12
+778 | Le tre sorelle                                     | rows=   71 cols= 12
+779 | Le Vie di Napoli                                   | rows=  125 cols= 12
+780 | Letizia                                            | rows=   66 cols= 12
+781 | Letizia guest house                                | rows=   30 cols= 12
+782 | LHP Montecatini Palace                             | rows=   52 cols= 12
+783 | LHP River e spa                                    | rows=   50 cols= 12
+784 | LHP Santa Margherita                               | rows=   31 cols= 12
+785 | LHP SUITE                                          | rows=   80 cols= 12
+786 | Lieto travel                                       | rows=   34 cols= 12
+787 | Life and food                                      | rows=   55 cols= 12
+788 | Life Style                                         | rows=   38 cols= 12
+789 | Login Bar                                          | rows=   27 cols= 12
+790 | Loffredo Andrea                                    | rows=   39 cols= 12
+791 | Loido Cea                                          | rows=   50 cols= 12
+792 | London                                             | rows=   27 cols= 12
+793 | Lotti Gianni srl                                   | rows=   34 cols= 12
+794 | Love boat                                          | rows=   39 cols= 12
+795 | LU. DA.                                            | rows=   89 cols= 12
+796 | LU.DA. BAR                                         | rows=   33 cols= 12
+797 | LU.DA. BOUVETTE                                    | rows=   33 cols= 12
+798 | LU.DEV srl                                         | rows=   30 cols= 12
+799 | Luise                                              | rows=   27 cols= 12
+800 | Luise Group                                        | rows=   24 cols= 12
+801 | Luis Mas                                           | rows=   38 cols= 12
+802 | Luna Piena                                         | rows=   50 cols= 12
+803 | M&T sas                                            | rows=   59 cols= 12
+804 | MC sas                                             | rows=   29 cols= 11
+805 | Macelleria Lubrano                                 | rows=  111 cols= 12
+806 | Maestranze Napoletane                              | rows=   42 cols= 12
+807 | Magica sas                                         | rows=   42 cols= 12
+808 | MA.FU                                              | rows=   49 cols= 12
+809 | Ma.lu.ma                                           | rows=   52 cols= 12
+810 | MA.NA. CARNI                                       | rows=   27 cols= 12
+811 | MA.RE.                                             | rows=   27 cols= 12
+812 | Makai srl                                          | rows=   39 cols= 12
+813 | Mama CaffÞ                                         | rows=   24 cols= 12
+814 | Mambo                                              | rows=   27 cols= 12
+815 | Mangio&dormo                                       | rows=   33 cols= 12
+816 | Mani in pasta                                      | rows=   40 cols= 12
+817 | Mant srl                                           | rows=   45 cols= 12
+818 | Manzo group                                        | rows=  133 cols= 12
+819 | Marco Salzano                                      | rows=   22 cols= 12
+820 | Martucci House                                     | rows=   32 cols= 11
+821 | Marvit                                             | rows=   33 cols= 12
+822 | Mar-vit Central Luxury                             | rows=   39 cols= 12
+823 | Mascalzone latino                                  | rows=   84 cols= 12
+824 | Massa di Somma                                     | rows=   76 cols= 12
+825 | Matacena Daniela                                   | rows=   58 cols= 12
+826 | Matilde Inn                                        | rows=   52 cols= 12
+827 | Ma. Vi.                                            | rows=   25 cols= 11
+828 | Main Exclusive rooms                               | rows=   91 cols= 12
+829 | Manzo Stefano                                      | rows=   29 cols= 12
+830 | Marmor                                             | rows=   37 cols= 12
+831 | Marsicano PEF                                      | rows=   43 cols= 12
+832 | Masseria Michele                                   | rows=   36 cols= 12
+833 | Master service                                     | rows=   67 cols= 12
+834 | Mastio Guest House                                 | rows=   29 cols= 12
+835 | Materdei srl                                       | rows=   52 cols= 12
+836 | Maura                                              | rows=  142 cols= 12
+837 | Maxine srls                                        | rows=   42 cols= 12
+838 | MD Abdul Bashar                                    | rows=   37 cols= 12
+839 | Me love beauty                                     | rows=   74 cols= 12
+840 | Mealitaly                                          | rows=   39 cols= 12
+841 | Med managment                                      | rows=   26 cols= 11
+842 | Medias                                             | rows=   81 cols= 12
+843 | Medic Vita                                         | rows=   52 cols= 12
+844 | Metro'napoli di farina francesc                    | rows=   28 cols= 11
+845 | Mediterraneo Group                                 | rows=  214 cols= 21
+846 | Megaride santa Lucia                               | rows=   54 cols= 12
+847 | Mena Pub                                           | rows=   27 cols= 12
+848 | Mercury Home                                       | rows=   37 cols= 12
+849 | MF Corporation                                     | rows=   26 cols= 12
+850 | My Like                                            | rows=   24 cols= 12
+851 | MI.LU SRL                                          | rows=   43 cols= 12
+852 | Miku srl                                           | rows=   31 cols= 12
+853 | Milk bar                                           | rows=   62 cols= 12
+854 | Milu srl Karmacore                                 | rows=   81 cols= 12
+855 | Mimi - Maison de charme                            | rows=   29 cols= 12
+856 | Mimi Terrace                                       | rows=   35 cols= 12
+857 | Mini Market f.lli Buonocore                        | rows=   53 cols= 12
+858 | Minimarket Kaycee Pinoy                            | rows=  115 cols= 12
+859 | Minimarket Naveed                                  | rows=   54 cols= 12
+860 | Mirea Apartments                                   | rows=   30 cols= 12
+861 | Mirko Di Bonito                                    | rows=   33 cols= 12
+862 | Miu Miu                                            | rows=   25 cols= 11
+863 | Mla Clinic                                         | rows=   28 cols= 12
+864 | Moko                                               | rows=   31 cols= 12
+865 | Mon Kebab                                          | rows=   30 cols= 12
+866 | Mon Repose Group                                   | rows=   37 cols= 12
+867 | Monart & city                                      | rows=   71 cols= 12
+868 | Mondo Alessandra                                   | rows=   27 cols= 12
+869 | Mozzibon                                           | rows=   26 cols= 12
+870 | Murano Dream                                       | rows=   33 cols= 12
+871 | Murolo Maria                                       | rows=   40 cols= 12
+872 | Musto Hospitality                                  | rows=   66 cols= 12
+873 | Muzi Maurizio                                      | rows=   68 cols= 12
+874 | NFS Retail                                         | rows=   28 cols= 12
+875 | N'ata cosa                                         | rows=   48 cols= 12
+876 | NHG Napolitano                                     | rows=  100 cols= 12
+877 | Napo apartments                                    | rows=   30 cols= 11
+878 | Napolion Accomodation                              | rows=   26 cols= 12
+879 | Napolitano Antonio                                 | rows=   28 cols= 12
+880 | Napoli 900                                         | rows=  143 cols= 12
+881 | Napoli Þ                                           | rows=   31 cols= 12
+882 | Napoleat srl                                       | rows=   27 cols= 11
+883 | Antico palazzo Salsi (2)                           | rows=   25 cols= 12
+884 | Napoli D'autore                                    | rows=   28 cols= 12
+885 | Napoli Duomo central home                          | rows=   26 cols= 12
+886 | Napoli food                                        | rows=   30 cols= 12
+887 | Napoli food service                                | rows=  121 cols= 12
+888 | Napoli da vivere                                   | rows=   29 cols= 12
+889 | Napoli's gold hotel                                | rows=   40 cols= 12
+890 | Napoli Reale                                       | rows=   40 cols= 12
+891 | Napoli rooms & suite                               | rows=   29 cols= 12
+892 | Napoli storica                                     | rows=   42 cols= 12
+893 | Napoli Suite                                       | rows=   61 cols= 12
+894 | Naproperties srls                                  | rows=   30 cols= 12
+895 | Naptown room                                       | rows=   65 cols= 12
+896 | Napul'art B&B                                      | rows=   52 cols= 12
+897 | Nardones 30                                        | rows=   27 cols= 12
+898 | Natale Agnese                                      | rows=   29 cols= 12
+899 | Naturessenza                                       | rows=   89 cols= 12
+900 | Nazzarooms                                         | rows=   29 cols= 12
+901 | Neocore                                            | rows=   55 cols= 12
+902 | Neapolis Accomodation                              | rows=   52 cols= 12
+903 | NPK Asien Food                                     | rows=   52 cols= 12
+904 | Nespev srl                                         | rows=   40 cols= 12
+905 | Nettuno Club                                       | rows=   36 cols= 11
+906 | New Athletic                                       | rows=   25 cols= 12
+907 | New School                                         | rows=   28 cols= 11
+908 | New street Forcella                                | rows=   27 cols= 12
+909 | NIA srl                                            | rows=   41 cols= 12
+910 | Nicolini Luigi                                     | rows=  114 cols= 12
+911 | Nik food                                           | rows=   70 cols= 12
+912 | Ninphea Apartment's                                | rows=   30 cols= 12
+913 | Nini cafe                                          | rows=   78 cols= 12
+914 | Nouvelle Charcuterie                               | rows=   33 cols= 11
+915 | Novamedi                                           | rows=   22 cols= 12
+916 | Novecento                                          | rows=   26 cols= 12
+917 | NP night                                           | rows=   41 cols= 12
+918 | Nunziatina                                         | rows=   28 cols= 12
+919 | O.P.C.                                             | rows=   26 cols= 12
+920 | O' Serraglio                                       | rows=   31 cols= 12
+921 | O' talebano                                        | rows=   68 cols= 12
+922 | Odeon Hotel                                        | rows=   53 cols= 11
+923 | Omodeo                                             | rows=   45 cols= 12
+924 | Opera home                                         | rows=   27 cols= 12
+925 | Optima Italia                                      | rows=   47 cols= 12
+926 | Orazio CaffÚ                                       | rows=   23 cols= 11
+927 | Orthotag                                           | rows=   26 cols= 12
+928 | Ortofrutta Caravecchia                             | rows=  120 cols= 12
+929 | over s.r.l.s.                                      | rows=   51 cols= 11
+930 | Ortofrutticola Corbi                               | rows=  113 cols= 11
+931 | Ozanam srl                                         | rows=   30 cols= 12
+932 | P&P                                                | rows=   67 cols= 12
+933 | PPT fitness                                        | rows=   29 cols= 12
+934 | P.G.S. Sales Vomero                                | rows=   52 cols= 11
+935 | Pachira                                            | rows=   35 cols= 12
+936 | Pacifico Aldo                                      | rows=   27 cols= 12
+937 | Palatone                                           | rows=   27 cols= 12
+938 | Palazzo della Loggia B&B                           | rows=   43 cols= 12
+939 | Palazzo della Loggia Loft                          | rows=   29 cols= 12
+940 | Palazzo Dini apartment                             | rows=   28 cols= 12
+941 | Palazzo Mele                                       | rows=   30 cols= 12
+942 | Pama Hotel                                         | rows=   88 cols= 12
+943 | Pane amore e fantasia                              | rows=  119 cols= 12
+944 | Panetteria Gritto                                  | rows=   26 cols= 12
+945 | Panificio Crispino                                 | rows=   25 cols= 12
+946 | Panificio f.lli Cirelli                            | rows=   36 cols= 12
+947 | Panificio Maddaloni                                | rows=   67 cols= 12
+948 | Panificio Maio Salvatore                           | rows=   30 cols= 13
+949 | Panificio Susy Pane                                | rows=   34 cols= 12
+950 | Pappa Family                                       | rows=   25 cols= 12
+951 | Parafarmacia Irpinia di Pharmac                    | rows=   25 cols= 12
+952 | Parami srl                                         | rows=  113 cols= 12
+953 | Parentesi Graffe                                   | rows=   32 cols= 12
+954 | Partenopei                                         | rows=   69 cols= 12
+955 | Parthenope Vibes                                   | rows=   27 cols= 12
+956 | Pascale sas                                        | rows=   48 cols= 12
+957 | Pascotto                                           | rows=   57 cols= 12
+958 | Passione srl                                       | rows=   27 cols= 12
+959 | Passione di Sofý                                   | rows=   32 cols= 12
+960 | Pasticceria Anna                                   | rows=   79 cols= 12
+961 | Pasticceria Ciccio Pasticcio                       | rows=   47 cols= 12
+962 | Pasticceria Di Sarno Luca                          | rows=   53 cols= 12
+963 | Pasticceria Esposito                               | rows=   26 cols= 12
+964 | Pasticceria Settembre                              | rows=   27 cols= 12
+965 | Pausa pranzo                                       | rows=  108 cols= 12
+966 | PEF srl                                            | rows=  165 cols= 12
+967 | Pelux                                              | rows=   65 cols= 12
+968 | Penny srl                                          | rows=   61 cols= 12
+969 | Pensione Enea                                      | rows=   26 cols= 11
+970 | Pescheria Add' e' guagliun                         | rows=   27 cols= 12
+971 | Pescheria Dei Vergini                              | rows=   77 cols= 12
+972 | Pescheria don Ciccio                               | rows=   36 cols= 12
+973 | Pika 48                                            | rows=   28 cols= 12
+974 | Pioche Solange                                     | rows=   26 cols= 11
+975 | Pirhome srls                                       | rows=   39 cols= 12
+976 | Pironti Claudia                                    | rows=   72 cols= 12
+977 | Pisano Giuseppe suncity                            | rows=   68 cols= 12
+978 | Pit stop napoli                                    | rows=   63 cols= 12
+979 | Pizzeria Costa Crocella Emanuel                    | rows=   31 cols= 12
+980 | Plateia apartment                                  | rows=   25 cols= 12
+981 | Plebiscito CafÞ                                    | rows=   26 cols= 12
+982 | Piccirillo Costantino                              | rows=   44 cols= 12
+983 | Piluc di Pipolo Luciano                            | rows=   37 cols= 12
+984 | Piluc F.lli Pipolo                                 | rows=   82 cols= 12
+985 | Piluc snc Pipolo Vincenzo                          | rows=   60 cols= 12
+986 | Pimo di Briante                                    | rows=   26 cols= 12
+987 | Pintauro                                           | rows=   55 cols= 12
+988 | Pippo's Suite                                      | rows=   31 cols= 12
+989 | Pizza Hostel                                       | rows=   71 cols= 12
+990 | Pizza Red                                          | rows=   28 cols= 12
+991 | Pizzeria AgorÓ Life                                | rows=   47 cols= 12
+992 | Pizzeria al 22                                     | rows=   27 cols= 12
+993 | Pizzeria da Attilio                                | rows=   49 cols= 12
+994 | Pizzeria Don Pasquale                              | rows=   24 cols= 12
+995 | Pizzeria Piscopo                                   | rows=   27 cols= 12
+996 | Pizzeria Regina Margherita                         | rows=  115 cols= 12
+997 | Pizzeria Trianon                                   | rows=  125 cols= 12
+998 | Pizzeria Vincenzo Costa                            | rows=  134 cols= 12
+999 | PMM srls                                           | rows=   33 cols= 12
+1000 | Politecna                                          | rows=   28 cols= 12
+1001 | Pollice Antonio                                    | rows=   29 cols= 12
+1002 | Principe srl                                       | rows=   26 cols= 11
+1003 | Primavera  sas                                     | rows=   34 cols= 12
+1004 | Progetto Immobiliare                               | rows=   28 cols= 12
+1005 | Professione ristrutturare                          | rows=   28 cols= 12
+1006 | Prota Pasquale                                     | rows=   34 cols= 12
+1007 | Puggillo Antonio                                   | rows=   28 cols= 12
+1008 | Quantum                                            | rows=   26 cols= 12
+1009 | Quercia srl                                        | rows=   32 cols= 12
+1010 | R&R Hotels                                         | rows=   30 cols= 12
+1011 | R.G.C.                                             | rows=   25 cols= 12
+1012 | Raffone Alessandro                                 | rows=   28 cols= 12
+1013 | Ramaglietta Roberto                                | rows=   49 cols= 12
+1014 | Rapicano Aiello Fabio                              | rows=   44 cols= 12
+1015 | Raucci Maria Rosaria                               | rows=   26 cols= 12
+1016 | Reia Salavtore                                     | rows=   46 cols= 12
+1017 | Repole Dora                                        | rows=   25 cols= 12
+1018 | Real dolce e cucina                                | rows=   56 cols= 12
+1019 | Re.Ga service                                      | rows=   49 cols= 12
+1020 | Re.Ga. Service sas                                 | rows=   43 cols= 12
+1021 | Relais Mafoli                                      | rows=   37 cols= 12
+1022 | Relais Torre Gloria                                | rows=   29 cols= 12
+1023 | Rescigno                                           | rows=   25 cols= 12
+1024 | Residenza Castel Dell'ovo                          | rows=   41 cols= 12
+1025 | Residenza Harmony                                  | rows=   30 cols= 12
+1026 | Residenza Nascari al Plebiscito                    | rows=   51 cols= 12
+1027 | Residence Sofý                                     | rows=   24 cols= 12
+1028 | Residenza Sole                                     | rows=   35 cols= 12
+1029 | Residenza Toledo                                   | rows=   60 cols= 12
+1030 | Resta qmme                                         | rows=  105 cols= 12
+1031 | Riccardi Andrea                                    | rows=   25 cols= 11
+1032 | Rimorchiatori Laziali                              | rows=   25 cols= 11
+1033 | Rist. da Michele al Villino                        | rows=   48 cols= 12
+1034 | Rist. pizz. Mascagni                               | rows=   54 cols= 12
+1035 | Ristomar                                           | rows=  109 cols= 12
+1036 | Ristorante 28 posti                                | rows=   29 cols= 12
+1037 | Ristorante Casa tua                                | rows=   46 cols= 12
+1038 | Ristorante Europeo                                 | rows=  132 cols= 12
+1039 | Ristorante L.u.i.s.e.                              | rows=   27 cols= 11
+1040 | Ristorante Orientale                               | rows=   73 cols= 12
+1041 | Ritagli di tempo                                   | rows=   28 cols= 12
+1042 | Rivalsa                                            | rows=   33 cols= 12
+1043 | Riviera 88                                         | rows=   31 cols= 11
+1044 | Rizzo Vincenzo                                     | rows=  115 cols= 11
+1045 | Roberta                                            | rows=   74 cols= 12
+1046 | Rodrigues Da Cruz                                  | rows=   49 cols= 12
+1047 | Romano Ennio                                       | rows=   42 cols= 12
+1048 | Romeo alberghi                                     | rows=  128 cols= 12
+1049 | Romeo gestioni                                     | rows=   57 cols= 12
+1050 | Roncavasaglia                                      | rows=   28 cols= 12
+1051 | Rongo CafÞ                                         | rows=   57 cols= 12
+1052 | Room service                                       | rows=   44 cols= 12
+1053 | Rosticceria Cavour                                 | rows=   87 cols= 11
+1054 | R.S.G. GROUP                                       | rows=   61 cols= 12
+1055 | Rubino fruits                                      | rows=   29 cols= 12
+1056 | Russo Rita                                         | rows=   29 cols= 12
+1057 | Russo Vincenzo                                     | rows=   28 cols= 12
+1058 | 99 Scalini alla Terrazza                           | rows=   36 cols= 12
+1059 | S.A.A.M. supermercato                              | rows=  157 cols= 12
+1060 | S.E.I. SRL                                         | rows=   28 cols= 12
+1061 | S.I.S.A.                                           | rows=   93 cols= 12
+1062 | S.S.D. Adaptive strength                           | rows=   52 cols= 12
+1063 | S.S.D. International Wu Xing                       | rows=   29 cols= 12
+1064 | Sa. Da. Ra.                                        | rows=   66 cols= 12
+1065 | Sasa Pizza mia                                     | rows=   32 cols= 12
+1066 | S&U srl                                            | rows=   36 cols= 12
+1067 | Salvo Renato coloniali                             | rows=  110 cols= 12
+1068 | Salumeria Eder                                     | rows=  103 cols= 12
+1069 | Salumeria formaggino                               | rows=   42 cols= 12
+1070 | Salus srl                                          | rows=   41 cols= 12
+1071 | Salute ambiente igiene                             | rows=   49 cols= 12
+1072 | Salvator Rosa Apartment                            | rows=   25 cols= 12
+1073 | San Gennaro bed                                    | rows=   26 cols= 12
+1074 | San Pasquale home                                  | rows=   28 cols= 12
+1075 | Sanitaria mil¨                                     | rows=   25 cols= 11
+1076 | Sant' Arpino di Saviano Ciro                       | rows=   31 cols= 12
+1077 | Santa Brigida                                      | rows=   52 cols= 12
+1078 | Santa Chiara                                       | rows=   28 cols= 12
+1079 | Santa Chiara family suite                          | rows=   29 cols= 12
+1080 | Santopaolo Asset Managment                         | rows=   39 cols= 12
+1081 | Sapore del mare                                    | rows=   28 cols= 12
+1082 | Grafico3                                           | rows=    0 cols=  0
+1083 | Grafico2                                           | rows=    0 cols=  0
+1084 | Grafico1                                           | rows=    0 cols=  0
+1085 | Sapori del mare                                    | rows=   29 cols= 12
+1086 | Saporito Vincenzo                                  | rows=   27 cols= 12
+1087 | San Biagio 25                                      | rows=   41 cols= 12
+1088 | San Ferdinando suite room                          | rows=   29 cols= 12
+1089 | Saraiello Angela                                   | rows=   33 cols= 11
+1090 | Satriano 03                                        | rows=  205 cols= 12
+1091 | SCA Service                                        | rows=   35 cols= 12
+1092 | Scarciello Francesco salumeria                     | rows=   60 cols= 12
+1093 | Schettino Luigi                                    | rows=   31 cols= 12
+1094 | Schiattarella Fabrizio                             | rows=   24 cols= 11
+1095 | Scuola di equitazione napoletan                    | rows=   55 cols= 12
+1096 | Scognamiglio Gianluigi                             | rows=   25 cols= 11
+1097 | Scotti Patrizia                                    | rows=   26 cols= 12
+1098 | Sebastian                                          | rows=   38 cols= 11
+1099 | Sebastian srl                                      | rows=  112 cols= 12
+1100 | Sebeto apartment Big                               | rows=   30 cols= 12
+1101 | Sekno                                              | rows=   53 cols= 12
+1102 | Serapide 13 a santa lucia                          | rows=   27 cols= 12
+1103 | Serendipty Home                                    | rows=   23 cols= 12
+1104 | Sermoneta                                          | rows=   39 cols= 12
+1105 | Sessa Mirko Francesco                              | rows=   26 cols= 12
+1106 | Sfogliatella e BabÓ                                | rows=   67 cols= 12
+1107 | Shewolf                                            | rows=  105 cols= 12
+1108 | Syren House                                        | rows=   31 cols= 12
+1109 | Sleep & Dream srl                                  | rows=   23 cols= 12
+1110 | Shoab Mohammed                                     | rows=   24 cols= 12
+1111 | SocietÓ del Leone                                  | rows=   53 cols= 12
+1112 | Societa' partenopea alberghi                       | rows=   66 cols= 12
+1113 | Soggiorno aria                                     | rows=   59 cols= 12
+1114 | Sosor e sciÓ sciÓ                                  | rows=   26 cols= 12
+1115 | Sophi star                                         | rows=   27 cols= 12
+1116 | Sorrento Residence                                 | rows=   31 cols= 12
+1117 | Spendiemeglio srls                                 | rows=   77 cols= 12
+1118 | Sporting Club Amalfitano                           | rows=   47 cols= 11
+1119 | Spritzamm                                          | rows=   28 cols= 12
+1120 | St. Joseph suite                                   | rows=   41 cols= 12
+1121 | Sta Ben                                            | rows=   27 cols= 12
+1122 | Sta ben!                                           | rows=   24 cols= 12
+1123 | Start Beauty                                       | rows=   34 cols= 12
+1124 | Start pi¨                                          | rows=   66 cols= 12
+1125 | Stelle Immobiliare                                 | rows=   47 cols= 12
+1126 | Street food center                                 | rows=   27 cols= 12
+1127 | Stritstrit                                         | rows=   26 cols= 12
+1128 | Strong Sisters                                     | rows=   28 cols= 12
+1129 | Studio Addeo - Gargano                             | rows=   47 cols= 12
+1130 | Studio ass. Esposito Mandolese                     | rows=   32 cols= 12
+1131 | Studio ass. Flli Dr. Ioime                         | rows=   26 cols= 12
+1132 | Studio dent. ass. Bianchi Mores                    | rows=   26 cols= 12
+1133 | Studio dent. Bianchi                               | rows=   53 cols= 12
+1134 | Studio dent. Cacciapuoti                           | rows=   25 cols= 12
+1135 | Studio dent. Dilillo                               | rows=   56 cols= 12
+1136 | Studio Fontanarosa                                 | rows=   73 cols= 12
+1137 | Studio Associato Cassese-Puglia                    | rows=  100 cols= 12
+1138 | Studio medico Corso-Grimaldi                       | rows=   28 cols= 12
+1139 | Studio medico Corso-Grimaldi-Ma                    | rows=   29 cols= 12
+1140 | Studio odontoiatrico Caruso                        | rows=   29 cols= 12
+1141 | Studio odontostoma Alterio                         | rows=   32 cols= 12
+1142 | Suite con te                                       | rows=   33 cols= 12
+1143 | Suite Napoli BNB                                   | rows=   31 cols= 12
+1144 | Suits srl                                          | rows=   27 cols= 12
+1145 | Studio notarile Tafuri                             | rows=   27 cols= 12
+1146 | Suolo Case                                         | rows=   28 cols= 12
+1147 | Supermercati Napoli Centro                         | rows=   84 cols= 12
+1148 | Supermercato centro storico                        | rows=  184 cols= 12
+1149 | Supermercato Team-in                               | rows=   26 cols= 12
+1150 | Sushi Sapporo                                      | rows=   68 cols= 12
+1151 | Susy Investment                                    | rows=   28 cols= 12
+1152 | Svolta srl                                         | rows=   70 cols= 12
+1153 | Sweet Home                                         | rows=   26 cols= 12
+1154 | Sweet Coffee                                       | rows=   35 cols= 11
+1155 | Tabaccheria Caccavale                              | rows=   83 cols= 12
+1156 | Taglieri del vesuvio                               | rows=   35 cols= 12
+1157 | Tandem                                             | rows=   54 cols= 12
+1158 | Tato srl                                           | rows=   23 cols= 12
+1159 | Tavola calda da Umberto                            | rows=   54 cols= 12
+1160 | Team-in                                            | rows=  113 cols= 12
+1161 | Teatro Bracco                                      | rows=   27 cols= 11
+1162 | Tecnomacchine                                      | rows=   23 cols= 12
+1163 | Tecomars ship supplier                             | rows=   38 cols= 12
+1164 | Teresa Iorio                                       | rows=   36 cols= 12
+1165 | Terinda srl                                        | rows=  171 cols= 12
+1166 | Terminal 1 guest house                             | rows=   41 cols= 12
+1167 | Terra Mia                                          | rows=   41 cols= 12
+1168 | Terracciano Alessandro                             | rows=   30 cols= 12
+1169 | Terzo Millennio                                    | rows=   29 cols= 11
+1170 | THE SUN SUITE                                      | rows=   65 cols= 11
+1171 | The Friends                                        | rows=   25 cols= 12
+1172 | The Happy Company                                  | rows=   86 cols= 12
+1173 | The New Global                                     | rows=   37 cols= 12
+1174 | The house of the old port                          | rows=   26 cols= 12
+1175 | Tiare home                                         | rows=   25 cols= 11
+1176 | Tiffany                                            | rows=   36 cols= 12
+1177 | TMP srl                                            | rows=   56 cols= 12
+1178 | Tobili                                             | rows=   56 cols= 12
+1179 | Tone tatoo                                         | rows=   56 cols= 12
+1180 | Top class                                          | rows=   29 cols= 12
+1181 | Toraldo retail                                     | rows=   33 cols= 12
+1182 | Tortora cruda e cotta                              | rows=   31 cols= 12
+1183 | Tortora Stanislao                                  | rows=   26 cols= 11
+1184 | TRC Impianti                                       | rows=   37 cols= 12
+1185 | Tradizioni e antichi sapori                        | rows=   36 cols= 12
+1186 | Tranchese Luisa                                    | rows=   27 cols= 12
+1187 | Tranchese Rosario                                  | rows=   25 cols= 11
+1188 | Trasporti funebri Botta                            | rows=   41 cols= 12
+1189 | trattoria Casetta rossa                            | rows=   64 cols= 12
+1190 | Trattoria Deste                                    | rows=   64 cols= 12
+1191 | Trattoria Spaccanapoli                             | rows=   28 cols= 12
+1192 | Trattoria speranzella                              | rows=   68 cols= 12
+1193 | Tremendamente sano                                 | rows=   43 cols= 12
+1194 | Trieste e Trento                                   | rows=   59 cols= 12
+1195 | Troise Home                                        | rows=   28 cols= 12
+1196 | Trovatutto sas                                     | rows=   41 cols= 12
+1197 | Tu Casa                                            | rows=   32 cols= 12
+1198 | Tuccillo Angelo                                    | rows=   74 cols= 12
+1199 | Tullio Ciampa                                      | rows=   69 cols= 12
+1200 | Turismo Trend                                      | rows=   31 cols= 12
+1201 | Tutta nata storia                                  | rows=   29 cols= 12
+1202 | Un posto al sole                                   | rows=   26 cols= 12
+1203 | Union Village                                      | rows=   28 cols= 12
+1204 | Up Level Group                                     | rows=   32 cols= 12
+1205 | Up level napoli argine srl                         | rows=   72 cols= 12
+1206 | uniservice s.r.l.                                  | rows=   43 cols= 12
+1207 | University Hotels                                  | rows=   76 cols= 12
+1208 | Ursino Nunzia                                      | rows=   26 cols= 12
+1209 | Vacanze bnb Napoli                                 | rows=   25 cols= 12
+1210 | Vaimoka                                            | rows=   35 cols= 12
+1211 | Varieta Umberto                                    | rows=   44 cols= 12
+1212 | Varriale House Service                             | rows=   72 cols= 11
+1213 | Vecchia Miano                                      | rows=   28 cols= 12
+1214 | Vecchione srl                                      | rows=   30 cols= 12
+1215 | Ve.Ga                                              | rows=   26 cols= 11
+1216 | Venti Hotel                                        | rows=   46 cols= 11
+1217 | Verde Antonio                                      | rows=   31 cols= 12
+1218 | Vestina Isabella                                   | rows=   30 cols= 12
+1219 | Vesuviani                                          | rows=   44 cols= 12
+1220 | Vic' Street B&B                                    | rows=   28 cols= 12
+1221 | Vigilante Angela                                   | rows=   59 cols= 12
+1222 | Villa Antonella                                    | rows=   39 cols= 12
+1223 | Villa Capodimonte                                  | rows=  150 cols= 12
+1224 | Villa Claudia                                      | rows=   37 cols= 12
+1225 | Villa delle Querce                                 | rows=   32 cols= 12
+1226 | Villa Lucrezio                                     | rows=   28 cols= 12
+1227 | Villa Marechiaro                                   | rows=   30 cols= 12
+1228 | Villa Montedonzelli                                | rows=   70 cols= 12
+1229 | Villa Vittoria                                     | rows=  142 cols= 12
+1230 | Vineria San Sebastiano                             | rows=   46 cols= 12
+1231 | Vini Divini                                        | rows=   67 cols= 12
+1232 | Vini e vinili                                      | rows=   36 cols= 12
+1233 | Virgin                                             | rows=   29 cols= 12
+1234 | Virpesca sas 1                                     | rows=   25 cols= 12
+1235 | Virpesca sas 2                                     | rows=   63 cols= 12
+1236 | Visi di Napoli                                     | rows=   28 cols= 12
+1237 | Vitucci Gennaro                                    | rows=   49 cols= 12
+1238 | Viva 5                                             | rows=   32 cols= 12
+1239 | Voglia di Pane                                     | rows=   34 cols= 11
+1240 | Vomero Roof                                        | rows=   35 cols= 11
+1241 | V.S. Turmac                                        | rows=   64 cols= 12
+1242 | Zaffiro Santo                                      | rows=   27 cols= 11
+1243 | Ziabi                                              | rows=   78 cols= 12
+1244 | Zotti Mariassunta                                  | rows=   39 cols= 12
+1245 | Weaver                                             | rows=   30 cols= 12
+1246 | Why oh                                             | rows=   23 cols= 11
+1247 | Whip                                               | rows=   27 cols= 12
+1248 | Wine boat                                          | rows=   26 cols= 12
+1249 | Wonder tour                                        | rows=   30 cols= 12
+1250 | World Wide Suites                                  | rows=   27 cols= 12
+1251 | Xenia                                              | rows=   33 cols= 12
+1252 | Indice                                             | rows=  187 cols= 27
+1253 | Riepilogo                                          | rows=  223 cols= 16
+1254 | Foglio1                                            | rows=    0 cols=  0
