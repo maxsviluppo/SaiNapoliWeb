@@ -125,9 +125,12 @@ export interface RawAmministratoreContract extends Omit<AmministratoreContract, 
 }
 
 export function normalizeAmministratore(admin: RawAmministratoreContract): AmministratoreContract {
+  const condominiums = (admin.condominiums || [])
+    .map((c, i) => normalizeCondominium(c, i))
+    .sort((a, b) => a.name.localeCompare(b.name, 'it', { sensitivity: 'base' }));
   return {
     ...admin,
-    condominiums: (admin.condominiums || []).map((c, i) => normalizeCondominium(c, i)),
+    condominiums,
   };
 }
 

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { getLocales } from "../lib/db";
+import { absoluteUrl, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,9 +42,21 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
+    metadataBase: new URL(SITE_URL),
     title,
     description,
     keywords,
+    alternates: {
+      canonical: SITE_URL,
+    },
+    openGraph: {
+      title,
+      description,
+      url: SITE_URL,
+      siteName: "S.A.I. s.r.l.",
+      locale: "it_IT",
+      type: "website",
+    },
     icons: {
       icon: favicon,
       shortcut: favicon,
@@ -78,9 +91,9 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": companyName,
-    "image": "https://sainapoli.it/logo.png",
+    "image": absoluteUrl("/logo.png"),
     "description": locales.seo?.global?.description || "Da oltre 20 anni leader a Napoli nella consulenza per la Sicurezza sul Lavoro, HACCP, Legionella e Formazione.",
-    "url": "https://sainapoli.it",
+    "url": SITE_URL,
     "telephone": companyPhone,
     "email": companyEmail,
     "address": {

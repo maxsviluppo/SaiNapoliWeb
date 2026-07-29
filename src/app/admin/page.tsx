@@ -579,7 +579,7 @@ export default function AdminDashboard() {
                   <div className="space-y-4">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Anteprima Google Snippet</span>
                     <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md space-y-1 text-left">
-                      <span className="text-[11px] text-slate-550 block font-mono">https://www.sainapoli.it</span>
+                      <span className="text-[11px] text-slate-550 block font-mono">https://www.sainapoli.com</span>
                       <span className="text-[#1a0dab] text-lg font-medium leading-snug block hover:underline cursor-pointer">
                         {getNestedValue(locales, 'seo.global.title') || 'S.A.I. s.r.l. - Salute Ambiente Igiene'}
                       </span>

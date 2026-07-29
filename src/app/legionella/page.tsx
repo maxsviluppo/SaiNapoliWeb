@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getLocales } from '../../lib/db';
+import { buildPageMetadata } from '@/lib/seo';
 import LegionellaClient from './LegionellaClient';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     console.error('Error generating metadata for legionella:', err);
   }
 
-  return { title, description, keywords };
+  return buildPageMetadata({ title, description, keywords, path: '/legionella' });
 }
 
 export default function Page() {

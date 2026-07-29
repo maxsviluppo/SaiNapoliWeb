@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getLocales } from '../../lib/db';
+import { buildPageMetadata } from '@/lib/seo';
 import StudioDontoiatriciClient from './StudioDontoiatriciClient';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     console.error('Error generating metadata for studiodontoiatrici:', err);
   }
 
-  return { title, description, keywords };
+  return buildPageMetadata({ title, description, keywords, path: '/studiodontoiatrici' });
 }
 
 export default function Page() {

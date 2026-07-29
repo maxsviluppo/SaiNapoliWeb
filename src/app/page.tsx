@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getLocales } from '../lib/db';
+import { buildPageMetadata } from '@/lib/seo';
 import HomeClient from './HomeClient';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,11 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     console.error('Error generating metadata for home:', err);
   }
 
-  return {
-    title,
-    description,
-    keywords
-  };
+  return buildPageMetadata({ title, description, keywords, path: '/' });
 }
 
 export default function Page() {
